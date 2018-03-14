@@ -7,7 +7,7 @@ class Item:
 
 nimi = "Essi Esimerkki"
 
-lista = [1, 1, 2, 3, 5, 8, 11]
+lista = [1, 1, 2, 2, 3, 5, 8, 11]
 
 esineet = []
 esineet.append(Item("Eka"));
