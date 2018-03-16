@@ -15,6 +15,7 @@ Toimintoja:
 * Visojen koostaminen omista kysymyksistä
 * Visojen koostaminen automaattisesti aihepiirin ja vaikeusasteen perusteella
 * Muiden tekemiin kysymyksiin ja visoihin vastaaminen
+* Mahdollisesti myös joukkueiden muodostaminen ja joukkuepelit
 * Pistesaldojen tarkastelu
 * Asiattomien ja virheellisten kysymysten ilmoittaminen
 
