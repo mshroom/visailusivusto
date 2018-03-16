@@ -1,6 +1,6 @@
-# Visailusivusto QuizBee
+# Tietovisasovellus QuizBee
 
-QuizBee on tietovisasovellus, jonka valitsin harjoitustyöni aiheeksi Tietokantasovellus -kurssilla keväällä 2018.
+QuizBee on web-sovellus, jonka valitsin harjoitustyöni aiheeksi Tietokantasovellus -kurssilla keväällä 2018.
 
 Sovelluksessa käyttäjät voivat luoda käyttäjätilin, tehdä omia tietovisakysymyksiä ja vastata muiden käyttäjien tekemiin kysymyksiin. Lisäksi käyttäjät voivat koota omista kysymyksistään visoja, jotka ovat avoinna määritellyn ajan ja joihin muut käyttäjät voivat sinä aikana osallistua. Kysymyksille ja visoille voidaan määritellä aihepiirit ja vaikeusasteet. Käyttäjät voivat myös generoida visoja automaattisesti tiettyyn aihepiiriin liittyvistä kysymyksistä, jolloin visan tekijä ei tiedä kysymyksiä etukäteen ja saa itsekin osallistua visaan.
 
