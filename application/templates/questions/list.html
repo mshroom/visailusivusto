@@ -12,6 +12,11 @@
       <td>{{ question.name  }}</td>
       <td>{{ question.category }}</td>
       <td>{{ question.difficulty }}</td>
+      <td>
+        <form method="POST" action="{{ url_for('questions_delete', question_id=question.id) }}">
+          <input type="submit" value="Delete"/>
+        </form>
+      </td>
     </tr>
     {% endfor %}
   </table>

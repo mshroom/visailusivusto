@@ -2,7 +2,26 @@
 
 {% block body %}
 <form method="POST" action="{{ url_for('questions_create') }}">
+  <p>Question</p>
   <input type="text" name="name"/>
+  <p>Category</p>
+  <select name="category">
+    <option value="history">History</option>
+    <option value="geography">Geography</option>
+    <option value="literature">Literature</option>
+    <option value="music">Music</option>
+    <option value="art">Art</option>
+    <option value="sports">Sports</option>
+    <option value="nature">Nature</option>
+    <option value="science">Science</option>
+    <option value="other">Other</option>
+  </select>    
+  <p>Difficulty</p>
+  <select name="difficulty"/>
+    <option value="easy">Easy</option>
+    <option value="medium">Medium</option>
+    <option value="difficult">Difficult</option>
+  </select>
   <input type="submit" value="Add a new question"/>
 </form>
 {% endblock %}
