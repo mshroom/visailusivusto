@@ -2,6 +2,8 @@
 
 QuizBee on web-sovellus, jonka valitsin harjoitustyöni aiheeksi Tietokantasovellus -kurssilla keväällä 2018.
 
+Sovellus on toiminnassa [Herokussa.](https://quizbee-demo.herokuapp.com/)
+
 Sovelluksessa käyttäjät voivat luoda käyttäjätilin, tehdä omia tietovisakysymyksiä ja vastata muiden käyttäjien tekemiin kysymyksiin. Lisäksi käyttäjät voivat koota omista kysymyksistään visoja, jotka ovat avoinna määritellyn ajan ja joihin muut käyttäjät voivat sinä aikana osallistua. Kysymyksille ja visoille voidaan määritellä aihepiirit ja vaikeusasteet. Käyttäjät voivat myös generoida visoja automaattisesti tiettyyn aihepiiriin liittyvistä kysymyksistä, jolloin visan tekijä ei tiedä kysymyksiä etukäteen ja saa itsekin osallistua visaan.
 
 Oikeista vastauksista ja voitoista kertyy käyttäjille pisteitä, ja lisäksi aktiiviset käyttäjät ansaitsevat kontribuutiopisteitä järjestelmään lisäämistään kysymyksistä ja visoista. Käyttäjät voivat tarkastella  omia pistetilastojaan, kuten kuinka moneen kysymykseen he ovat vastanneet ja mikä on oikeiden vastausten osuus. Sivustolla on myös näkyvillä High Score -listoja esim. kokonaispisteiltään, viikon pistesaldoltaan ja kontribuutiopisteiltään parhaiten menestyneistä käyttäjistä. 
