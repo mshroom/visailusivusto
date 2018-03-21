@@ -28,3 +28,5 @@ Valmis sovellus täyttää (onnistuessaan) seuraavat arvostelukriteerit:
 * Täysi CRUD (luonti, lukeminen, muokkaus, poisto) toteutuu vähintään kahdella tietokohteella (peruskäyttäjän osalta omat kysymykset ja visat)
 * Ainakin yksi monesta-moneen suhde tietokantataulujen välillä (esim. kysymys-visa)
 * Vähintään kaksi monimutkaisempaa useampaa tietokantataulua käyttävää yhteenvetokyselyä (High Score -listat voivat yhdistää tietoja käyttäjistä, käyttäjien pisteistä, visoista ja aihepiireistä joista pisteet on ansaittu jne.)
+
+Sovelluksen [user storyt](https://github.com/mshroom/visailusivusto/blob/master/documentation/userstories.md) ja [tietokantakaaviohahmotelma](https://github.com/mshroom/visailusivusto/blob/master/documentation/database_diagram.png) löytyvät kansiosta *documentation*.
