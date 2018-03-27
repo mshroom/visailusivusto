@@ -6,12 +6,19 @@
       <th>Question</th>
       <th>Category</th>
       <th>Difficulty</th>
+      <th>Active</th>
     </tr>
     {% for question in questions %}
     <tr>
       <td>{{ question.name  }}</td>
       <td>{{ question.category }}</td>
       <td>{{ question.difficulty }}</td>
+      <td>{{ question.active }}</td>
+      <td>
+        <form method="POST" action="{{ url_for('questions_activate', question_id=question.id) }}">
+          <input type="submit" value="Activate/Disactivate"/>
+        </form>
+      </td>
       <td>
         <form method="POST" action="{{ url_for('questions_delete', question_id=question.id) }}">
           <input type="submit" value="Delete"/>

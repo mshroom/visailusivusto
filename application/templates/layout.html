@@ -6,6 +6,14 @@
     </head>
 
     <body>
+      {% if current_user.is_authenticated %}
+      <p>
+        You are logged in as {{ current_user.name }}. <a href="{{ url_for('auth_logout') }}">Logout</a>
+      </p>
+      {% else%}
+      <a href="{{ url_for('auth_login') }}">Login</a>
+      {% endif %}
+      
       <ul>
         <li><a href="{{ url_for('questions_index') }}">List questions</a></li>
         <li><a href="{{ url_for('questions_form')  }}">Add a question</a></li>

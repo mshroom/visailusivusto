@@ -9,8 +9,12 @@ class Question(db.Model):
 	name = db.Column(db.String(200), nullable=False)
 	category = db.Column(db.String(20), nullable=False)
 	difficulty = db.Column(db.String(10), nullable=False)
+	active = db.Column(db.Boolean, nullable=False)
 	
-	def __init__(self, name, category, difficulty):
+	account_id = db.Column(db.Integer, db.ForeignKey('account.id'), nullable=False)
+	
+	def __init__(self, name, category, difficulty, active):
 		self.name = name
 		self.category = category
 		self.difficulty = difficulty
+		self.active = active
