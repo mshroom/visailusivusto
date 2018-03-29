@@ -14,7 +14,7 @@ def questions_index():
 def questions_form():
 	return render_template("questions/new.html", form = QuestionForm())
 
-@app.route("/questions/<question_id>/", methods=["POST"])
+@app.route("/questions/del/<question_id>/", methods=["POST"])
 @login_required
 def questions_delete(question_id):
 	q = Question.query.get(question_id)
@@ -34,6 +34,28 @@ def questions_activate(question_id):
 	db.session().commit()
 	
 	return redirect(url_for("questions_index"))
+
+@app.route("/questions/mod/<question_id>/", methods=["GET", "POST"])
+@login_required
+def questions_modify(question_id):
+	if request.method == "GET":
+		return render_template("questions/modify.html", question  = Question.query.get(question_id), form = QuestionForm())
+
+	form = QuestionForm(request.form)
+	
+	if not form.validate():
+		return render_template("questions/modify.html", question = Question.query.get(question_id), form = form)
+	
+	q = Question.query.get(question_id)
+	q.name = form.name.data
+	q.category = form.category.data
+	q.difficulty = form.difficulty.data
+	q.active = form.active.data
+	
+	db.session().commit()
+	
+	return redirect(url_for("questions_index"))
+	
 
 @app.route("/questions/", methods=["POST"])
 @login_required

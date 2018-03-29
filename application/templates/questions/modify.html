@@ -1,8 +1,22 @@
-
 {% extends "layout.html" %}
 
 {% block body %}
-<form method="POST" action="{{ url_for('questions_create') }}">
+<table> 
+  <tr>
+    <th>Question</th>
+    <th>Category</th>
+    <th>Difficulty</th>
+    <th>Active</th>
+  </tr>
+  <tr>
+    <td>{{ question.name }}</td>
+    <td>{{ question.category }}</td>
+    <td>{{ question.difficulty }}</td>
+    <td>{{ question.active }}</td>
+  </tr>
+</table>
+<p><b>Modify question</b></p>
+<form method="POST", action="{{ url_for('questions_modify', question_id=question.id) }}">
   <table>
     <tr>
       <td>
@@ -43,7 +57,7 @@
         {{ form.difficulty }}
       </td>
       <td colspan="2">
-        <input type="submit" value="Add a new question"/>
+        <input type="submit" value="Save changes"/>
       </td>
     </tr>
   </table>
