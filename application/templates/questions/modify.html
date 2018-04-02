@@ -15,6 +15,58 @@
     <td>{{ question.active }}</td>
   </tr>
 </table>
+<p><b>Options</b></p>
+<table>
+  <tr>
+    <th>Option</th>
+    <th>Correct</th>
+  </tr>
+  {% for option in options %}
+  <tr>
+    <td>{{ option.name }}</td>
+    <td>{{ option.correct }}</td>
+    <td>
+      <form method="POST" action="{{ url_for('options_setcorrect', question_id=question.id, option_id=option.id) }}">
+        <input type="submit" value="Change status to correct/incorrect"/>
+      </form>
+    </td>
+    <td>
+      <form method="POST" action="{{ url_for('options_delete', question_id=question.id, option_id=option.id) }}">
+        <input type="submit" value="Delete"/>
+      </form>
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+<p><b>Add an option</b></p>
+<form method="POST", action="{{ url_for('options_add', question_id=question.id) }}">
+  <table>
+    <tr>
+      <td>
+        {{ opt_form.name.label }}
+      </td>
+      <td>
+        {{ opt_form.name }}
+      </td>
+      <td>
+        {% for error in opt_form.name.errors %}
+        <li>{{ error }}</li>
+        {% endfor %}
+      </td>
+    </tr>
+    <tr>
+      <td>
+        {{ opt_form.correct.label }}
+      </td>
+      <td>
+        {{ opt_form.correct }}
+      </td>
+      <td colspan="2">
+        <input type="submit" value="Add"/>
+      </td>
+    </tr>
+  </table>
+</form>
 <p><b>Modify question</b></p>
 <form method="POST", action="{{ url_for('questions_modify', question_id=question.id) }}">
   <table>

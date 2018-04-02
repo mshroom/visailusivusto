@@ -2,8 +2,8 @@ from flask import redirect, render_template, request, url_for
 from flask_login import login_required, current_user
 
 from application import app, db
-from application.questions.models import Question
-from application.questions.forms import QuestionForm
+from application.questions.models import Question, Option
+from application.questions.forms import QuestionForm, OptionForm
 
 @app.route("/questions", methods=["GET"])
 def questions_index():
@@ -39,12 +39,12 @@ def questions_activate(question_id):
 @login_required
 def questions_modify(question_id):
 	if request.method == "GET":
-		return render_template("questions/modify.html", question  = Question.query.get(question_id), form = QuestionForm())
+		return render_template("questions/modify.html", question  = Question.query.get(question_id), options = Option.query.filter_by(quest_id=question_id).all(), form = QuestionForm(), opt_form = OptionForm())
 
 	form = QuestionForm(request.form)
 	
 	if not form.validate():
-		return render_template("questions/modify.html", question = Question.query.get(question_id), form = form)
+		return render_template("questions/modify.html", question = Question.query.get(question_id), options = Option.query.filter_by(quest_id=question_id).all(), form = form, opt_form = OptionForm())
 	
 	q = Question.query.get(question_id)
 	q.name = form.name.data
@@ -55,6 +55,44 @@ def questions_modify(question_id):
 	db.session().commit()
 	
 	return redirect(url_for("questions_index"))
+
+@app.route("/questions/mod/<question_id>/cor/<option_id>/", methods=["POST"])
+@login_required
+def options_setcorrect(question_id, option_id):
+	o = Option.query.get(option_id)
+	if o.correct == True:
+		o.correct = False
+	else:
+		o.correct = True
+	db.session().commit()
+	
+	return redirect(url_for('questions_modify', question_id=question_id))
+
+@app.route("/questions/mod/<question_id>/del/<option_id>/", methods=["POST"])
+@login_required
+def options_delete(question_id, option_id):
+	o = Option.query.get(option_id)
+	db.session().delete(o)
+	db.session().commit()
+	
+	return redirect(url_for('questions_modify', question_id=question_id))
+
+@app.route("/questions/mod/<question_id>/add/", methods=["POST"])
+@login_required
+def options_add(question_id):
+	
+	opt_form = OptionForm(request.form)
+	
+	if not opt_form.validate():
+		return render_template("questions/modify.html", question = Question.query.get(question_id), options = Option.query.filter_by(quest_id=question_id).all(), form = QuestionForm(), opt_form = opt_form)
+			
+	o = Option(opt_form.name.data, opt_form.correct.data)
+	o.quest_id = question_id
+	
+	db.session().add(o)
+	db.session().commit()
+	
+	return redirect(url_for('questions_modify', question_id=question_id))
 	
 
 @app.route("/questions/", methods=["POST"])

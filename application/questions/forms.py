@@ -19,3 +19,10 @@ class QuestionForm(FlaskForm):
 	
 	class Meta:
 		csrf = False
+
+class OptionForm(FlaskForm):
+	name = TextField("Option", [validators.Length(min=1)])
+	correct = BooleanField("Correct answer")
+	
+	class Meta:
+		csrf = False
