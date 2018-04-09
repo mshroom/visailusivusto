@@ -20,7 +20,9 @@ def questions_form():
 @app.route("/questions/del/<question_id>/", methods=["POST"])
 @login_required
 def questions_delete(question_id):
-	
+	options = Option.query.filter_by(quest_id=question_id).all()
+	for o in options:
+		db.session.query(UsersChoice).filter_by(option_id=o.id).delete()
 	db.session.query(Option).filter_by(quest_id=question_id).delete()	
 	q = Question.query.get(question_id)
 	db.session().delete(q)
