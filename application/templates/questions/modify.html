@@ -13,6 +13,12 @@
     <td>{{ question.category }}</td>
     <td>{{ question.difficulty }}</td>
     <td>{{ question.active }}</td>
+    <td>
+      <form method="POST" action="{{ url_for('question_activate', question_id=question.id) }}">
+        <input type="submit" value="Activate/Disactivate"/>
+      </form>
+    </td>
+	<td>{{ act_error }}</td>
   </tr>
 </table>
 <p><b>Options</b></p>
@@ -83,14 +89,6 @@
           <li>{{ error }}</li>
           {% endfor %}
         </ul>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        {{ form.active.label }}
-      </td>
-      <td>
-        {{ form.active }}
       </td>
     </tr>
     <tr>

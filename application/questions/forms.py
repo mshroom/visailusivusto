@@ -4,7 +4,6 @@ from wtforms.validators import ValidationError
 
 class QuestionForm(FlaskForm):
 	name = TextField("Question", [validators.Length(min=2)])
-	active = BooleanField("Active")
 	category = SelectField("Category", choices=[('history', 'History'), ('geography', 'Geography'), ('literature', 'Literature'), ('music', 'Music'), ('art', 'Art'), ('movies', 'Movies'), ('sports', 'Sports'), ('nature', 'Nature'), ('science', 'Science'), ('other', 'Other')])
 	difficulty = SelectField("Difficulty", choices=[('easy', 'Easy'), ('medium', 'Medium'), ('difficult', 'Difficult')])
 	
