@@ -19,7 +19,7 @@ class Question(Base):
 		self.active = False
 
 	@staticmethod
-	def findAllCategoriesInUse(active=1):
+	def findAllCategoriesInUse(active=True):
 		stmt = text("SELECT DISTINCT Question.category from Question WHERE Question.active = :active ORDER BY Question.category").params(active=active)
 		res = db.engine.execute(stmt)
 		response = []
