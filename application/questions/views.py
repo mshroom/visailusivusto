@@ -102,8 +102,15 @@ def options_setcorrect(question_id, option_id):
 @login_required
 def options_delete(question_id, option_id):
 	o = Option.query.get(option_id)
+	db.session.query(UsersChoice).filter_by(option_id=o.id).delete()
 	db.session().delete(o)
 	db.session().commit()
+	answer = Option.query.filter_by(quest_id=question_id, correct=True).first()
+	if not answer:
+		q = Question.query.get(question_id)
+		q.active = False
+		db.session().commit()
+		return render_template("questions/modify.html", question = Question.query.get(question_id), options = Option.query.filter_by(quest_id=question_id).all(), form = QuestionForm(), opt_form = OptionForm(), act_error = "Question was deactivated because it has no correct answer")
 	
 	return redirect(url_for('questions_modify', question_id=question_id))
 
