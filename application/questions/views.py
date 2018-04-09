@@ -18,6 +18,9 @@ def questions_form():
 @app.route("/questions/del/<question_id>/", methods=["POST"])
 @login_required
 def questions_delete(question_id):
+	
+	options = Option.query.filter_by(quest_id=question_id)
+	db.session().delete(options)
 	q = Question.query.get(question_id)
 	db.session().delete(q)
 	db.session().commit()
@@ -31,7 +34,7 @@ def questions_activate(question_id):
 	if q.active == True:
 		q.active = False
 	else:
-		answer = Option.query.filter_by(quest_id=question_id, correct=1).first()
+		answer = Option.query.filter_by(quest_id=question_id, correct=True).first()
 		if not answer:
 			return render_template("questions/list.html", questions = Question.query.filter_by(account_id=current_user.id).all(), error = "Question has no correct answer and cannot be activated")
 		q.active = True
@@ -66,7 +69,7 @@ def question_activate(question_id):
 	if q.active == True:
 		q.active = False
 	else:
-		answer = Option.query.filter_by(quest_id=question_id, correct=1).first()
+		answer = Option.query.filter_by(quest_id=question_id, correct=True).first()
 		if not answer:
 			return render_template("questions/modify.html", question = Question.query.get(question_id), options = Option.query.filter_by(quest_id=question_id).all(), form = QuestionForm(), opt_form = OptionForm(), act_error = "Question has no correct answer and cannot be activated")
 		q.active = True
