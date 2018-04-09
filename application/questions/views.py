@@ -1,3 +1,5 @@
+import random
+
 from flask import redirect, render_template, request, url_for
 from flask_login import login_required, current_user
 
@@ -137,3 +139,36 @@ def questions_create():
 	db.session().commit()
 	
 	return redirect(url_for("questions_index"))
+
+@app.route("/play/", methods=["GET"])
+@login_required
+def questions_play():
+	return render_template("questions/play.html", categories = Question.findAllCategoriesInUse())
+
+@app.route("/play/random/", methods=["GET"])
+@login_required
+def play_random():
+	questions = Question.query.filter_by(active=True).all()
+	random.shuffle(questions)
+	q = questions[0]
+	return render_template("questions/answer.html", question = q, options = Option.query.filter_by(quest_id=q.id).all())
+
+@app.route("/play/categories/<cat>", methods=["GET"])
+@login_required
+def play_category(cat):
+	questions = Question.query.filter_by(active=True, category=cat).all()	
+	random.shuffle(questions)
+	q = questions[0]
+	return render_template("questions/answer.html", question = q, options = Option.query.filter_by(quest_id=q.id).all())
+
+@app.route("/play/<question_id>/<option_id>", methods=["POST"])
+@login_required
+def options_choose(question_id, option_id):
+	o = Option.query.get(option_id)
+	if o.correct:
+		return render_template("questions/result.html", option = o, question = Question.query.get(question_id),result = "Correct answer!")
+
+	return render_template("questions/result.html", option = o, question = Question.query.get(question_id),result = "Wrong answer!")
+
+
+

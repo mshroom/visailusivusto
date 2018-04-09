@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+
+{% block body %}
+  <a href="{{ url_for('play_random') }}">Choose a random question</a>
+  <br/><br/>
+  <p>Choose a random question from a category:</p>
+  <table>  
+    {% for category in categories %}
+    <tr>
+      <td>
+        <a href="{{ url_for('play_category', cat=category) }}">{{ category }}</a>
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+{% endblock %}

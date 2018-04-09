@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+
+{% block body %}
+  <table>
+    <tr>
+      <td><b>Question</b></td>
+      <td>{{ question.name }}</td>
+    </tr>
+    <tr>
+      <td><b>Your answer</b></td>
+      <td>{{ option.name }}</td>
+    </tr>
+  </table>  
+  <br/><br/>
+  {{ result }}
+  <br/><br/>
+  <a href="{{ url_for('questions_play') }}">Play again!</a>
+{% endblock %}

@@ -1,6 +1,8 @@
 from application import db
 from application.models import Base
 
+from sqlalchemy.sql import text
+
 class Question(Base):
 		
 	name = db.Column(db.String(200), nullable=False)
@@ -15,6 +17,15 @@ class Question(Base):
 		self.category = category
 		self.difficulty = difficulty
 		self.active = False
+
+	@staticmethod
+	def findAllCategoriesInUse():
+		stmt = text("SELECT DISTINCT Question.category from Question WHERE Question.active = 1 ORDER BY Question.category")
+		res = db.engine.execute(stmt)
+		response = []
+		for row in res:
+			response.append(row[0])
+		return response
 
 class Option(Base):
 		

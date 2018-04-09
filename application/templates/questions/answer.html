@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+
+{% block body %}
+  <p><b>{{ question.name }}</b></p>
+  <table>
+    {% for option in options %}
+    <tr>
+      <td>{{ option.name }}</td>
+      <td>
+        <form method="POST" action="{{ url_for('options_choose', question_id=question.id, option_id=option.id) }}">
+          <input type="submit" value="Choose"/>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+  {{ result }}
+{% endblock %}
