@@ -19,11 +19,10 @@ def questions_form():
 @login_required
 def questions_delete(question_id):
 	
-	options = Option.query.filter_by(quest_id=question_id)
-	db.session().delete(options)
+	db.session.query(Option).filter_by(quest_id=question_id).delete()	
 	q = Question.query.get(question_id)
 	db.session().delete(q)
-	db.session().commit()
+	db.session().commit() 
 	
 	return redirect(url_for("questions_index"))
 
