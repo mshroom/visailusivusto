@@ -9,7 +9,9 @@ from application.questions.models import Question, Option, UsersChoice
 def statistics_show():
 	allAnswers = UsersChoice.countAllAnswers(current_user.id)
 	correctAnswers = UsersChoice.countCorrectAnswers(current_user.id)
-	percentageOfCorrectAnswers = correctAnswers/allAnswers*100
+	percentageOfCorrectAnswers = 0
+	if allAnswers > 0:
+		percentageOfCorrectAnswers = correctAnswers/allAnswers*100
 
 	return render_template("statistics/statistics.html", allAnswers = allAnswers, correctAnswers = correctAnswers, percentageOfCorrectAnswers = percentageOfCorrectAnswers)
 
