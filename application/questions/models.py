@@ -45,3 +45,16 @@ class UsersChoice(db.Model):
 	account_id = db.Column(db.Integer, db.ForeignKey('account.id'), nullable=False)
 	option_id = db.Column(db.Integer, db.ForeignKey('option.id'), nullable=False)
 	
+	@staticmethod	
+	def countCorrectAnswers(user_id, correct=True):
+		stmt = text("SELECT COUNT(Users_choice.id) FROM Users_choice, Option WHERE account_id = :user_id AND option_id = Option.id AND option.correct = :correct").params(user_id=user_id, correct=correct)
+		res = db.engine.execute(stmt)
+		response = res.fetchone()[0]
+		return response
+	
+	@staticmethod
+	def countAllAnswers(user_id):
+		stmt = text("SELECT COUNT(Users_choice.id) FROM Users_choice WHERE account_id = :user_id").params(user_id=user_id)
+		res = db.engine.execute(stmt)
+		response = res.fetchone()[0]
+		return response

@@ -18,6 +18,8 @@ from application import views
 from application.questions import models
 from application.questions import views
 
+from application.statistics import views
+
 from application.auth import models
 from application.auth import views
 

@@ -4,7 +4,7 @@ from flask import redirect, render_template, request, url_for
 from flask_login import login_required, current_user
 
 from application import app, db
-from application.questions.models import Question, Option
+from application.questions.models import Question, Option, UsersChoice
 from application.questions.forms import QuestionForm, OptionForm
 
 @app.route("/questions", methods=["GET"])
@@ -164,6 +164,13 @@ def play_category(cat):
 @app.route("/play/<question_id>/<option_id>", methods=["POST"])
 @login_required
 def options_choose(question_id, option_id):
+	c = UsersChoice()
+	c.account_id = current_user.id
+	c.option_id = option_id
+
+	db.session().add(c)
+	db.session().commit()
+
 	o = Option.query.get(option_id)
 	if o.correct:
 		return render_template("questions/result.html", option = o, question = Question.query.get(question_id),result = "Correct answer!")

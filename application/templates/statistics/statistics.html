@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+
+{% block body %}
+  <table>
+    <tr>
+      <th>Number of answers</th>
+      <th>Number of correct answers</th>
+      <th>Percentage of correct answers</th>
+    </tr>
+    <tr>
+      <td>{{ allAnswers }}</td>
+      <td>{{ correctAnswers }}</td>
+      <td>{{ percentageOfCorrectAnswers }}</td>
+    </tr>
+  </table>
+{% endblock %}
