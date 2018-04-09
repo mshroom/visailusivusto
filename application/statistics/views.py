@@ -13,5 +13,17 @@ def statistics_show():
 	if allAnswers > 0:
 		percentageOfCorrectAnswers = correctAnswers/allAnswers*100
 
-	return render_template("statistics/statistics.html", allAnswers = allAnswers, correctAnswers = correctAnswers, percentageOfCorrectAnswers = percentageOfCorrectAnswers)
+	categories = Question.findAllCategoriesInUse()
+
+	answersByCategories = []
+	for c in categories:
+		category = c
+		categoryAnswers = UsersChoice.countAllAnswersByCategory(current_user.id, c)
+		categoryCorrect = UsersChoice.countCorrectAnswersByCategory(current_user.id, c)
+		categoryPercentage = 0
+		if categoryAnswers > 0:
+			categoryPercentage = categoryCorrect/categoryAnswers*100
+		answersByCategories.append({"category":category, "answers":categoryAnswers, "correct":categoryCorrect, "percentage":categoryPercentage})
+
+	return render_template("statistics/statistics.html", allAnswers = allAnswers, correctAnswers = correctAnswers, percentageOfCorrectAnswers = percentageOfCorrectAnswers, answersByCategories = answersByCategories)
 

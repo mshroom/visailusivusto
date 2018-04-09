@@ -47,7 +47,7 @@ class UsersChoice(db.Model):
 	
 	@staticmethod	
 	def countCorrectAnswers(user_id, correct=True):
-		stmt = text("SELECT COUNT(Users_choice.id) FROM Users_choice, Option WHERE account_id = :user_id AND option_id = Option.id AND option.correct = :correct").params(user_id=user_id, correct=correct)
+		stmt = text("SELECT COUNT(Users_choice.id) FROM Users_choice, Option WHERE account_id = :user_id AND option_id = Option.id AND Option.correct = :correct").params(user_id=user_id, correct=correct)
 		res = db.engine.execute(stmt)
 		response = res.fetchone()[0]
 		return response
@@ -58,3 +58,18 @@ class UsersChoice(db.Model):
 		res = db.engine.execute(stmt)
 		response = res.fetchone()[0]
 		return response
+
+	@staticmethod
+	def countAllAnswersByCategory(user_id, category):
+		stmt = text("SELECT COUNT(Users_choice.id) FROM Users_choice, Option, Question WHERE Users_choice.account_id = :user_id AND Users_choice.option_id = Option.id AND Option.quest_id = Question.id AND Question.category = :category").params(user_id=user_id, category=category)
+		res = db.engine.execute(stmt)
+		response = res.fetchone()[0]
+		return response
+
+	@staticmethod
+	def countCorrectAnswersByCategory(user_id, category, correct=True):
+		stmt = text("SELECT COUNT(Users_choice.id) FROM Users_choice, Option, Question WHERE Users_choice.account_id = :user_id AND Users_choice.option_id = Option.id AND Option.quest_id = Question.id AND Option.correct = :correct AND Question.category = :category").params(user_id=user_id, category=category, correct=correct)
+		res = db.engine.execute(stmt)
+		response = res.fetchone()[0]
+		return response
+
