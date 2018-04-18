@@ -16,17 +16,27 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('questions_play') }} ">Play</a>
+            </li>
+			{% if current_user.is_authenticated %}
+            <li class="nav-item">
               <a class="nav-link" href="{{ url_for('questions_index') }} ">List your questions</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{{ url_for('questions_form') }} ">Add a question</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('questions_play') }} ">Play</a>
-            </li>
             <li>
               <a class="nav-link" href="{{ url_for('statistics_show') }} ">See your statistics</a>
             </li>
+            {% endif %}
+			{% if current_user.role == "ADMIN" %}
+            <li>
+              <a class="nav-link" href="{{ url_for('questions_control') }} ">Control questions</a>
+            </li>
+			<li>
+              <a class="nav-link" href="{{ url_for('auth_control') }} ">Control users</a>
+            </li>
+            {% endif %}
           </ul>
           <div class="form-inline mt-2 mt-md-0">
             {% if current_user.is_authenticated %}

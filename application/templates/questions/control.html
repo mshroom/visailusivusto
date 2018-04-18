@@ -8,9 +8,7 @@
       <th>Category</th>
       <th>Difficulty</th>
       <th>Active</th>
-      {% if current_user.is_authenticated %}
-      <th>UserId</th>
-      {% endif %}
+	  <th>UserId</th>
     </tr>
     {% for question in questions %}
     <tr>
@@ -18,9 +16,7 @@
       <td>{{ question.category }}</td>
       <td>{{ question.difficulty }}</td>
       <td>{{ question.active }}</td>
-      {% if current_user.is_authenticated %}
       <td>{{ question.account_id }}</td>
-      {% endif %}
       <td>
         <form method="POST" action="{{ url_for('questions_activate', question_id=question.id) }}">
           <input type="submit" value="Activate/Disactivate"/>

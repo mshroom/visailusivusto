@@ -21,6 +21,59 @@
 	<td>{{ act_error }}</td>
   </tr>
 </table>
+<p><b>Modify question</b></p>
+<form method="POST", action="{{ url_for('questions_modifyQuestion', question_id=question.id) }}">
+  <table>
+    <tr>
+      <td>
+        {{ q_form.name.label }}
+      </td>
+      <td>
+        {{ q_form.name }}
+      </td>
+      <td colspan="2">
+        <input type="submit" value="Change question"/>
+      </td>
+      <td>
+        <ul>
+          {% for error in form.name.errors %}
+          <li>{{ error }}</li>
+          {% endfor %}
+        </ul>
+      </td>
+    </tr>
+  </table>
+</form>
+<form method="POST", action="{{ url_for('questions_modifyCategory', question_id=question.id) }}">
+  <table>
+    <tr>
+      <td>
+        {{ c_form.category.label }}
+      </td>
+      <td>
+        {{ c_form.category }}
+      </td>
+      <td colspan="2">
+        <input type="submit" value="Change category"/>
+      </td>
+    </tr>
+  </table>
+</form>
+<form method="POST", action="{{ url_for('questions_modifyDifficulty', question_id=question.id) }}">
+  <table>
+    <tr>
+      <td>
+        {{ d_form.difficulty.label }}
+      </td>
+      <td>
+        {{ d_form.difficulty }}
+      </td>
+      <td colspan="2">
+        <input type="submit" value="Change difficulty"/>
+      </td>
+    </tr>
+  </table>
+</form>
 <p><b>Options</b></p>
 <table>
   <tr>
@@ -69,45 +122,6 @@
       </td>
       <td colspan="2">
         <input type="submit" value="Add"/>
-      </td>
-    </tr>
-  </table>
-</form>
-<p><b>Modify question</b></p>
-<form method="POST", action="{{ url_for('questions_modify', question_id=question.id) }}">
-  <table>
-    <tr>
-      <td>
-        {{ form.name.label }}
-      </td>
-      <td>
-        {{ form.name }}
-      </td>
-      <td>
-        <ul>
-          {% for error in form.name.errors %}
-          <li>{{ error }}</li>
-          {% endfor %}
-        </ul>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        {{ form.category.label }}
-      </td>
-      <td>
-        {{ form.category }}
-      </td>
-    </tr>
-    <tr>
-      <td>
-        {{ form.difficulty.label }}
-      </td>
-      <td>
-        {{ form.difficulty }}
-      </td>
-      <td colspan="2">
-        <input type="submit" value="Save changes"/>
       </td>
     </tr>
   </table>

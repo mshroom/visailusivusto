@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+
+{% block body %}
+{{ error }}
+  <table>
+    <tr>
+      <th>UserId</th>
+      <th>Name</th>
+      <th>Username</th>
+      <th>Role</th>
+    </tr>
+    {% for user in users %}
+    <tr>
+      <td>{{ user.id  }}</td>
+      <td>{{ user.name }}</td>
+      <td>{{ user.username }}</td>
+      <td>{{ user.role }}</td>
+      <td>
+        <form method="POST" action="{{ url_for('auth_delete', user_id=user.id) }}">
+          <input type="submit" value="Delete"/>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+{% endblock %}
