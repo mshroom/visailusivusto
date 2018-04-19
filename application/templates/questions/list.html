@@ -8,7 +8,7 @@
       <th>Category</th>
       <th>Difficulty</th>
       <th>Active</th>
-      {% if current_user.is_authenticated %}
+      {% if current_user.role == "ADMIN" %}
       <th>UserId</th>
       {% endif %}
     </tr>
@@ -18,7 +18,7 @@
       <td>{{ question.category }}</td>
       <td>{{ question.difficulty }}</td>
       <td>{{ question.active }}</td>
-      {% if current_user.is_authenticated %}
+      {% if current_user.role == "ADMIN" %}
       <td>{{ question.account_id }}</td>
       {% endif %}
       <td>

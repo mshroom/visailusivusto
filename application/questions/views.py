@@ -60,12 +60,12 @@ def questions_modify(question_id):
 		return login_manager.unauthorized()
 
 	if request.method == "GET":
-		return render_template("questions/modify.html", question  = Question.query.get(question_id), options = Option.query.filter_by(quest_id=question_id).all(), form = QuestionForm(), opt_form = OptionForm(), q_form = ModifyQuestionForm(), c_form = ModifyCategoryForm(), d_form = ModifyDifficultyForm())
+		return render_template("questions/modify.html", question  = Question.query.get(question_id), options = Option.query.filter_by(quest_id=question_id).all(), opt_form = OptionForm(), q_form = ModifyQuestionForm(), c_form = ModifyCategoryForm(), d_form = ModifyDifficultyForm())
 
 	form = QuestionForm(request.form)
 	
 	if not form.validate():
-		return render_template("questions/modify.html", question  = Question.query.get(question_id), options = Option.query.filter_by(quest_id=question_id).all(), form = QuestionForm(), opt_form = OptionForm(), q_form = ModifyQuestionForm(), c_form = ModifyCategoryForm(), d_form = ModifyDifficultyForm())
+		return render_template("questions/modify.html", question  = Question.query.get(question_id), options = Option.query.filter_by(quest_id=question_id).all(), opt_form = OptionForm(), q_form = ModifyQuestionForm(), c_form = ModifyCategoryForm(), d_form = ModifyDifficultyForm())
 	
 	q = Question.query.get(question_id)
 	q.name = form.name.data
@@ -81,7 +81,7 @@ def questions_modify(question_id):
 def questions_modifyQuestion(question_id):
 	q_form = ModifyQuestionForm(request.form)
 	if not q_form.validate():
-		return render_template("questions/modify.html", question  = Question.query.get(question_id), options = Option.query.filter_by(quest_id=question_id).all(), form = QuestionForm(), opt_form = OptionForm(), q_form = ModifyQuestionForm(), c_form = ModifyCategoryForm(), d_form = ModifyDifficultyForm())
+		return render_template("questions/modify.html", question  = Question.query.get(question_id), options = Option.query.filter_by(quest_id=question_id).all(), opt_form = OptionForm(), q_form = ModifyQuestionForm(), c_form = ModifyCategoryForm(), d_form = ModifyDifficultyForm())
 
 	q = Question.query.get(question_id)
 	q.name = q_form.name.data
@@ -123,7 +123,7 @@ def question_activate(question_id):
 	else:
 		answer = Option.query.filter_by(quest_id=question_id, correct=True).first()
 		if not answer:
-			return render_template("questions/modify.html", question  = Question.query.get(question_id), options = Option.query.filter_by(quest_id=question_id).all(), form = QuestionForm(), opt_form = OptionForm(), q_form = ModifyQuestionForm(), c_form = ModifyCategoryForm(), d_form = ModifyDifficultyForm(), act_error = "Question has no correct answer and cannot be activated")
+			return render_template("questions/modify.html", question  = Question.query.get(question_id), options = Option.query.filter_by(quest_id=question_id).all(), opt_form = OptionForm(), q_form = ModifyQuestionForm(), c_form = ModifyCategoryForm(), d_form = ModifyDifficultyForm(), act_error = "Question has no correct answer and cannot be activated")
 		q.active = True
 	db.session().commit()
 	
@@ -143,7 +143,7 @@ def options_setcorrect(question_id, option_id):
 		q = Question.query.get(question_id)
 		q.active = False
 		db.session().commit()
-		return render_template("questions/modify.html", question  = Question.query.get(question_id), options = Option.query.filter_by(quest_id=question_id).all(), form = QuestionForm(), opt_form = OptionForm(), q_form = ModifyQuestionForm(), c_form = ModifyCategoryForm(), d_form = ModifyDifficultyForm(), act_error = "Question was deactivated because it has no correct answer")
+		return render_template("questions/modify.html", question  = Question.query.get(question_id), options = Option.query.filter_by(quest_id=question_id).all(), opt_form = OptionForm(), q_form = ModifyQuestionForm(), c_form = ModifyCategoryForm(), d_form = ModifyDifficultyForm(), act_error = "Question was deactivated because it has no correct answer")
 	
 	return redirect(url_for('questions_modify', question_id=question_id))
 
@@ -159,7 +159,7 @@ def options_delete(question_id, option_id):
 		q = Question.query.get(question_id)
 		q.active = False
 		db.session().commit()
-		return render_template("questions/modify.html", question  = Question.query.get(question_id), options = Option.query.filter_by(quest_id=question_id).all(), form = QuestionForm(), opt_form = OptionForm(), q_form = ModifyQuestionForm(), c_form = ModifyCategoryForm(), d_form = ModifyDifficultyForm(), act_error = "Question was deactivated because it has no correct answer")
+		return render_template("questions/modify.html", question  = Question.query.get(question_id), options = Option.query.filter_by(quest_id=question_id).all(), opt_form = OptionForm(), q_form = ModifyQuestionForm(), c_form = ModifyCategoryForm(), d_form = ModifyDifficultyForm(), act_error = "Question was deactivated because it has no correct answer")
 	
 	return redirect(url_for('questions_modify', question_id=question_id))
 
@@ -169,7 +169,7 @@ def options_add(question_id):
 	opt_form = OptionForm(request.form)
 	
 	if not opt_form.validate():
-		return render_template("questions/modify.html", question  = Question.query.get(question_id), options = Option.query.filter_by(quest_id=question_id).all(), form = QuestionForm(), opt_form = OptionForm(), q_form = ModifyQuestionForm(), c_form = ModifyCategoryForm(), d_form = ModifyDifficultyForm())
+		return render_template("questions/modify.html", question  = Question.query.get(question_id), options = Option.query.filter_by(quest_id=question_id).all(), opt_form = OptionForm(), q_form = ModifyQuestionForm(), c_form = ModifyCategoryForm(), d_form = ModifyDifficultyForm())
 			
 	o = Option(opt_form.name.data, opt_form.correct.data)
 	o.quest_id = question_id

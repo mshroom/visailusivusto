@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+
+{% block body %}
+{{ error }}
+  <table>
+    <tr>
+      <th>Quiz name</th>
+      <th>Category</th>
+      <th>Active</th>
+      {% if current_user.role == "ADMIN" %}
+      <th>UserId</th>
+      {% endif %}
+    </tr>
+    {% for quiz in quizzes %}
+    <tr>
+      <td>{{ quiz.name  }}</td>
+      <td>{{ quiz.category }}</td>
+      <td>{{ quiz.active }}</td>
+      {% if current_user.role == "ADMIN" %}
+      <td>{{ quiz.account_id }}</td>
+      {% endif %}
+      </td>
+      <td>
+        <a href="{{ url_for('quizzes_modify', quiz_id=quiz.id) }}">Modify</a>
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+{% endblock %}

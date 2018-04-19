@@ -25,6 +25,12 @@
             <li class="nav-item">
               <a class="nav-link" href="{{ url_for('questions_form') }} ">Add a question</a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('quizzes_index') }} ">List your quizzes</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('quizzes_form') }} ">Add a quiz</a>
+            </li>
             <li>
               <a class="nav-link" href="{{ url_for('statistics_show') }} ">See your statistics</a>
             </li>
@@ -32,6 +38,9 @@
 			{% if current_user.role == "ADMIN" %}
             <li>
               <a class="nav-link" href="{{ url_for('questions_control') }} ">Control questions</a>
+            </li>
+            <li>
+              <a class="nav-link" href="{{ url_for('quizzes_control') }} ">Control quizzes</a>
             </li>
 			<li>
               <a class="nav-link" href="{{ url_for('auth_control') }} ">Control users</a>

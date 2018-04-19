@@ -56,6 +56,9 @@ from application import views
 from application.questions import models
 from application.questions import views
 
+from application.quizzes import models
+from application.quizzes import views
+
 from application.statistics import views
 
 from application.auth import models

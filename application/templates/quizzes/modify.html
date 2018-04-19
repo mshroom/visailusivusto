@@ -1,0 +1,81 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<table> 
+  <tr>
+    <th>Quiz</th>
+    <th>Category</th>
+    <th>Active</th>
+  </tr>
+  <tr>
+    <td>{{ quiz.name }}</td>
+    <td>{{ quiz.category }}</td>
+    <td>{{ quiz.active }}</td>
+  </tr>
+</table>
+<p><b>Modify quiz</b></p>
+<form method="POST" action="{{ url_for('quizzes_modifyQuiz', quiz_id=quiz.id) }}">
+  <table>
+    <tr>
+      <td>
+        {{ form.name.label }}
+      </td>
+      <td>
+        {{ form.name }}
+      </td>
+      <td>
+        <ul>
+          {% for error in form.name.errors %}
+          <li>{{ error }}</li>
+          {% endfor %}
+        </ul>
+      </td>
+      <td colspan="2">
+        <input type="submit" value="Change quiz name"/>
+      </td>
+    </tr>
+  </table>
+</form>
+<form method="POST" action="{{ url_for('quizzes_modifyCategory', quiz_id=quiz.id) }}">
+  <table>
+    <tr>
+      <td>
+        {{ c_form.category.label }}
+      </td>
+      <td>
+        {{ c_form.category }}
+      </td>
+      <td colspan="2">
+        <input type="submit" value="Change category"/>
+      </td>
+    </tr>
+  </table>
+</form>
+<p><b>Questions</b></p>
+<table>
+  <tr>
+    <th>Question</th>
+  </tr>
+  {% for question in questions %}
+  <tr>
+    <td>{{ question.name }}</td>
+  </tr>
+  {% endfor %}
+</table>
+<p><b>Add a question</b></p>
+<form method="POST", action="{{ url_for('quizQuestions_add', quiz_id=quiz.id) }}">
+  <table>
+    <tr>
+      <td>
+        {{ qq_form.question.label }}
+      </td>
+      <td>
+        {{ qq_form.question }}
+      </td>
+      <td colspan="2">
+        <input type="submit" value="Add"/>
+      </td>
+    </tr>
+  </table>
+</form>
+{% endblock %}
