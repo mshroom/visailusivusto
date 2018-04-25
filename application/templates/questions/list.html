@@ -22,12 +22,12 @@
       <td>{{ question.account_id }}</td>
       {% endif %}
       <td>
-        <form method="POST" action="{{ url_for('questions_activate', question_id=question.id) }}">
+        <form method="POST" action="{{ url_for('questions_activate', question_id=question.id, control=control) }}">
           <input type="submit" value="Activate/Disactivate"/>
         </form>
       </td>
       <td>
-        <form method="POST" action="{{ url_for('questions_delete', question_id=question.id) }}">
+        <form method="POST" action="{{ url_for('questions_delete', question_id=question.id, control=control) }}">
           <input type="submit" value="Delete"/>
         </form>
       </td>

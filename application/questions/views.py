@@ -6,51 +6,59 @@ from flask_login import current_user
 from application import app, db, login_manager, login_required
 from application.questions.models import Question, Option, UsersChoice
 from application.questions.forms import QuestionForm, OptionForm, ModifyQuestionForm, ModifyCategoryForm, ModifyDifficultyForm
+from application.quizzes.models import QuizQuestion
 
 @app.route("/questions", methods=["GET"])
 @login_required(role="USER")
 def questions_index():
-	return render_template("questions/list.html", questions = Question.query.filter_by(account_id=current_user.id).all())
+	return render_template("questions/list.html", questions = Question.query.filter_by(account_id=current_user.id).all(), control = "user")
 
 @app.route("/questions/control", methods=["GET"])
 @login_required(role="ADMIN")
 def questions_control():
-	return render_template("questions/list.html", questions = Question.query.all())
+	return render_template("questions/list.html", questions = Question.query.all(), control = "control")
 
 @app.route("/questions/new/")
 @login_required(role="USER")
 def questions_form():
 	return render_template("questions/new.html", form = QuestionForm())
 
-@app.route("/questions/del/<question_id>/", methods=["POST"])
+@app.route("/questions/del/<control>/<question_id>/", methods=["POST"])
 @login_required(role="USER")
-def questions_delete(question_id):
+def questions_delete(question_id, control):
+	q = Question.query.get(question_id)
+	db.session.query(QuizQuestion).filter_by(question_id=q.id).delete()
+ 
 	options = Option.query.filter_by(quest_id=question_id).all()
 	for o in options:
 		db.session.query(UsersChoice).filter_by(option_id=o.id).delete()
 	db.session.query(Option).filter_by(quest_id=question_id).delete()	
-	q = Question.query.get(question_id)
 	db.session().delete(q)
 	db.session().commit() 
 	
-	return redirect(url_for("questions_index"))
+	if current_user.role == "ADMIN" and control == "control":
+		return redirect(url_for('questions_control'))
+	return redirect(url_for('questions_index'))
 
-@app.route("/questions/act/<question_id>/", methods=["POST"])
+
+@app.route("/questions/act/<control>/<question_id>/", methods=["POST"])
 @login_required(role="USER")
-def questions_activate(question_id):
+def questions_activate(question_id, control):
 	q = Question.query.get(question_id)
 	if q.active == True:
 		q.active = False
 	else:
 		answer = Option.query.filter_by(quest_id=question_id, correct=True).first()
 		if not answer:
-			if current_user.role == "ADMIN":
-				return render_template("questions/control.html", questions = Question.query.all(), error = "Question has no correct answer and cannot be activated")
-			return render_template("questions/list.html", questions = Question.query.filter_by(account_id=current_user.id).all(), error = "Question has no correct answer and cannot be activated")
+			if current_user.role == "ADMIN" and control == "control":
+				return render_template("questions/list.html", questions = Question.query.all(), control = control, error = "Question has no correct answer and cannot be activated")
+			return render_template("questions/list.html", questions = Question.query.filter_by(account_id=current_user.id).all(), control = control, error = "Question has no correct answer and cannot be activated")
 		q.active = True
 	db.session().commit()
 	
-	return redirect(url_for("questions_index"))
+	if current_user.role == "ADMIN" and control == "control":
+		return redirect(url_for('questions_control'))
+	return redirect(url_for('questions_index'))
 
 @app.route("/questions/mod/<question_id>/", methods=["GET", "POST"])
 @login_required(role="USER")

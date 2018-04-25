@@ -27,6 +27,16 @@ class Quiz(Base):
 			response.append({"id":row[0], "name":row[1], "category":row[2], "difficulty":row[3], "active":row[4]})
 		return response
 
+	@staticmethod
+	def findAllUsersUnusedQuestions(quiz_id):
+		q = Quiz.query.get(quiz_id)
+		stmt = text("SELECT Question.id, Question.name FROM QUESTION, ACCOUNT WHERE Question.account_id = Account.id AND Account.id = :account_id AND Question.id NOT IN (SELECT Question.id FROM Question, Quiz, Quiz_Question Where Quiz_Question.question_id = Question.id AND Quiz_Question.quiz_id = Quiz.id AND Quiz.id = :quiz_id)").params(account_id=q.account_id, quiz_id=quiz_id)
+		res = db.engine.execute(stmt)
+		response = []
+		for row in res:
+			response.append([row[0], row[1]])
+		return response
+
 class QuizQuestion(db.Model):
 		
 	id = db.Column(db.Integer, primary_key=True)

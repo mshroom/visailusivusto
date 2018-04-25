@@ -11,6 +11,12 @@
     <td>{{ quiz.name }}</td>
     <td>{{ quiz.category }}</td>
     <td>{{ quiz.active }}</td>
+    <td>
+      <form method="POST" action="{{ url_for('quiz_activate', quiz_id=quiz.id) }}">
+        <input type="submit" value="Activate/Disactivate"/>
+      </form>
+    </td>
+	<td>{{ act_error }}</td>
   </tr>
 </table>
 <p><b>Modify quiz</b></p>
@@ -59,6 +65,11 @@
   {% for question in questions %}
   <tr>
     <td>{{ question.name }}</td>
+    <td>
+      <form method="POST" action="{{ url_for('quizQuestions_delete', qz_id=quiz.id, qn_id=question.id) }}">
+        <input type="submit" value="Delete"/>
+      </form>
+    </td>
   </tr>
   {% endfor %}
 </table>

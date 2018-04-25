@@ -21,6 +21,16 @@
       {% endif %}
       </td>
       <td>
+        <form method="POST" action="{{ url_for('quizzes_activate', quiz_id=quiz.id, control=control) }}">
+          <input type="submit" value="Activate/Disactivate"/>
+        </form>
+      </td>
+      <td>
+        <form method="POST" action="{{ url_for('quizzes_delete', quiz_id=quiz.id, control=control) }}">
+          <input type="submit" value="Delete"/>
+        </form>
+      </td>
+      <td>
         <a href="{{ url_for('quizzes_modify', quiz_id=quiz.id) }}">Modify</a>
       </td>
     </tr>
