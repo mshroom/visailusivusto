@@ -205,7 +205,7 @@ def quizQuestions_delete(qz_id, qn_id):
 			a = q.account_id
 			q_form = QuizQuestionForm()
 			list = []
-			for row in Quiz.findAllUsersUnusedQuestions(quiz_id):
+			for row in Quiz.findAllUsersUnusedQuestions(qz_id):
 				list.append((row[0], row[1]))
 			q_form.question.choices = list
 			return render_template("quizzes/modify.html", quiz = Quiz.query.get(qz_id), questions = Quiz.findAllQuestions(qz_id), form = ModifyQuizForm(), c_form = ModifyQuizCategoryForm(), qq_form = q_form, act_error = "Quiz was deactivated beacause it has less than two questions")
