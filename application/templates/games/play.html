@@ -13,4 +13,20 @@
     </tr>
     {% endfor %}
   </table>
+  <br/>
+  <p>Take a quiz:</p>
+  <table>
+    <tr>
+      <th>Quiz</th>
+      <th>Category</th>
+    </tr>
+    {% for quiz in quizzes %}
+    <tr>
+      <td>
+        <a href="{{ url_for('play_quiz', quiz_id=quiz.id, turn=0, answer='True') }}">{{ quiz.name }}</a>
+      </td>
+      <td>{{ quiz.category }}</td>
+    </tr>
+    {% endfor %}
+  </table>
 {% endblock %}

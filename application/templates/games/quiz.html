@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+
+{% block body %}
+  <p><b>{{ quiz.name }}</b></p></td>
+  {{ result }}
+  </br></br>
+  <table>
+    <tr>
+      <td><b>{{ turn }}.&nbsp;</b></td>
+      <td><b>{{ question.name }}</b></td>
+    </tr>
+  </table>
+  <table>
+    {% for option in options %}
+    <tr>
+      <td>{{ option.name }}</td>
+      <td>
+        <form method="POST" action="{{ url_for('quiz_choose', quiz_id=quiz.id, turn=turn, question_id=question.id, option_id=option.id) }}">
+          <input type="submit" value="Choose"/>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+{% endblock %}

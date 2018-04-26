@@ -61,6 +61,8 @@ from application.quizzes import views
 
 from application.statistics import views
 
+from application.games import views
+
 from application.auth import models
 from application.auth import views
 

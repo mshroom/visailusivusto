@@ -4,9 +4,8 @@ from flask import redirect, render_template, request, url_for
 from flask_login import current_user
 
 from application import app, db, login_manager, login_required
-from application.questions.models import Question, Option, UsersChoice
+from application.questions.models import Question, Option
 from application.questions.forms import QuestionForm, OptionForm, ModifyQuestionForm, ModifyCategoryForm, ModifyDifficultyForm
-from application.quizzes.models import QuizQuestion
 
 @app.route("/questions", methods=["GET"])
 @login_required(role="USER")
@@ -204,38 +203,4 @@ def questions_create():
 	db.session().commit()
 	
 	return redirect(url_for("questions_index"))
-
-@app.route("/play/", methods=["GET"])
-def questions_play():
-	return render_template("questions/play.html", categories = Question.findAllCategoriesInUse())
-
-@app.route("/play/random/", methods=["GET"])
-def play_random():
-	questions = Question.query.filter_by(active=True).all()
-	random.shuffle(questions)
-	q = questions[0]
-	return render_template("questions/answer.html", question = q, options = Option.query.filter_by(quest_id=q.id).all())
-
-@app.route("/play/categories/<cat>", methods=["GET"])
-def play_category(cat):
-	questions = Question.query.filter_by(active=True, category=cat).all()	
-	random.shuffle(questions)
-	q = questions[0]
-	return render_template("questions/answer.html", question = q, options = Option.query.filter_by(quest_id=q.id).all())
-
-@app.route("/play/<question_id>/<option_id>", methods=["POST"])
-def options_choose(question_id, option_id):
-	if current_user.is_authenticated:
-		c = UsersChoice()
-		c.account_id = current_user.id
-		c.option_id = option_id
-
-		db.session().add(c)
-		db.session().commit()
-
-	o = Option.query.get(option_id)
-	if o.correct:
-		return render_template("questions/result.html", option = o, question = Question.query.get(question_id),result = "Correct answer!")
-
-	return render_template("questions/result.html", option = o, question = Question.query.get(question_id),result = "Wrong answer!")
 
