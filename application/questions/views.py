@@ -6,6 +6,7 @@ from flask_login import current_user
 from application import app, db, login_manager, login_required
 from application.questions.models import Question, Option, UsersChoice
 from application.questions.forms import QuestionForm, OptionForm, ModifyQuestionForm, ModifyCategoryForm, ModifyDifficultyForm
+from application.quizzes.models import QuizQuestion
 
 @app.route("/questions", methods=["GET"])
 @login_required(role="USER")
