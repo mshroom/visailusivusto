@@ -4,7 +4,7 @@ from flask import redirect, render_template, request, url_for
 from flask_login import current_user
 
 from application import app, db, login_manager, login_required
-from application.questions.models import Question, Option
+from application.questions.models import Question, Option, UsersChoice
 from application.questions.forms import QuestionForm, OptionForm, ModifyQuestionForm, ModifyCategoryForm, ModifyDifficultyForm
 
 @app.route("/questions", methods=["GET"])
