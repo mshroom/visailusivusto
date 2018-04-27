@@ -10,7 +10,7 @@ from application.games.forms import QuizGameForm
 
 @app.route("/play/", methods=["GET"])
 def games_play():
-	return render_template("games/play.html", categories = Question.findAllCategoriesInUse(), quizzes = Quiz.query.all())
+	return render_template("games/play.html", categories = Question.findAllCategoriesInUse(), quizzes = Quiz.query.filter_by(active=True).all())
 
 @app.route("/play/random/", methods=["GET"])
 def play_random():
