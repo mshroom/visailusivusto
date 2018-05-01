@@ -1,6 +1,8 @@
 {% extends "layout.html" %}
 
 {% block body %}
+  <p>Welcome to play! You can play random questions or take a quiz.</p>
+  <br/>
   <a href="{{ url_for('play_random') }}">Choose a random question</a>
   <br/><br/>
   <p>Choose a random question from a category:</p>
@@ -14,18 +16,20 @@
     {% endfor %}
   </table>
   <br/>
-  <p>Take a quiz:</p>
+  <p>Take a quiz made by another user:</p>
   <table>
     <tr>
       <th>Quiz</th>
       <th>Category</th>
+      <th>Creator</th>
     </tr>
-    {% for quiz in quizzes %}
+    {% for quiz in quizlist %}
     <tr>
       <td>
         <a href="{{ url_for('play_quiz', quiz_id=quiz.id, turn=0, answer='True') }}">{{ quiz.name }}</a>
       </td>
       <td>{{ quiz.category }}</td>
+      <td>{{ quiz.creator }}</td>
     </tr>
     {% endfor %}
   </table>

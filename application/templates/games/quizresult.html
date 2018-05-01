@@ -1,6 +1,20 @@
 {% extends "layout.html" %}
 
 {% block body %}
-  <p><b>{{ quiz.name }}</p></td>
-  <p>Here will be the results of the quiz</p>
+  <p><b>{{ quiz.name }}</b></p></td>
+  {{ result }}
+  </br></br>
+  <p><b>Quiz results</b></p>
+  <table>
+    <tr>
+      <th>Quiz name</th>
+      <th>Number of questions</th>
+      <th>Correct answers</th>
+      <th>Number of previous goes in this quiz</th>
+    </tr>
+      <td>{{ quiz.name }}</td>
+      <td>{{ qs }}</td>
+      <td>{{ correct }}</td>
+      <td>{{ previous }}</td>
+    <tr>
 {% endblock %}

@@ -73,3 +73,14 @@ class UsersChoice(db.Model):
 		response = res.fetchone()[0]
 		return response
 
+	@staticmethod
+	def countCorrectAnswersFromQuiz(user_id, participation_id, correct=True):
+		
+		stmt = text("SELECT COUNT(Users_choice.id) FROM Users_Choice, Option, Question, Quiz_Question, Quiz, Participation WHERE Users_Choice.account_id = :user_id AND Users_Choice.option_id = Option.id AND Option.quest_id = Question.id AND Quiz_Question.question_id = Question.id AND Quiz_Question.quiz_id = Quiz.id AND Participation.quiz_id = Quiz.id AND Participation.account_id = Users_Choice.account_id AND Users_Choice.date_created >= Participation.date_created AND Users_Choice.date_created <= Participation.date_modified AND Participation.id = :participation_id AND Option.correct = :correct").params(user_id=user_id, participation_id=participation_id, correct=correct)
+		res = db.engine.execute(stmt)
+		response = res.fetchone()[0]
+		return response
+
+
+
+

@@ -46,7 +46,5 @@ class QuizQuestion(db.Model):
 	
 class Participation(Base):
 
-	id = db.Column(db.Integer, primary_key=True)
-	
 	quiz_id = db.Column(db.Integer, db.ForeignKey('quiz.id'), nullable=False)
 	account_id = db.Column(db.Integer, db.ForeignKey('account.id'), nullable=False)
