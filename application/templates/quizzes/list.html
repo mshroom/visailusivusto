@@ -7,6 +7,7 @@
       <th>Quiz name</th>
       <th>Category</th>
       <th>Active</th>
+      <th>Automatic</th>
       {% if current_user.role == "ADMIN" %}
       <th>UserId</th>
       {% endif %}
@@ -16,6 +17,7 @@
       <td>{{ quiz.name  }}</td>
       <td>{{ quiz.category }}</td>
       <td>{{ quiz.active }}</td>
+      <td>{{ quiz.automatic }}</td>
       {% if current_user.role == "ADMIN" %}
       <td>{{ quiz.account_id }}</td>
       {% endif %}
@@ -30,9 +32,11 @@
           <input type="submit" value="Delete"/>
         </form>
       </td>
+      {% if quiz.automatic == False %}
       <td>
         <a href="{{ url_for('quizzes_modify', quiz_id=quiz.id) }}">Modify</a>
       </td>
+      {% endif %}
     </tr>
     {% endfor %}
   </table>

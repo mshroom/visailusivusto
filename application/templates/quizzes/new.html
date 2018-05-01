@@ -2,6 +2,7 @@
 {% extends "layout.html" %}
 
 {% block body %}
+<p>To create a quiz from your own questions, choose a name and a category. You can add questions to your quiz when you go to modify the quiz.</p>
 <form method="POST" action="{{ url_for('quizzes_create') }}">
   <table>
     <tr>
@@ -30,6 +31,52 @@
         <input type="submit" value="Add a new quiz"/>
       </td>
     </tr>
-  </table>
+  </table>  
 </form>
+<br/><br/>
+<p>You can also let QuizBee create automatically a quiz. Choose a name, a category and the number of questions.</p>
+<form method="POST" action="{{ url_for('quizzes_autocreate') }}">
+  <table>
+    <tr>
+      <td>
+        {{ autoform.name.label }}
+      </td>
+      <td>
+        {{ autoform.name }}
+      </td>
+      <td>
+        <ul>
+          {% for error in autoform.name.errors %}
+          <li>{{ error }}</li>
+          {% endfor %}
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        {{ autoform.category.label }}
+      </td>
+      <td>
+        {{ autoform.category }}
+      </td>
+    </tr>
+    <tr>
+      <td>
+         {{ autoform.number.label }}
+      </td>
+      <td>
+         {{ autoform.number }}
+      </td>
+      <td colspan="2">
+        <input type="submit" value="Add a new quiz"/>
+      </td>
+    </tr>
+  </table>  
+  <ul>
+    {% for error in autoform.number.errors %}
+    <li>{{ error }}</li>
+    {% endfor %}
+  </ul>
+</form>
+{{ size_error }}
 {% endblock %}

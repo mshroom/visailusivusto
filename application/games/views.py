@@ -13,12 +13,14 @@ from application.games.forms import QuizGameForm
 def games_play():
 	quizlist = []
 	if current_user.is_authenticated:
-		quizzes = Quiz.query.filter(Quiz.active == True, Quiz.account_id != current_user.id).all()
+		quizzes = Quiz.query.filter(Quiz.active == True, (Quiz.account_id != current_user.id) | (Quiz.automatic == True)).all()
 	else:
 		quizzes = Quiz.query.filter(Quiz.active == True)
 	for q in quizzes:
 		a = User.query.filter_by(id = q.account_id).first()
 		creator = a.name
+		if q.automatic == True:
+			creator = "automatic"
 		quizlist.append({"creator":creator, "name":q.name, "id":q.id, "category":q.category})
 
 	return render_template("games/play.html", categories = Question.findAllCategoriesInUse(), quizlist = quizlist)
@@ -61,7 +63,7 @@ def options_choose(question_id, option_id):
 @login_required(role="USER")
 def play_quiz(quiz_id, turn, answer):
 	quiz = Quiz.query.get(quiz_id)
-	if quiz.account_id == current_user.id:
+	if quiz.account_id == current_user.id and quiz.automatic == False:
 		return login_manager.unauthorized()
 	questions = Quiz.findAllQuestions(quiz_id)
 	turn = int(turn)

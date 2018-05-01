@@ -1,10 +1,12 @@
+import random
+
 from flask import redirect, render_template, request, url_for
 from flask_login import current_user
 
 from application import app, db, login_manager, login_required
 from application.questions.models import Question, Option, UsersChoice
 from application.quizzes.models import Quiz, QuizQuestion, Participation
-from application.quizzes.forms import QuizForm, ModifyQuizForm, ModifyQuizCategoryForm, QuizQuestionForm
+from application.quizzes.forms import QuizForm, ModifyQuizForm, ModifyQuizCategoryForm, QuizQuestionForm, AutoQuizForm
 
 @app.route("/quizzes", methods=["GET"])
 @login_required(role="USER")
@@ -19,7 +21,7 @@ def quizzes_control():
 @app.route("/quizzes/new/")
 @login_required(role="USER")
 def quizzes_form():
-	return render_template("quizzes/new.html", form = QuizForm())
+	return render_template("quizzes/new.html", form = QuizForm(), autoform = AutoQuizForm())
 
 @app.route("/quizzes/", methods=["POST"])
 @login_required(role="USER")
@@ -28,13 +30,56 @@ def quizzes_create():
 	form = QuizForm(request.form)
 	
 	if not form.validate():
-		return render_template("quizzes/new.html", form = form)
+		return render_template("quizzes/new.html", form = form, autoform = AutoQuizForm())
 	
 	q = Quiz(form.name.data, form.category.data)
 	q.account_id = current_user.id
 	
 	db.session().add(q)
 	db.session().commit()
+	
+	return redirect(url_for("quizzes_index"))
+
+@app.route("/quizzes/auto/", methods=["POST"])
+@login_required(role="USER")
+def quizzes_autocreate():
+		
+	autoform = AutoQuizForm(request.form)
+	
+	if not autoform.validate():
+		return render_template("quizzes/new.html", form = QuizForm(), autoform = autoform)
+	
+	category = autoform.category.data
+	number = autoform.number.data
+	maxim = 0
+	if category == "all":
+		maxim = Question.query.filter_by(active=True).count()
+	else:
+		maxim = Question.query.filter_by(active=True, category=category).count()	
+	if number > maxim:
+		msg = "Please select a smaller number. Maximum for " + category + " category is " + str(maxim)
+		return render_template("quizzes/new.html", form = QuizForm(), autoform = autoform, size_error = msg)
+	
+	q = Quiz(autoform.name.data, autoform.category.data)
+	q.account_id = current_user.id
+	q.automatic = True
+	
+	db.session().add(q)
+	db.session().commit()
+
+	questions = Question.query.filter_by(active=True).all()
+	if category != "all":
+		questions = Question.query.filter_by(active=True, category=q.category).all()
+	
+	random.shuffle(questions)
+	count = 0
+	while count < number:
+		qq = QuizQuestion()
+		qq.quiz_id = q.id
+		qq.question_id = questions[count].id	
+		db.session().add(qq)
+		db.session().commit()
+		count += 1
 	
 	return redirect(url_for("quizzes_index"))
 
@@ -55,7 +100,7 @@ def quizzes_activate(quiz_id, control):
 			q_form.question.choices = list
 			if current_user.role == "ADMIN" and control == "control":
 				return render_template("quizzes/list.html", quizzes = Quiz.query.all(), control = control, error = "Quiz has less than two questions and cannot be activated")
-			return render_template("quizzes/list.html", quizzes = Quiz.query.filter_by(account_id=current_user.id).all(), control = control, error = "Quiz has less than two questions and cannot be activated")
+			return render_template("quizzes/list.html", quizzes = Quiz.query.filter_by(account_id=current_user.id, automatic=False).all(), control = control, error = "Quiz has less than two questions and cannot be activated")
 		q.active = True
 	db.session().commit()
 	
@@ -80,7 +125,7 @@ def quizzes_delete(quiz_id, control):
 @login_required(role="USER")
 def quizzes_modify(quiz_id):
 	q = Quiz.query.get(quiz_id)
-	if q.account_id != current_user.id and current_user.role != "ADMIN":
+	if (q.account_id != current_user.id or q.automatic==True) and current_user.role != "ADMIN":
 		return login_manager.unauthorized()
 	
 	a = q.account_id
@@ -109,7 +154,7 @@ def quizzes_modify(quiz_id):
 @login_required(role="USER")
 def quizzes_modifyQuiz(quiz_id):
 	q = Quiz.query.get(quiz_id)
-	if q.account_id != current_user.id and current_user.role != "ADMIN":
+	if (q.account_id != current_user.id or q.automatic == False) and current_user.role != "ADMIN":
 		return login_manager.unauthorized()
 	
 	a = q.account_id
@@ -134,8 +179,6 @@ def quizzes_modifyQuiz(quiz_id):
 @login_required(role="USER")
 def quizzes_modifyCategory(quiz_id):
 	q = Quiz.query.get(quiz_id)
-	if q.account_id != current_user.id and current_user.role != "ADMIN":
-		return login_manager.unauthorized()
 	
 	a = q.account_id
 	q_form = QuizQuestionForm()

@@ -28,9 +28,9 @@ class Quiz(Base):
 		return response
 
 	@staticmethod
-	def findAllUsersUnusedQuestions(quiz_id):
+	def findAllUsersUnusedQuestions(quiz_id, active=True):
 		q = Quiz.query.get(quiz_id)
-		stmt = text("SELECT Question.id, Question.name FROM QUESTION, ACCOUNT WHERE Question.account_id = Account.id AND Account.id = :account_id AND Question.id NOT IN (SELECT Question.id FROM Question, Quiz, Quiz_Question Where Quiz_Question.question_id = Question.id AND Quiz_Question.quiz_id = Quiz.id AND Quiz.id = :quiz_id)").params(account_id=q.account_id, quiz_id=quiz_id)
+		stmt = text("SELECT Question.id, Question.name FROM QUESTION, ACCOUNT WHERE Question.account_id = Account.id AND Account.id = :account_id AND Question.active = :active AND Question.id NOT IN (SELECT Question.id FROM Question, Quiz, Quiz_Question Where Quiz_Question.question_id = Question.id AND Quiz_Question.quiz_id = Quiz.id AND Quiz.id = :quiz_id)").params(account_id=q.account_id, active=active, quiz_id=quiz_id)
 		res = db.engine.execute(stmt)
 		response = []
 		for row in res:

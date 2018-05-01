@@ -16,6 +16,7 @@
     {% endfor %}
   </table>
   <br/>
+  {% if current_user.is_authenticated %}
   <p>Take a quiz made by another user:</p>
   <table>
     <tr>
@@ -33,4 +34,7 @@
     </tr>
     {% endfor %}
   </table>
+  {% else %}
+  <p>Log in to see and play quizzes!</p>
+  {% endif %}
 {% endblock %}
