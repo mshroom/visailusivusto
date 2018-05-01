@@ -53,7 +53,7 @@ def auth_control():
 @app.route("/auth/control/del/<user_id>", methods = ["POST"])
 @login_required(role="ADMIN")
 def auth_delete(user_id):
-	db.session.query(UsersChoice).filter_by(account_id=current_user.id).delete()
+	db.session.query(UsersChoice).filter_by(account_id=user_id).delete()
 	questions = Question.query.filter_by(account_id=user_id).all()
 	for q in questions:
 		options = Option.query.filter_by(quest_id=q.id).all()
