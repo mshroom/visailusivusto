@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+
+{% block body %}
+{{ error }}
+<p>Please confirm that you want to delete your account.</p>
+<p>All your data will be permanently destroyed.</p>
+<br/>
+<br/>
+<form method="POST" action="{{ url_for('delete_cancel') }}">
+  <table>
+    <tr>
+      <td colspan="2">
+        <input type="submit" value="Cancel"/>
+      </td>
+    </tr>
+  </table>
+</form>
+<br/>
+<br/>
+<br/>
+<form method="POST" action="{{ url_for('delete_confirm') }}">
+  <table>
+    <tr>
+      <td colspan="2">
+        <input type="submit" value="Cofirm"/>
+      </td>
+    </tr>
+  </table>
+</form>
+{% endblock %}

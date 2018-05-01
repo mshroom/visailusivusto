@@ -1,0 +1,77 @@
+{% extends "layout.html" %}
+
+{% block body %}
+{{ error }}
+<form method="POST" action="{{ url_for('auth_set_name') }}">
+  <table>
+    <tr>
+      <td style="width:130px"><b>Name</b></td>
+      <td style="width:130px">{{ user.name }}</td>
+      <td style="width:130px">{{ nameform.name.label }}</td>
+      <td style="width:130px">{{ nameform.name }}</td>
+      <td style="width:10px"></td>
+      <td colspan="2">
+        <input type="submit" value="Change"/>
+      </td>
+      <td>
+        <ul>
+          {% for error in nameform.name.errors %}
+          <li>{{ error }}</li>
+          {% endfor %}
+        </ul>
+      </td>
+    </tr>
+  </table>
+</form>
+<form method="POST" action="{{ url_for('auth_set_username') }}">
+  <table>
+    <tr>
+      <td style="width:130px"><b>Username</b></td>
+      <td style="width:130px">{{ user.username }}</td>
+      <td style="width:130px">{{ usernameform.username.label }}</td>
+      <td style="width:130px">{{ usernameform.username }}</td>
+      <td style="width:10px"></td>
+      <td colspan="2">
+        <input type="submit" value="Change"/>
+      </td>
+      <td>
+        <ul>
+          {% for error in usernameform.username.errors %}
+          <li>{{ error }}</li>
+          {% endfor %}
+        </ul>
+      </td>
+    </tr>
+  </table>
+</form>
+<form method="POST" action="{{ url_for('auth_set_password') }}">
+  <table>
+    <tr>
+      <td style="width:130px"></td>
+      <td style="width:130px"></td>
+      <td style="width:130px">{{ passwordform.password.label }}</td>
+      <td style="width:130px">{{ passwordform.password }}</td>
+      <td style="width:10px"></td>
+      <td colspan="2">
+        <input type="submit" value="Change"/>
+      </td>
+      <td>
+        <ul>
+          {% for error in passwordform.password.errors %}
+          <li>{{ error }}</li>
+          {% endfor %}
+        </ul>
+      </td>
+    </tr>
+  </table>
+</form>
+<form method="POST" action="{{ url_for('delete_account') }}">
+  <table>
+    <tr>
+      <td colspan="2">
+        <input type="submit" value="Delete account"/>
+      </td>
+    </tr>
+  </table>
+</form>
+{% endblock %}

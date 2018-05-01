@@ -17,3 +17,23 @@ class RegisterForm(FlaskForm):
 	
 	class Meta:
 		csrf = False
+
+class NameForm(FlaskForm):
+
+	name = TextField("New name", [validators.Length(min=2, max=50, message="Name must contain 2 - 50 characters")])
+	
+	class Meta:
+		csrf = False
+
+class UsernameForm(FlaskForm):
+	username = TextField("New username", [validators.Length(min=2, max=50, message="Username must contain 2 - 50 characters")])
+
+	class Meta:
+		csrf = False
+
+class PasswordForm(FlaskForm):
+
+	password = PasswordField("New password", [validators.Length(min=4, max=50, message="Password must contain 4 - 50 characters")])
+	
+	class Meta:
+		csrf = False
