@@ -53,6 +53,7 @@ def auth_control():
 @app.route("/auth/control/del/<user_id>", methods = ["POST"])
 @login_required(role="ADMIN")
 def auth_delete(user_id):
+	db.session.query(UsersChoice).filter_by(account_id=current_user.id).delete()
 	questions = Question.query.filter_by(account_id=user_id).all()
 	for q in questions:
 		options = Option.query.filter_by(quest_id=q.id).all()
@@ -63,9 +64,9 @@ def auth_delete(user_id):
 	for qz in quizzes:
 		db.session.query(QuizQuestion).filter_by(quiz_id=qz.id).delete()
 		db.session.query(Participation).filter_by(quiz_id=qz.id).delete()
+	db.session.query(Participation).filter_by(account_id=user_id).delete()
 	db.session.query(Quiz).filter_by(account_id=user_id).delete()
 	db.session.query(Question).filter_by(account_id=user_id).delete()	
-	db.session.query(Participation).filter_by(account_id=user_id).delete()
 	u = User.query.get(user_id)
 	db.session().delete(u)
 	db.session().commit() 
@@ -133,6 +134,7 @@ def delete_cancel():
 @app.route("/auth/settings/delete/confirm", methods = ["POST"])
 @login_required(role="USER")
 def delete_confirm():
+	db.session.query(UsersChoice).filter_by(account_id=current_user.id).delete()
 	questions = Question.query.filter_by(account_id=current_user.id).all()
 	for q in questions:
 		options = Option.query.filter_by(quest_id=q.id).all()
@@ -143,9 +145,9 @@ def delete_confirm():
 	for qz in quizzes:
 		db.session.query(QuizQuestion).filter_by(quiz_id=qz.id).delete()
 		db.session.query(Participation).filter_by(quiz_id=qz.id).delete()
-	db.session.query(Quiz).filter_by(account_id=current_user.id).delete()
-	db.session.query(Question).filter_by(account_id=current_user.id).delete()	
 	db.session.query(Participation).filter_by(account_id=current_user.id).delete()
+	db.session.query(Quiz).filter_by(account_id=current_user.id).delete()
+	db.session.query(Question).filter_by(account_id=current_user.id).delete()
 	u = User.query.get(current_user.id)
 	logout_user()
 	db.session().delete(u)
