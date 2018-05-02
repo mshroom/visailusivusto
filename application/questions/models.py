@@ -81,6 +81,14 @@ class UsersChoice(db.Model):
 		response = res.fetchone()[0]
 		return response
 
+	@staticmethod
+	def mostCorrectAnswers(correct=True):
 
+		stmt = text("SELECT Account.username, count(users_choice.id) AS answers FROM Account, Users_Choice, Option WHERE Users_Choice.date_created >= DATE(CURRENT_TIMESTAMP, '-6 DAY') AND Users_Choice.account_id = Account.id AND Users_Choice.option_id = Option.id AND Option.correct = :correct group by Account.id ORDER BY answers DESC LIMIT 10").params(correct=correct)
+		res = db.engine.execute(stmt)
+		response = []
+		for row in res:
+			response.append({"username":row[0], "answers":row[1]})
+		return response
 
 

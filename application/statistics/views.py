@@ -27,3 +27,8 @@ def statistics_show():
 
 	return render_template("statistics/statistics.html", allAnswers = allAnswers, correctAnswers = correctAnswers, percentageOfCorrectAnswers = percentageOfCorrectAnswers, answersByCategories = answersByCategories)
 
+@app.route("/index", methods=["GET"])
+def highscores_create():
+	mostCorrectAnswers = UsersChoice.mostCorrectAnswers()
+	
+	return render_template("index.html", mostCorrectAnswers = mostCorrectAnswers)
