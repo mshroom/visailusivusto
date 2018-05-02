@@ -1,3 +1,5 @@
+import os
+
 from application import db
 from application.models import Base
 
@@ -48,3 +50,21 @@ class Participation(Base):
 
 	quiz_id = db.Column(db.Integer, db.ForeignKey('quiz.id'), nullable=False)
 	account_id = db.Column(db.Integer, db.ForeignKey('account.id'), nullable=False)
+
+	@staticmethod
+	def mostQuizPlays(week):
+		stmt = ""
+		if week:
+			if os.environ.get("HEROKU"):
+				stmt = text("SELECT Account.username, count(participation.id) AS plays FROM Account, Participation WHERE Account.id = Participation.account_id AND Participation.date_created > DATE_TRUNC('week', CURRENT_TIMESTAMP - interval '1 week') GROUP BY Account.id ORDER BY plays DESC LIMIT 10")
+			else:
+				stmt = text("SELECT Account.username, count(participation.id) AS plays FROM Account, Participation WHERE Account.id = Participation.account_id AND Participation.date_created >= DATE(CURRENT_TIMESTAMP, '-6 DAY') GROUP BY Account.id ORDER BY plays DESC LIMIT 10")
+		else:
+			stmt = text("SELECT Account.username, count(participation.id) AS plays FROM Account, Participation WHERE Account.id = Participation.account_id GROUP BY Account.id ORDER BY plays DESC LIMIT 10")
+		res = db.engine.execute(stmt)
+		response = []
+		for row in res:
+			response.append({"username":row[0], "plays":row[1]})
+		return response
+
+

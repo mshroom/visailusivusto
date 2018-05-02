@@ -3,6 +3,7 @@ from flask_login import login_required, current_user
 
 from application import app, db
 from application.questions.models import Question, Option, UsersChoice
+from application.quizzes.models import Quiz, Participation
 
 @app.route("/statistics", methods=["GET"])
 @login_required
@@ -29,6 +30,11 @@ def statistics_show():
 
 @app.route("/index", methods=["GET"])
 def highscores_create():
-	mostCorrectAnswers = UsersChoice.mostCorrectAnswers()
+	mostCorrectAnswersWeek = UsersChoice.mostCorrectAnswers(week=True)
+	mostAddedQuestionsWeek = Question.mostAddedQuestions(week=True)
+	mostQuizPlaysWeek = Participation.mostQuizPlays(week=True)
+	mostCorrectAnswers = UsersChoice.mostCorrectAnswers(week=False)
+	mostAddedQuestions = Question.mostAddedQuestions(week=False)
+	mostQuizPlays = Participation.mostQuizPlays(week=False)
 	
-	return render_template("index.html", mostCorrectAnswers = mostCorrectAnswers)
+	return render_template("index.html", mostCorrectAnswersWeek = mostCorrectAnswersWeek, mostAddedQuestionsWeek = mostAddedQuestionsWeek, mostQuizPlaysWeek = mostQuizPlaysWeek, mostCorrectAnswers = mostCorrectAnswers, mostAddedQuestions = mostAddedQuestions, mostQuizPlays = mostQuizPlays)

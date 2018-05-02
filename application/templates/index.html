@@ -1,19 +1,129 @@
 {% extends "layout.html" %}
 
 {% block body %}
-  <p style="padding:15px">Welcome to QuizBee!</p>
+  <p style="padding:15px"><b>Welcome to QuizBee! {% if current_user.is_authenticated %} {% else %} <a href="{{ url_for('auth_login') }}">Login</a>, explore or find out more about us <a href="{{ url_for('auth_register') }}">here!</a> {% endif %}</b></p>
   <table>
     <tr>
-      <th style="padding:15px">Week statistics</th>
+      <td><p style="padding:15px;font-size:16px">Week's High Score:</p></td>
+      <td><p style="padding:15px"></td>
+      <td><p style="padding:15px"></td>
+      <td><p style="padding:15px">Hall of Fame:</td>
     </tr>
     <tr>
-      <th style="padding:15px">Most correct answers</th>
-    </tr>
-      {% for u in mostCorrectAnswers %}
-    <tr>
-      <td style="padding:15px">{{ u.username }}</td>
-      <td style="padding:15px">{{ u.answers }}</td>
-    </tr>
-      {% endfor %}
-  </table>    
+      <td style="vertical-align:top">
+        <table>
+          <tr>
+            <th style="padding:15px">Most correct answers</th>
+          </tr>
+          <tr>
+            <td>
+              <table>
+                {% for u in mostCorrectAnswersWeek %}
+                <tr>
+                  <td style="padding:15px">{{ u.username }}</td>
+                  <td style="padding:15px">{{ u.answers }}</td>
+                </tr>
+                {% endfor %}
+              </table>
+            </td>
+          </tr>
+        </table>  
+      </td>
+      <td style="vertical-align:top">
+        <table>
+          <tr>
+            <th style="padding:15px">Most added questions</th>
+          </tr>
+          <tr>
+            <td>
+              <table>
+                {% for u in mostAddedQuestionsWeek %}
+                <tr>
+                 <td style="padding:15px">{{ u.username }}</td>
+                 <td style="padding:15px">{{ u.questions }}</td>
+                </tr>
+                {% endfor %}
+              </table>
+            </td>
+          </tr>
+        </table> 
+      </td> 
+      <td style="vertical-align:top">
+        <table>
+          <tr>
+            <th style="padding:15px">Most quizplays</th>
+          </tr>
+          <tr>
+            <td>
+              <table>
+                {% for u in mostQuizPlaysWeek %}
+                <tr>
+                  <td style="padding:15px">{{ u.username }}</td>
+                  <td style="padding:15px">{{ u.plays }}</td>
+                </tr>
+                {% endfor %}
+              </table>
+            </td>
+          </tr>
+        </table> 
+      </td>
+      <td style="vertical-align:top">
+        <table>
+          <tr>
+            <th style="padding:15px">Most correct answers</th>
+          </tr>
+          <tr>
+            <td>
+              <table>
+                {% for u in mostCorrectAnswers %}
+                <tr>
+                  <td style="padding:15px">{{ u.username }}</td>
+                  <td style="padding:15px">{{ u.answers }}</td>
+                </tr>
+                {% endfor %}
+              </table>
+            </td>
+          </tr>
+        </table>  
+      </td>
+      <td style="vertical-align:top">
+        <table>
+          <tr>
+            <th style="padding:15px">Most added questions</th>
+          </tr>
+          <tr>
+            <td>
+              <table>
+                {% for u in mostAddedQuestions %}
+                <tr>
+                 <td style="padding:15px">{{ u.username }}</td>
+                 <td style="padding:15px">{{ u.questions }}</td>
+                </tr>
+                {% endfor %}
+              </table>
+            </td>
+          </tr>
+        </table> 
+      </td> 
+      <td style="vertical-align:top">
+        <table>
+          <tr>
+            <th style="padding:15px">Most quizplays</th>
+          </tr>
+          <tr>
+            <td>
+              <table>
+                {% for u in mostQuizPlays %}
+                <tr>
+                  <td style="padding:15px">{{ u.username }}</td>
+                  <td style="padding:15px">{{ u.plays }}</td>
+                </tr>
+                {% endfor %}
+              </table>
+            </td>
+          </tr>
+        </table> 
+      </td>
+    </tr>   
+  </table>
 {% endblock %}
