@@ -1,20 +1,19 @@
 {% extends "layout.html" %}
 
 {% block body %}
-  <p><b>{{ quiz.name }}</b></p></td>
-  {{ result }}
-  </br></br>
+  <p style="padding:15px"><b>{{ quiz.name }}</b></p></td>
+  <p style="padding:15px">{{ result }}</p>
   <table>
     <tr>
-      <td><b>{{ turn }}.&nbsp;</b></td>
-      <td><b>{{ question.name }}</b></td>
+      <td style="padding:15px"><b>{{ turn }}.&nbsp;</b></td>
+      <td style="padding:15px"><b>{{ question.name }}</b></td>
     </tr>
   </table>
   <table>
     {% for option in options %}
     <tr>
-      <td>{{ option.name }}</td>
-      <td>
+      <td style="padding:15px">{{ option.name }}</td>
+      <td style="padding:15px">
         <form method="POST" action="{{ url_for('quiz_choose', quiz_id=quiz.id, turn=turn, question_id=question.id, option_id=option.id) }}">
           <input type="submit" value="Choose"/>
         </form>

@@ -3,16 +3,16 @@
 {% block body %}
   <table>
     <tr>
-      <td><b>Question</b></td>
-      <td>{{ question.name }}</td>
+      <td style="padding:15px"><b>Question</b></td>
+      <td style="padding:15px">{{ question.name }}</td>
     </tr>
     <tr>
-      <td><b>Your answer</b></td>
-      <td>{{ option.name }}</td>
+      <td style="padding:15px"><b>Your answer</b></td>
+      <td style="padding:15px">{{ option.name }}</td>
     </tr>
   </table>  
   <br/><br/>
-  {{ result }}
+  <p style="padding:15px">{{ result }}</p>
   <br/><br/>
-  <a href="{{ url_for('games_play') }}">Play again!</a>
+  <a href="{{ url_for('games_play') }}" style="padding:15px">Play again!</a>
 {% endblock %}

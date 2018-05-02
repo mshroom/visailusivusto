@@ -1,20 +1,20 @@
 {% extends "layout.html" %}
 
 {% block body %}
-  <p><b>{{ quiz.name }}</b></p></td>
-  {{ result }}
+  <p><b style="padding:15px">{{ quiz.name }}</b></p></td>
+  <p style="padding:15px">{{ result }}</p>
   </br></br>
-  <p><b>Quiz results</b></p>
+  <p><b style="padding:15px">Quiz results</b></p>
   <table>
     <tr>
-      <th>Quiz name</th>
-      <th>Number of questions</th>
-      <th>Correct answers</th>
-      <th>Number of previous goes in this quiz</th>
+      <th style="padding:15px">Quiz name</th>
+      <th style="padding:15px">Number of questions</th>
+      <th style="padding:15px">Correct answers</th>
+      <th style="padding:15px">Number of previous goes in this quiz</th>
     </tr>
-      <td>{{ quiz.name }}</td>
-      <td>{{ qs }}</td>
-      <td>{{ correct }}</td>
-      <td>{{ previous }}</td>
+      <td style="padding:15px">{{ quiz.name }}</td>
+      <td style="padding:15px">{{ qs }}</td>
+      <td style="padding:15px">{{ correct }}</td>
+      <td style="padding:15px">{{ previous }}</td>
     <tr>
 {% endblock %}

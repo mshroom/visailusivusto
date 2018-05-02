@@ -1,37 +1,37 @@
 {% extends "layout.html" %}
 
 {% block body %}
-{{ error }}
+<p style="padding:15px">{{ error }}</p>
   <table>
     <tr>
-      <th>Question</th>
-      <th>Category</th>
-      <th>Difficulty</th>
-      <th>Active</th>
+      <th style="padding:15px">Question</th>
+      <th style="padding:15px">Category</th>
+      <th style="padding:15px">Difficulty</th>
+      <th style="padding:15px">Active</th>
       {% if current_user.role == "ADMIN" %}
-      <th>UserId</th>
+      <th style="padding:15px">UserId</th>
       {% endif %}
     </tr>
     {% for question in questions %}
     <tr>
-      <td>{{ question.name  }}</td>
-      <td>{{ question.category }}</td>
-      <td>{{ question.difficulty }}</td>
-      <td>{{ question.active }}</td>
+      <td style="padding:15px">{{ question.name  }}</td>
+      <td style="padding:15px">{{ question.category }}</td>
+      <td style="padding:15px">{{ question.difficulty }}</td>
+      <td style="padding:15px">{{ question.active }}</td>
       {% if current_user.role == "ADMIN" %}
-      <td>{{ question.account_id }}</td>
+      <td style="padding:15px">{{ question.account_id }}</td>
       {% endif %}
-      <td>
+      <td style="padding:15px">
         <form method="POST" action="{{ url_for('questions_activate', question_id=question.id, control=control) }}">
           <input type="submit" value="Activate/Disactivate"/>
         </form>
       </td>
-      <td>
+      <td style="padding:15px">
         <form method="POST" action="{{ url_for('questions_delete', question_id=question.id, control=control) }}">
           <input type="submit" value="Delete"/>
         </form>
       </td>
-      <td>
+      <td style="padding:15px">
         <a href="{{ url_for('questions_modify', question_id=question.id) }}">Modify</a>
       </td>
     </tr>

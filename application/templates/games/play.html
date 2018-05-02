@@ -1,40 +1,39 @@
 {% extends "layout.html" %}
 
 {% block body %}
-  <p>Welcome to play! You can play random questions or take a quiz.</p>
-  <br/>
-  <a href="{{ url_for('play_random') }}">Choose a random question</a>
-  <br/><br/>
-  <p>Choose a random question from a category:</p>
-  <table>  
-    {% for category in categories %}
+  <p style="padding:15px">Welcome to play! Play a random question by choosing a category:</p>
+  <table>
     <tr>
-      <td>
+      <td style="padding:15px">
+        <a href="{{ url_for('play_random') }}">All categories</a>
+      </td>
+      {% for category in categories %}
+      <td style="padding:15px">
         <a href="{{ url_for('play_category', cat=category) }}">{{ category }}</a>
       </td>
+      {% endfor %}
     </tr>
-    {% endfor %}
   </table>
   <br/>
   {% if current_user.is_authenticated %}
-  <p>Take a quiz made by another user:</p>
+  <p style="padding:15px">Take a quiz made by another user:</p>
   <table>
     <tr>
-      <th>Quiz</th>
-      <th>Category</th>
-      <th>Creator</th>
+      <th style="padding:15px">Quiz</th>
+      <th style="padding:15px">Category</th>
+      <th style="padding:15px">Creator</th>
     </tr>
     {% for quiz in quizlist %}
     <tr>
-      <td>
+      <td style="padding:15px">
         <a href="{{ url_for('play_quiz', quiz_id=quiz.id, turn=0, answer='True') }}">{{ quiz.name }}</a>
       </td>
-      <td>{{ quiz.category }}</td>
-      <td>{{ quiz.creator }}</td>
+      <td style="padding:15px">{{ quiz.category }}</td>
+      <td style="padding:15px">{{ quiz.creator }}</td>
     </tr>
     {% endfor %}
   </table>
   {% else %}
-  <p>Log in to see and play quizzes!</p>
+  <p style="padding:15px">Log in to see and play quizzes!</p>
   {% endif %}
 {% endblock %}

@@ -60,36 +60,20 @@ def questions_activate(question_id, control):
 		return redirect(url_for('questions_control'))
 	return redirect(url_for('questions_index'))
 
-@app.route("/questions/mod/<question_id>/", methods=["GET", "POST"])
+@app.route("/questions/mod/<question_id>/", methods=["GET"])
 @login_required(role="USER")
 def questions_modify(question_id):
 	q = Question.query.get(question_id)
 	if q.account_id != current_user.id and current_user.role != "ADMIN":
 		return login_manager.unauthorized()
-
-	if request.method == "GET":
-		return render_template("questions/modify.html", question  = Question.query.get(question_id), options = Option.query.filter_by(quest_id=question_id).all(), opt_form = OptionForm(), q_form = ModifyQuestionForm(), c_form = ModifyCategoryForm(), d_form = ModifyDifficultyForm())
-
-	form = QuestionForm(request.form)
-	
-	if not form.validate():
-		return render_template("questions/modify.html", question  = Question.query.get(question_id), options = Option.query.filter_by(quest_id=question_id).all(), opt_form = OptionForm(), q_form = ModifyQuestionForm(), c_form = ModifyCategoryForm(), d_form = ModifyDifficultyForm())
-	
-	q = Question.query.get(question_id)
-	q.name = form.name.data
-	q.category = form.category.data
-	q.difficulty = form.difficulty.data
-	
-	db.session().commit()
-	
-	return redirect(url_for('questions_modify', question_id=question_id))
+	return render_template("questions/modify.html", question  = Question.query.get(question_id), options = Option.query.filter_by(quest_id=question_id).all(), opt_form = OptionForm(), q_form = ModifyQuestionForm(), c_form = ModifyCategoryForm(), d_form = ModifyDifficultyForm())
 
 @app.route("/questions/mod/question/<question_id>/", methods=["POST"])
 @login_required(role="USER")
 def questions_modifyQuestion(question_id):
 	q_form = ModifyQuestionForm(request.form)
 	if not q_form.validate():
-		return render_template("questions/modify.html", question  = Question.query.get(question_id), options = Option.query.filter_by(quest_id=question_id).all(), opt_form = OptionForm(), q_form = ModifyQuestionForm(), c_form = ModifyCategoryForm(), d_form = ModifyDifficultyForm())
+		return render_template("questions/modify.html", question  = Question.query.get(question_id), options = Option.query.filter_by(quest_id=question_id).all(), opt_form = OptionForm(), q_form = q_form, c_form = ModifyCategoryForm(), d_form = ModifyDifficultyForm())
 
 	q = Question.query.get(question_id)
 	q.name = q_form.name.data

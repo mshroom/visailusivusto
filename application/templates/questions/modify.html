@@ -3,35 +3,35 @@
 {% block body %}
 <table> 
   <tr>
-    <th>Question</th>
-    <th>Category</th>
-    <th>Difficulty</th>
-    <th>Active</th>
+    <th style="padding:15px">Question</th>
+    <th style="padding:15px">Category</th>
+    <th style="padding:15px">Difficulty</th>
+    <th style="padding:15px">Active</th>
   </tr>
   <tr>
-    <td>{{ question.name }}</td>
-    <td>{{ question.category }}</td>
-    <td>{{ question.difficulty }}</td>
-    <td>{{ question.active }}</td>
-    <td>
+    <td style="padding:15px">{{ question.name }}</td>
+    <td style="padding:15px">{{ question.category }}</td>
+    <td style="padding:15px">{{ question.difficulty }}</td>
+    <td style="padding:15px">{{ question.active }}</td>
+    <td style="padding:15px">
       <form method="POST" action="{{ url_for('question_activate', question_id=question.id) }}">
         <input type="submit" value="Activate/Disactivate"/>
       </form>
     </td>
-	<td>{{ act_error }}</td>
+	<td style="padding:15px">{{ act_error }}</td>
   </tr>
 </table>
-<p><b>Modify question</b></p>
-<form method="POST", action="{{ url_for('questions_modifyQuestion', question_id=question.id) }}">
-  <table>
-    <tr>
-      <td>
+<p style="padding:15px"><b>Modify question</b></p>
+<table>
+  <tr>
+    <form method="POST", action="{{ url_for('questions_modifyQuestion', question_id=question.id) }}">
+      <td style="padding:15px">
         {{ q_form.name.label }}
       </td>
-      <td>
+      <td style="padding:15px">
         {{ q_form.name }}
       </td>
-      <td colspan="2">
+      <td style="padding:15px">
         <input type="submit" value="Change question"/>
       </td>
       <td>
@@ -41,55 +41,51 @@
           {% endfor %}
         </ul>
       </td>
-    </tr>
-  </table>
-</form>
-<form method="POST", action="{{ url_for('questions_modifyCategory', question_id=question.id) }}">
-  <table>
-    <tr>
-      <td>
+    </form>
+  </tr>
+  <tr>
+    <form method="POST", action="{{ url_for('questions_modifyCategory', question_id=question.id) }}">
+      <td style="padding:15px">
         {{ c_form.category.label }}
       </td>
-      <td>
+      <td style="padding:15px">
         {{ c_form.category }}
       </td>
-      <td colspan="2">
+      <td style="padding:15px">
         <input type="submit" value="Change category"/>
       </td>
-    </tr>
-  </table>
-</form>
-<form method="POST", action="{{ url_for('questions_modifyDifficulty', question_id=question.id) }}">
-  <table>
-    <tr>
-      <td>
+    </form>
+  </tr>
+  <tr>
+    <form method="POST", action="{{ url_for('questions_modifyDifficulty', question_id=question.id) }}">
+      <td style="padding:15px">
         {{ d_form.difficulty.label }}
       </td>
-      <td>
+      <td style="padding:15px">
         {{ d_form.difficulty }}
       </td>
-      <td colspan="2">
+      <td style="padding:15px">
         <input type="submit" value="Change difficulty"/>
       </td>
-    </tr>
-  </table>
-</form>
-<p><b>Options</b></p>
+    </form>
+  </tr>
+</table>
+<p style="padding:15px"><b>Options</b></p>
 <table>
   <tr>
-    <th>Option</th>
-    <th>Correct</th>
+    <th style="padding:15px">Option</th>
+    <th style="padding:15px">Correct</th>
   </tr>
   {% for option in options %}
   <tr>
-    <td>{{ option.name }}</td>
-    <td>{{ option.correct }}</td>
-    <td>
+    <td style="padding:15px">{{ option.name }}</td>
+    <td style="padding:15px">{{ option.correct }}</td>
+    <td style="padding:15px">
       <form method="POST" action="{{ url_for('options_setcorrect', question_id=question.id, option_id=option.id) }}">
         <input type="submit" value="Change status to correct/incorrect"/>
       </form>
     </td>
-    <td>
+    <td style="padding:15px">
       <form method="POST" action="{{ url_for('options_delete', question_id=question.id, option_id=option.id) }}">
         <input type="submit" value="Delete"/>
       </form>
@@ -97,30 +93,30 @@
   </tr>
   {% endfor %}
 </table>
-<p><b>Add an option</b></p>
+<p style="padding:15px"><b>Add an option</b></p>
 <form method="POST", action="{{ url_for('options_add', question_id=question.id) }}">
   <table>
     <tr>
-      <td>
+      <td style="padding:15px">
         {{ opt_form.name.label }}
       </td>
-      <td>
+      <td style="padding:15px">
         {{ opt_form.name }}
       </td>
-      <td>
+      <td style="padding:15px">
         {% for error in opt_form.name.errors %}
         <li>{{ error }}</li>
         {% endfor %}
       </td>
     </tr>
     <tr>
-      <td>
+      <td style="padding:15px">
         {{ opt_form.correct.label }}
       </td>
-      <td>
+      <td style="padding:15px">
         {{ opt_form.correct }}
       </td>
-      <td colspan="2">
+      <td style="padding:15px">
         <input type="submit" value="Add"/>
       </td>
     </tr>

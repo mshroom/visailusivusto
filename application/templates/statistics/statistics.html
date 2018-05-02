@@ -3,23 +3,23 @@
 {% block body %}
   <table>
     <tr>
-	  <th>Category</th>
-      <th>Number of answers</th>
-      <th>Number of correct answers</th>
-      <th>Percentage of correct answers</th>
+	  <th style="padding:15px">Category</th>
+      <th style="padding:15px">Number of answers</th>
+      <th style="padding:15px">Number of correct answers</th>
+      <th style="padding:15px">Percentage of correct answers</th>
     </tr>
     <tr>
-      <td><b>All</b></td>
-      <td>{{ allAnswers }}</td>
-      <td>{{ correctAnswers }}</td>
-      <td>{{ percentageOfCorrectAnswers }}</td>
+      <td style="padding:15px"><b>All</b></td>
+      <td style="padding:15px">{{ allAnswers }}</td>
+      <td style="padding:15px">{{ correctAnswers }}</td>
+      <td style="padding:15px">{{ percentageOfCorrectAnswers }}</td>
     </tr>
     {% for category in answersByCategories %}
     <tr>
-	  <td><b>{{ category.category }}</b></td>
-      <td>{{ category.answers }}</td>
-      <td>{{ category.correct }}</td>
-      <td>{{ category.percentage }}</td>
+	  <td style="padding:15px"><b>{{ category.category }}</b></td>
+      <td style="padding:15px">{{ category.answers }}</td>
+      <td style="padding:15px">{{ category.correct }}</td>
+      <td style="padding:15px">{{ category.percentage }}</td>
     </tr>
     {% endfor %}
   </table>

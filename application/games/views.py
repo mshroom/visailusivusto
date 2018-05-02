@@ -18,7 +18,7 @@ def games_play():
 		quizzes = Quiz.query.filter(Quiz.active == True)
 	for q in quizzes:
 		a = User.query.filter_by(id = q.account_id).first()
-		creator = a.name
+		creator = a.username
 		if q.automatic == True:
 			creator = "automatic"
 		quizlist.append({"creator":creator, "name":q.name, "id":q.id, "category":q.category})

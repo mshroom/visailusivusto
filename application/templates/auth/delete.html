@@ -2,14 +2,14 @@
 
 {% block body %}
 {{ error }}
-<p>Please confirm that you want to delete your account.</p>
-<p>All your data will be permanently destroyed.</p>
+<p style="padding:15px">Please confirm that you want to delete your account.</p>
+<p style="padding:15px">All your data will be permanently destroyed.</p>
 <br/>
 <br/>
 <form method="POST" action="{{ url_for('delete_cancel') }}">
   <table>
     <tr>
-      <td colspan="2">
+      <td style="padding:15px">
         <input type="submit" value="Cancel"/>
       </td>
     </tr>
@@ -21,7 +21,7 @@
 <form method="POST" action="{{ url_for('delete_confirm') }}">
   <table>
     <tr>
-      <td colspan="2">
+      <td style="padding:15px">
         <input type="submit" value="Confirm"/>
       </td>
     </tr>

@@ -1,12 +1,12 @@
 {% extends "layout.html" %}
 
 {% block body %}
-  <p><b>{{ question.name }}</b></p>
+  <p style="padding:15px"><b>{{ question.name }}</b></p>
   <table>
     {% for option in options %}
     <tr>
-      <td>{{ option.name }}</td>
-      <td>
+      <td style="padding:15px">{{ option.name }}</td>
+      <td style="padding:15px">
         <form method="POST" action="{{ url_for('options_choose', question_id=question.id, option_id=option.id) }}">
           <input type="submit" value="Choose"/>
         </form>

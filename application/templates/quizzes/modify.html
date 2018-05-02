@@ -3,31 +3,34 @@
 {% block body %}
 <table> 
   <tr>
-    <th>Quiz</th>
-    <th>Category</th>
-    <th>Active</th>
+    <th style="padding:15px">Quiz</th>
+    <th style="padding:15px">Category</th>
+    <th style="padding:15px">Active</th>
   </tr>
   <tr>
-    <td>{{ quiz.name }}</td>
-    <td>{{ quiz.category }}</td>
-    <td>{{ quiz.active }}</td>
-    <td>
+    <td style="padding:15px">{{ quiz.name }}</td>
+    <td style="padding:15px">{{ quiz.category }}</td>
+    <td style="padding:15px">{{ quiz.active }}</td>
+    <td style="padding:15px">
       <form method="POST" action="{{ url_for('quiz_activate', quiz_id=quiz.id) }}">
         <input type="submit" value="Activate/Disactivate"/>
       </form>
     </td>
-	<td>{{ act_error }}</td>
+	<td style="padding:15px">{{ act_error }}</td>
   </tr>
 </table>
-<p><b>Modify quiz</b></p>
-<form method="POST" action="{{ url_for('quizzes_modifyQuiz', quiz_id=quiz.id) }}">
-  <table>
-    <tr>
-      <td>
+<p style="padding:15px"><b>Modify quiz</b></p>
+<table>
+  <tr>
+    <form method="POST" action="{{ url_for('quizzes_modifyQuiz', quiz_id=quiz.id) }}">
+      <td style="padding:15px">
         {{ form.name.label }}
       </td>
-      <td>
+      <td style="padding:15px">
         {{ form.name }}
+      </td>
+      <td style="padding:15px">
+        <input type="submit" value="Change quiz name"/>
       </td>
       <td>
         <ul>
@@ -36,54 +39,46 @@
           {% endfor %}
         </ul>
       </td>
-      <td colspan="2">
-        <input type="submit" value="Change quiz name"/>
-      </td>
-    </tr>
-  </table>
-</form>
-<form method="POST" action="{{ url_for('quizzes_modifyCategory', quiz_id=quiz.id) }}">
-  <table>
-    <tr>
-      <td>
+    </form>
+  </tr>
+  <tr>
+    <form method="POST" action="{{ url_for('quizzes_modifyCategory', quiz_id=quiz.id) }}">
+      <td style="padding:15px">
         {{ c_form.category.label }}
       </td>
-      <td>
+      <td style="padding:15px">
         {{ c_form.category }}
       </td>
-      <td colspan="2">
+      <td style="padding:15px">
         <input type="submit" value="Change category"/>
       </td>
-    </tr>
-  </table>
-</form>
-<p><b>Questions</b></p>
-<table>
-  <tr>
-    <th>Question</th>
+    </form>
   </tr>
+</table>
+<p style="padding:15px"><b>Questions</b></p>
+<table>
   {% for question in questions %}
   <tr>
-    <td>{{ question.name }}</td>
-    <td>
-      <form method="POST" action="{{ url_for('quizQuestions_delete', qz_id=quiz.id, qn_id=question.id) }}">
+    <td style="padding:15px">{{ question.name }}</td>
+    <td style="padding:15px">
+      <form method="POST", action="{{ url_for('quizQuestions_delete', qz_id=quiz.id, qn_id=question.id) }}">
         <input type="submit" value="Delete"/>
       </form>
     </td>
   </tr>
   {% endfor %}
 </table>
-<p><b>Add a question</b></p>
+<p style="padding:15px"><b>Add a question</b></p>
 <form method="POST", action="{{ url_for('quizQuestions_add', quiz_id=quiz.id) }}">
   <table>
     <tr>
-      <td>
+      <td style="padding:15px">
         {{ qq_form.question.label }}
       </td>
-      <td>
+      <td style="padding:15px">
         {{ qq_form.question }}
       </td>
-      <td colspan="2">
+      <td style="padding:15px">
         <input type="submit" value="Add"/>
       </td>
     </tr>

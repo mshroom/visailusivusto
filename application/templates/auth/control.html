@@ -4,18 +4,18 @@
 {{ error }}
   <table>
     <tr>
-      <th>UserId</th>
-      <th>Name</th>
-      <th>Username</th>
-      <th>Role</th>
+      <th style="padding:15px">UserId</th>
+      <th style="padding:15px">Name</th>
+      <th style="padding:15px">Username</th>
+      <th style="padding:15px">Role</th>
     </tr>
     {% for user in users %}
     <tr>
-      <td>{{ user.id  }}</td>
-      <td>{{ user.name }}</td>
-      <td>{{ user.username }}</td>
-      <td>{{ user.role }}</td>
-      <td>
+      <td style="padding:15px">{{ user.id  }}</td>
+      <td style="padding:15px">{{ user.name }}</td>
+      <td style="padding:15px">{{ user.username }}</td>
+      <td style="padding:15px">{{ user.role }}</td>
+      <td style="padding:15px">
         <form method="POST" action="{{ url_for('auth_delete', user_id=user.id) }}">
           <input type="submit" value="Delete"/>
         </form>

@@ -5,29 +5,31 @@
 <form method="POST" action="{{ url_for('auth_login') }}">
   <table>
     <tr>
-      <td>
+      <td style="padding:15px">
         {{ form.username.label }}
       </td>
-      <td>
+      <td style="padding:15px">
         {{ form.username }}
       </td>
     </tr>
     <tr>
-      <td>
+      <td style="padding:15px">
         {{ form.password.label }}
       </td>
-      <td>
+      <td style="padding:15px">
         {{ form.password }}
       </td>
     </tr>
     <tr>
-      <td colspan="2">
+      <td style="padding:15px">
         <input type="submit" value="Login"/>
       </td>
     </tr>
   </table>
-  <p>
-    <a href="{{ url_for('auth_register') }}">Are you a new user? Register here!</a>
-  </p>
 </form>
+<table>
+  <tr>
+    <td style="padding:15px"><a href="{{ url_for('auth_register') }}">Are you a new user? Register here!</a></td>
+  </tr>
+</table>
 {% endblock %}

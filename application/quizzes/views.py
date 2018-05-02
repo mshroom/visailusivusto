@@ -100,7 +100,7 @@ def quizzes_activate(quiz_id, control):
 			q_form.question.choices = list
 			if current_user.role == "ADMIN" and control == "control":
 				return render_template("quizzes/list.html", quizzes = Quiz.query.all(), control = control, error = "Quiz has less than two questions and cannot be activated")
-			return render_template("quizzes/list.html", quizzes = Quiz.query.filter_by(account_id=current_user.id, automatic=False).all(), control = control, error = "Quiz has less than two questions and cannot be activated")
+			return render_template("quizzes/list.html", quizzes = Quiz.query.filter_by(account_id=current_user.id).all(), control = control, error = "Quiz has less than two questions and cannot be activated")
 		q.active = True
 	db.session().commit()
 	
@@ -135,26 +135,13 @@ def quizzes_modify(quiz_id):
 		list.append((row[0], row[1]))
 	q_form.question.choices = list
 
-	if request.method == "GET":
-		return render_template("quizzes/modify.html", quiz = Quiz.query.get(quiz_id), questions = Quiz.findAllQuestions(quiz_id), form = ModifyQuizForm(), c_form = ModifyQuizCategoryForm(), qq_form = q_form)
-
-	form = QuizForm(request.form)
-	
-	if not form.validate():
-				return render_template("quizzes/modify.html", quiz = Quiz.query.get(quiz_id), questions = Quiz.findAllQuestions(quiz_id), form = ModifyQuizForm(), c_form = ModifyQuizCategoryForm(), qq_form = q_form)
-	q = Quiz.query.get(quiz_id)
-	q.name = form.name.data
-	q.category = form.category.data
-	
-	db.session().commit()
-	
-	return redirect(url_for('quizzes_modify', quiz_id=quiz_id))
+	return render_template("quizzes/modify.html", quiz = Quiz.query.get(quiz_id), questions = Quiz.findAllQuestions(quiz_id), form = ModifyQuizForm(), c_form = ModifyQuizCategoryForm(), qq_form = q_form)
 
 @app.route("/quizzes/mod/quiz/<quiz_id>/", methods=["POST"])
 @login_required(role="USER")
 def quizzes_modifyQuiz(quiz_id):
 	q = Quiz.query.get(quiz_id)
-	if (q.account_id != current_user.id or q.automatic == False) and current_user.role != "ADMIN":
+	if (q.account_id != current_user.id or q.automatic == True) and current_user.role != "ADMIN":
 		return login_manager.unauthorized()
 	
 	a = q.account_id
@@ -167,7 +154,7 @@ def quizzes_modifyQuiz(quiz_id):
 	form = ModifyQuizForm(request.form)
 	
 	if not form.validate():
-		return render_template("quizzes/modify.html", quiz = Quiz.query.get(quiz_id), questions = Quiz.findAllQuestions(quiz_id), form = ModifyQuizForm(), c_form = ModifyQuizCategoryForm(), qq_form = q_form)
+		return render_template("quizzes/modify.html", quiz = Quiz.query.get(quiz_id), questions = Quiz.findAllQuestions(quiz_id), form = form, c_form = ModifyQuizCategoryForm(), qq_form = q_form)
 	q = Quiz.query.get(quiz_id)
 	q.name = form.name.data
 	

@@ -5,10 +5,10 @@
 <form method="POST" action="{{ url_for('questions_create') }}">
   <table>
     <tr>
-      <td>
+      <td style="padding:15px">
         {{ form.name.label }}
       </td>
-      <td>
+      <td style="padding:15px">
         {{ form.name }}
       </td>
       <td>
@@ -20,21 +20,21 @@
       </td>
     </tr>
     <tr>
-      <td>
+      <td style="padding:15px">
         {{ form.category.label }}
       </td>
-      <td>
+      <td style="padding:15px">
         {{ form.category }}
       </td>
     </tr>
     <tr>
-      <td>
+      <td style="padding:15px">
         {{ form.difficulty.label }}
       </td>
-      <td>
+      <td style="padding:15px">
         {{ form.difficulty }}
       </td>
-      <td colspan="2">
+      <td style="padding:15px">
         <input type="submit" value="Add a new question"/>
       </td>
     </tr>

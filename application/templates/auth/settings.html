@@ -1,17 +1,17 @@
 {% extends "layout.html" %}
 
 {% block body %}
-{{ error }}
-<form method="POST" action="{{ url_for('auth_set_name') }}">
-  <table>
-    <tr>
-      <td style="width:130px"><b>Name</b></td>
-      <td style="width:130px">{{ user.name }}</td>
-      <td style="width:130px">{{ nameform.name.label }}</td>
-      <td style="width:130px">{{ nameform.name }}</td>
-      <td style="width:10px"></td>
-      <td colspan="2">
-        <input type="submit" value="Change"/>
+<p style="padding:15px">{{ error }}</p>
+<table>
+  <tr>
+    <form method="POST" action="{{ url_for('auth_set_name') }}">
+      <td style="padding:15px"><b>Name</b></td>
+      <td style="padding:15px">{{ user.name }}</td>
+      <td style="padding:15px">{{ nameform.name.label }}</td>
+      <td style="padding:15px">{{ nameform.name }}</td>
+      <td style="padding:15px"></td>
+      <td style="padding:15px">
+        <input type="submit" value="Change name"/>
       </td>
       <td>
         <ul>
@@ -20,19 +20,17 @@
           {% endfor %}
         </ul>
       </td>
-    </tr>
-  </table>
-</form>
-<form method="POST" action="{{ url_for('auth_set_username') }}">
-  <table>
-    <tr>
-      <td style="width:130px"><b>Username</b></td>
-      <td style="width:130px">{{ user.username }}</td>
-      <td style="width:130px">{{ usernameform.username.label }}</td>
-      <td style="width:130px">{{ usernameform.username }}</td>
-      <td style="width:10px"></td>
-      <td colspan="2">
-        <input type="submit" value="Change"/>
+    </form>
+  </tr>
+  <tr>
+    <form method="POST" action="{{ url_for('auth_set_username') }}">
+      <td style="padding:15px"><b>Username</b></td>
+      <td style="padding:15px">{{ user.username }}</td>
+      <td style="padding:15px">{{ usernameform.username.label }}</td>
+      <td style="padding:15px">{{ usernameform.username }}</td>
+      <td style="padding:15px"></td>
+      <td style="padding:15px">
+        <input type="submit" value="Change username"/>
       </td>
       <td>
         <ul>
@@ -41,19 +39,17 @@
           {% endfor %}
         </ul>
       </td>
-    </tr>
-  </table>
-</form>
-<form method="POST" action="{{ url_for('auth_set_password') }}">
-  <table>
-    <tr>
-      <td style="width:130px"></td>
-      <td style="width:130px"></td>
-      <td style="width:130px">{{ passwordform.password.label }}</td>
-      <td style="width:130px">{{ passwordform.password }}</td>
-      <td style="width:10px"></td>
-      <td colspan="2">
-        <input type="submit" value="Change"/>
+    </form>
+  </tr>
+  <tr>
+    <form method="POST" action="{{ url_for('auth_set_password') }}">
+      <td style="padding:15px"></td>
+      <td style="padding:15px"></td>
+      <td style="padding:15px">{{ passwordform.password.label }}</td>
+      <td style="padding:15px">{{ passwordform.password }}</td>
+      <td style="padding:15px"></td>
+      <td style="padding:15px">
+        <input type="submit" value="Change password"/>
       </td>
       <td>
         <ul>
@@ -62,16 +58,22 @@
           {% endfor %}
         </ul>
       </td>
-    </tr>
-  </table>
-</form>
-<form method="POST" action="{{ url_for('delete_account') }}">
-  <table>
-    <tr>
-      <td colspan="2">
+    </form>
+  </tr>
+  <tr>
+    <td style="padding:15px"></td>
+  </tr>
+  <tr>
+    <form method="POST" action="{{ url_for('delete_account') }}">
+      <td style="padding:15px"></td>
+      <td style="padding:15px"></td>
+      <td style="padding:15px"></td>
+      <td style="padding:15px"></td>
+      <td style="padding:15px"></td>
+      <td style="padding:15px">
         <input type="submit" value="Delete account"/>
       </td>
-    </tr>
-  </table>
-</form>
+    </form>
+  </tr>
+</table>
 {% endblock %}

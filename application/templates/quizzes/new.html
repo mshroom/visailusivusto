@@ -2,14 +2,14 @@
 {% extends "layout.html" %}
 
 {% block body %}
-<p>To create a quiz from your own questions, choose a name and a category. You can add questions to your quiz when you go to modify the quiz.</p>
+<p style="padding:15px">To create a quiz from your own questions, choose a name and a category. You can add questions to your quiz when you go to modify the quiz. <br/>Note that you cannot play your own quiz unless it is created automatically. For an automatic quiz, see below.</p>
 <form method="POST" action="{{ url_for('quizzes_create') }}">
   <table>
     <tr>
-      <td>
+      <td style="padding:15px">
         {{ form.name.label }}
       </td>
-      <td>
+      <td style="padding:15px">
         {{ form.name }}
       </td>
       <td>
@@ -21,27 +21,27 @@
       </td>
     </tr>
     <tr>
-      <td>
+      <td style="padding:15px">
         {{ form.category.label }}
       </td>
-      <td>
+      <td style="padding:15px">
         {{ form.category }}
       </td>
-      <td colspan="2">
+      <td style="padding:15px">
         <input type="submit" value="Add a new quiz"/>
       </td>
     </tr>
   </table>  
 </form>
 <br/><br/>
-<p>You can also let QuizBee create automatically a quiz. Choose a name, a category and the number of questions.</p>
+<p style="padding:15px">You can also let QuizBee create a quiz automatically. Choose a name, a category and the number of questions. <br/> Automatic quizzes can be activated and deleted but not modified later.</p>
 <form method="POST" action="{{ url_for('quizzes_autocreate') }}">
   <table>
     <tr>
-      <td>
+      <td style="padding:15px">
         {{ autoform.name.label }}
       </td>
-      <td>
+      <td style="padding:15px">
         {{ autoform.name }}
       </td>
       <td>
@@ -53,21 +53,21 @@
       </td>
     </tr>
     <tr>
-      <td>
+      <td style="padding:15px">
         {{ autoform.category.label }}
       </td>
-      <td>
+      <td style="padding:15px">
         {{ autoform.category }}
       </td>
     </tr>
     <tr>
-      <td>
+      <td style="padding:15px">
          {{ autoform.number.label }}
       </td>
-      <td>
+      <td style="padding:15px">
          {{ autoform.number }}
       </td>
-      <td colspan="2">
+      <td style="padding:15px">
         <input type="submit" value="Add a new quiz"/>
       </td>
     </tr>
@@ -78,5 +78,5 @@
     {% endfor %}
   </ul>
 </form>
-{{ size_error }}
+<p style="padding:15px">{{ size_error }}</p>
 {% endblock %}
