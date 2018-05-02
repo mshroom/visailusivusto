@@ -3,7 +3,7 @@
 {% block body %}
 {{ error }}
 <p style="padding:15px">Please confirm that you want to delete your account.</p>
-<p style="padding:15px">All your data will be permanently destroyed.</p>
+<p style="padding:15px">All your data will be permanently destroyed, including the questions and quizzes you have created.</p>
 <br/>
 <br/>
 <form method="POST" action="{{ url_for('delete_cancel') }}">

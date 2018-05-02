@@ -6,7 +6,7 @@ from flask_login import current_user
 from application import app, db, login_manager, login_required
 from application.questions.models import Question, Option, UsersChoice
 from application.questions.forms import QuestionForm, OptionForm, ModifyQuestionForm, ModifyCategoryForm, ModifyDifficultyForm
-from application.quizzes.models import QuizQuestion
+from application.quizzes.models import QuizQuestion, Quiz
 
 @app.route("/questions", methods=["GET"])
 @login_required(role="USER")
@@ -27,7 +27,16 @@ def questions_form():
 @login_required(role="USER")
 def questions_delete(question_id, control):
 	q = Question.query.get(question_id)
-	db.session.query(QuizQuestion).filter_by(question_id=q.id).delete()
+	quizquestions = QuizQuestion.query.filter_by(question_id=q.id)
+	for qq in quizquestions:
+		quiz = Quiz.query.get(qq.quiz_id)
+		db.session().delete(qq)
+		db.session().commit()
+		if quiz.active == True:
+			questions = Quiz.findAllQuestions(quiz.id)
+			if len(questions) < 2:
+				quiz.active = False
+				db.session().commit()
  
 	options = Option.query.filter_by(quest_id=question_id).all()
 	for o in options:
@@ -47,6 +56,17 @@ def questions_activate(question_id, control):
 	q = Question.query.get(question_id)
 	if q.active == True:
 		q.active = False
+		quizquestions = QuizQuestion.query.filter_by(question_id=q.id)
+		for qq in quizquestions:
+			quiz = Quiz.query.get(qq.quiz_id)
+			db.session().delete(qq)
+			db.session().commit()
+			if quiz.active == True:
+				questions = Quiz.findAllQuestions(quiz.id)
+				if len(questions) < 2:
+					quiz.active = False
+					db.session().commit()
+
 	else:
 		answer = Option.query.filter_by(quest_id=question_id, correct=True).first()
 		if not answer:
@@ -112,6 +132,16 @@ def question_activate(question_id):
 	q = Question.query.get(question_id)
 	if q.active == True:
 		q.active = False
+		quizquestions = QuizQuestion.query.filter_by(question_id=q.id)
+		for qq in quizquestions:
+			quiz = Quiz.query.get(qq.quiz_id)
+			db.session().delete(qq)
+			db.session().commit()
+			if quiz.active == True:
+				questions = Quiz.findAllQuestions(quiz.id)
+				if len(questions) < 2:
+					quiz.active = False
+					db.session().commit()
 	else:
 		answer = Option.query.filter_by(quest_id=question_id, correct=True).first()
 		if not answer:
@@ -134,6 +164,16 @@ def options_setcorrect(question_id, option_id):
 	if not answer:
 		q = Question.query.get(question_id)
 		q.active = False
+		quizquestions = QuizQuestion.query.filter_by(question_id=q.id)
+		for qq in quizquestions:
+			quiz = Quiz.query.get(qq.quiz_id)
+			db.session().delete(qq)
+			db.session().commit()
+			if quiz.active == True:
+				questions = Quiz.findAllQuestions(quiz.id)
+				if len(questions) < 2:
+					quiz.active = False
+					db.session().commit()
 		db.session().commit()
 		return render_template("questions/modify.html", question  = Question.query.get(question_id), options = Option.query.filter_by(quest_id=question_id).all(), opt_form = OptionForm(), q_form = ModifyQuestionForm(), c_form = ModifyCategoryForm(), d_form = ModifyDifficultyForm(), act_error = "Question was deactivated because it has no correct answer")
 	
@@ -151,6 +191,16 @@ def options_delete(question_id, option_id):
 		q = Question.query.get(question_id)
 		q.active = False
 		db.session().commit()
+		quizquestions = QuizQuestion.query.filter_by(question_id=q.id)
+		for qq in quizquestions:
+			quiz = Quiz.query.get(qq.quiz_id)
+			db.session().delete(qq)
+			db.session().commit()
+			if quiz.active == True:
+				questions = Quiz.findAllQuestions(quiz.id)
+				if len(questions) < 2:
+					quiz.active = False
+					db.session().commit()
 		return render_template("questions/modify.html", question  = Question.query.get(question_id), options = Option.query.filter_by(quest_id=question_id).all(), opt_form = OptionForm(), q_form = ModifyQuestionForm(), c_form = ModifyCategoryForm(), d_form = ModifyDifficultyForm(), act_error = "Question was deactivated because it has no correct answer")
 	
 	return redirect(url_for('questions_modify', question_id=question_id))

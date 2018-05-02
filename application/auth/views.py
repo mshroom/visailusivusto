@@ -60,6 +60,16 @@ def auth_delete(user_id):
 		for o in options:
 			db.session.query(UsersChoice).filter_by(option_id=o.id).delete()
 		db.session.query(Option).filter_by(quest_id=q.id).delete()
+		quizquestions = QuizQuestion.query.filter_by(question_id=q.id)
+		for qq in quizquestions:
+			quiz = Quiz.query.get(qq.quiz_id)
+			db.session().delete(qq)
+			db.session().commit()
+			if quiz.active == True:
+				questions = Quiz.findAllQuestions(quiz.id)
+				if len(questions) < 2:
+					quiz.active = False
+					db.session().commit()
 	quizzes = Quiz.query.filter_by(account_id=user_id).all()
 	for qz in quizzes:
 		db.session.query(QuizQuestion).filter_by(quiz_id=qz.id).delete()
@@ -141,6 +151,16 @@ def delete_confirm():
 		for o in options:
 			db.session.query(UsersChoice).filter_by(option_id=o.id).delete()
 		db.session.query(Option).filter_by(quest_id=q.id).delete()
+		quizquestions = QuizQuestion.query.filter_by(question_id=q.id)
+		for qq in quizquestions:
+			quiz = Quiz.query.get(qq.quiz_id)
+			db.session().delete(qq)
+			db.session().commit()
+			if quiz.active == True:
+				questions = Quiz.findAllQuestions(quiz.id)
+				if len(questions) < 2:
+					quiz.active = False
+					db.session().commit()
 	quizzes = Quiz.query.filter_by(account_id=current_user.id).all()
 	for qz in quizzes:
 		db.session.query(QuizQuestion).filter_by(quiz_id=qz.id).delete()

@@ -2,6 +2,7 @@
 {% extends "layout.html" %}
 
 {% block body %}
+<p style="padding:15px">Add a question by giving the following information. You can add options to your questions when you go to modify the question.</p>
 <form method="POST" action="{{ url_for('questions_create') }}">
   <table>
     <tr>
