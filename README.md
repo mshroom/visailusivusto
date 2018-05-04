@@ -8,21 +8,20 @@ tavallinen käyttäjä: käyttäjätunnus __hello__, salasana __world__.
 
 admin: käyttäjätunnus __testadmin__, salasana __testadmin__.
 
-Sovelluksessa käyttäjät voivat luoda käyttäjätilin, tehdä omia tietovisakysymyksiä ja vastata muiden käyttäjien tekemiin kysymyksiin. Lisäksi käyttäjät voivat koota omista kysymyksistään visoja, jotka ovat avoinna määritellyn ajan ja joihin muut käyttäjät voivat sinä aikana osallistua. Kysymyksille ja visoille voidaan määritellä aihepiirit ja vaikeusasteet. Käyttäjät voivat myös generoida visoja automaattisesti tiettyyn aihepiiriin liittyvistä kysymyksistä, jolloin visan tekijä ei tiedä kysymyksiä etukäteen ja saa itsekin osallistua visaan.
+Sovelluksessa käyttäjät voivat luoda käyttäjätilin, tehdä omia tietovisakysymyksiä ja vastata muiden käyttäjien tekemiin kysymyksiin. Kysymyksille voidaan määritellä aihepiirit ja vaikeusasteet. Lisäksi käyttäjät voivat koota omista kysymyksistään visoja, joihin muut käyttäjät voivat osallistua.  Käyttäjät voivat myös generoida visoja automaattisesti tiettyyn aihepiiriin liittyvistä kysymyksistä, jolloin visan tekijä ei tiedä kysymyksiä etukäteen ja saa itsekin osallistua visaan.
 
-Oikeista vastauksista ja voitoista kertyy käyttäjille pisteitä, ja lisäksi aktiiviset käyttäjät ansaitsevat kontribuutiopisteitä järjestelmään lisäämistään kysymyksistä ja visoista. Käyttäjät voivat tarkastella  omia pistetilastojaan, kuten kuinka moneen kysymykseen he ovat vastanneet ja mikä on oikeiden vastausten osuus. Sivustolla on myös näkyvillä High Score -listoja esim. kokonaispisteiltään, viikon pistesaldoltaan ja kontribuutiopisteiltään parhaiten menestyneistä käyttäjistä. 
+Oikeista vastauksista kertyy käyttäjille pisteitä, ja lisäksi aktiiviset käyttäjät ansaitsevat kontribuutiopisteitä järjestelmään lisäämistään kysymyksistä ja visoista. Käyttäjät voivat tarkastella  omia pistetilastojaan, kuten kuinka moneen kysymykseen he ovat vastanneet ja mikä on oikeiden vastausten osuus. Sivustolla on myös näkyvillä High Score -listoja esim. viikon pistesaldoltaan ja aktiivisuudeltaan parhaiten menestyneistä käyttäjistä. 
 
 Jotta järjestelmä pysyy asiallisena ja laadukkaana, käyttäjien on mahdollista ilmoittaa kysymyksiä asiattomiksi tai virheellisiksi. Ilmoitus perusteluineen menee kysymyksen tekijän ja ylläpitäjän tietoon, jolloin kysymyksiä voidaan tarvittaessa muokata tai poistaa. Järjestelmän ylläpitäjä voi tarvittaessa myös poistaa käyttäjätilin.
 
-Toimintoja (lihavoidut on jo toteutettu): 
-* __Kirjautuminen__
-* __Kysymysten ja niihin liittyvien vastausvaihtoehtojen lisääminen, muokkaaminen ja poistaminen__
-* __Kysymysten hakeminen aihepiirin__ ja vaikeusasteen __perusteella__
-* __Visojen koostaminen omista kysymyksistä__
-* Visojen koostaminen automaattisesti aihepiirin ja vaikeusasteen perusteella
-* __Muiden tekemiin kysymyksiin ja visoihin vastaaminen__
-* Mahdollisesti myös joukkueiden muodostaminen ja joukkuepelit
-* __Pistesaldojen tarkastelu__
+Toimintoja: 
+* Kirjautuminen
+* Kysymysten ja niihin liittyvien vastausvaihtoehtojen lisääminen, muokkaaminen ja poistaminen
+* Kysymysten arpominen aihepiirin perusteella
+* Visojen koostaminen omista kysymyksistä
+* Visojen koostaminen automaattisesti aihepiirin perusteella
+* Muiden tekemiin kysymyksiin ja visoihin vastaaminen
+* Pistesaldojen tarkastelu
 * Asiattomien ja virheellisten kysymysten ilmoittaminen
 
 Valmis sovellus täyttää (onnistuessaan) seuraavat arvostelukriteerit:
