@@ -19,5 +19,37 @@
 * Koska minulla ei kuitenkaan ole aikaa lukea läpi jokaista kysymystä, haluan että käyttäjät voivat ilmoittaa minulle asiattomasta sisällöstä.
 * Tarvittaessa haluan voida poistaa järjestelmästä käyttäjiä, jotka eivät noudata sääntöjä.             
 
+## Esimerkkejä käyttötapausten SQL-kyselyistä
 
+### Eniten kysymyksiä lisänneet käyttäjät
+
+High Score listalle voi hakea viisi viikon aikana eniten kysymyksiä lisännyttä käyttäjää (käyttäjätunnus ja uusien kysymysten määrä) seuraavasti:
+
+Herokussa:
+
+SELECT Account.username, COUNT(Question.id) AS questions FROM Account, Question WHERE Question.account_id = Account.id AND Question.active = True AND Question.date_created > DATE_TRUNC('week', CURRENT_TIMESTAMP - interval '1 week') GROUP BY Account.id ORDER BY questions DESC LIMIT 5
+
+SQLitessä:
+
+SELECT Account.username, COUNT (Question.id) AS questions FROM Account, Question WHERE Question.account_id = Account.id AND Question.active = True AND Question.date_created >= DATE(CURRENT_TIMESTAMP, '-6 DAY') GROUP BY Account.id ORDER BY questions DESC LIMIT 5
+
+### Parhaat tietäjät
+
+Vastaavasti viisi viikon aikana eniten oikeita vastauksia saanutta käyttäjää (käyttäjätunnus ja vastausten määrä) voi hakea seuraavasti:
+
+Herokussa:
+
+SELECT Account.username, COUNT(Users_Choice.id) AS answers FROM Account, Users_Choice, Option WHERE Users_Choice.date_created > DATE_TRUNC('week', CURRENT_TIMESTAMP - interval '1 week') AND Users_Choice.account_id = Account.id AND Users_Choice.option_id = Option.id AND Option.correct = True GROUP BY Account.id ORDER BY answers DESC LIMIT 5
+
+SQLitessä:
+
+SELECT Account.username, COUNT(Users_Choice.id) AS answers FROM Account, Users_Choice, Option WHERE Users_Choice.date_created >= DATE(CURRENT_TIMESTAMP, '-6 DAY') AND Users_Choice.account_id = Account.id AND Users_Choice.option_id = Option.id AND Option.correct = True GROUP BY Account.id ORDER BY answers DESC LIMIT 5
+
+### Kysymysten lisääminen visaan
+
+Kun käyttäjä lisää visaan kysymyksiä, hän saa nähtäväkseen niistä omista kysymyksistään (id ja nimi), jotka ovat aktiivisia ja joita ei ole vielä liitetty kyseiseen visaan. Tämä onnistuu kyselyllä:
+
+SELECT Question.id, Question.name FROM QUESTION, ACCOUNT WHERE Question.account_id = Account.id AND Account.id = ? AND Question.active = True AND Question.id NOT IN (SELECT Question.id FROM Question, Quiz, Quiz_Question Where Quiz_Question.question_id = Question.id AND Quiz_Question.quiz_id = Quiz.id AND Quiz.id = ?)
+
+Ensimmäisen kysymysmerkin kohdalle tulee siis käyttäjän id ja toisen kysymysmerkin kohdalle visan id.
 
