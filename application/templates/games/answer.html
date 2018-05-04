@@ -14,5 +14,13 @@
     </tr>
     {% endfor %}
   </table>
-  {{ result }}
+{% if current_user.is_authenticated %}
+  <table>
+    <tr>
+      <td style="padding:15px">
+        <a href="{{ url_for('reports_form', question_id=question.id, quiz_id='-1', turn='-1') }}">Report this question</a>
+      </td>
+    </tr>
+  </table>
+{% endif %}
 {% endblock %}

@@ -56,11 +56,11 @@ class Participation(Base):
 		stmt = ""
 		if week:
 			if os.environ.get("HEROKU"):
-				stmt = text("SELECT Account.username, count(participation.id) AS plays FROM Account, Participation WHERE Account.id = Participation.account_id AND Participation.date_created > DATE_TRUNC('week', CURRENT_TIMESTAMP - interval '1 week') GROUP BY Account.id ORDER BY plays DESC LIMIT 10")
+				stmt = text("SELECT Account.username, count(participation.id) AS plays FROM Account, Participation WHERE Account.id = Participation.account_id AND Participation.date_created > DATE_TRUNC('week', CURRENT_TIMESTAMP - interval '1 week') GROUP BY Account.id ORDER BY plays DESC LIMIT 5")
 			else:
-				stmt = text("SELECT Account.username, count(participation.id) AS plays FROM Account, Participation WHERE Account.id = Participation.account_id AND Participation.date_created >= DATE(CURRENT_TIMESTAMP, '-6 DAY') GROUP BY Account.id ORDER BY plays DESC LIMIT 10")
+				stmt = text("SELECT Account.username, count(participation.id) AS plays FROM Account, Participation WHERE Account.id = Participation.account_id AND Participation.date_created >= DATE(CURRENT_TIMESTAMP, '-6 DAY') GROUP BY Account.id ORDER BY plays DESC LIMIT 5")
 		else:
-			stmt = text("SELECT Account.username, count(participation.id) AS plays FROM Account, Participation WHERE Account.id = Participation.account_id GROUP BY Account.id ORDER BY plays DESC LIMIT 10")
+			stmt = text("SELECT Account.username, count(participation.id) AS plays FROM Account, Participation WHERE Account.id = Participation.account_id GROUP BY Account.id ORDER BY plays DESC LIMIT 5")
 		res = db.engine.execute(stmt)
 		response = []
 		for row in res:

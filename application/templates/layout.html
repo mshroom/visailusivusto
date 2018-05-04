@@ -45,6 +45,9 @@
 			<li>
               <a class="nav-link" href="{{ url_for('auth_control') }} ">Control users</a>
             </li>
+			<li>
+              <a class="nav-link" href="{{ url_for('reports_control') }} ">Control reports</a>
+            </li>
             {% endif %}
             {% if current_user.is_authenticated %}
             <li>

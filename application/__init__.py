@@ -63,6 +63,9 @@ from application.statistics import views
 
 from application.games import views
 
+from application.reports import models
+from application.reports import views
+
 from application.auth import models
 from application.auth import views
 

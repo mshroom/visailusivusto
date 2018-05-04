@@ -34,11 +34,11 @@ class Question(Base):
 		stmt = ""
 		if week:
 			if os.environ.get("HEROKU"):
-				stmt = text("SELECT Account.username, count(question.id) AS questions FROM Account, Question WHERE Question.account_id = Account.id AND Question.active = :active AND Question.date_created > DATE_TRUNC('week', CURRENT_TIMESTAMP - interval '1 week') GROUP BY Account.id ORDER BY questions DESC LIMIT 10").params(active=active)
+				stmt = text("SELECT Account.username, count(question.id) AS questions FROM Account, Question WHERE Question.account_id = Account.id AND Question.active = :active AND Question.date_created > DATE_TRUNC('week', CURRENT_TIMESTAMP - interval '1 week') GROUP BY Account.id ORDER BY questions DESC LIMIT 5").params(active=active)
 			else:
-				stmt = text("SELECT Account.username, count(question.id) AS questions FROM Account, Question WHERE Question.account_id = Account.id AND Question.active = :active AND Question.date_created >= DATE(CURRENT_TIMESTAMP, '-6 DAY') GROUP BY Account.id ORDER BY questions DESC LIMIT 10").params(active=active)
+				stmt = text("SELECT Account.username, count(question.id) AS questions FROM Account, Question WHERE Question.account_id = Account.id AND Question.active = :active AND Question.date_created >= DATE(CURRENT_TIMESTAMP, '-6 DAY') GROUP BY Account.id ORDER BY questions DESC LIMIT 5").params(active=active)
 		else:
-			stmt = text("SELECT Account.username, count(question.id) AS questions FROM Account, Question WHERE Question.account_id = Account.id AND Question.active = :active GROUP BY Account.id ORDER BY questions DESC LIMIT 10").params(active=active)					
+			stmt = text("SELECT Account.username, count(question.id) AS questions FROM Account, Question WHERE Question.account_id = Account.id AND Question.active = :active GROUP BY Account.id ORDER BY questions DESC LIMIT 5").params(active=active)					
 		res = db.engine.execute(stmt)
 		response = []
 		for row in res:
@@ -104,11 +104,11 @@ class UsersChoice(db.Model):
 		stmt = ""
 		if week:
 			if os.environ.get("HEROKU"):
-				stmt = text("SELECT Account.username, count(users_choice.id) AS answers FROM Account, Users_Choice, Option WHERE Users_Choice.date_created > DATE_TRUNC('week', CURRENT_TIMESTAMP - interval '1 week') AND Users_Choice.account_id = Account.id AND Users_Choice.option_id = Option.id AND Option.correct = :correct GROUP BY Account.id ORDER BY answers DESC LIMIT 10").params(correct=correct)
+				stmt = text("SELECT Account.username, count(users_choice.id) AS answers FROM Account, Users_Choice, Option WHERE Users_Choice.date_created > DATE_TRUNC('week', CURRENT_TIMESTAMP - interval '1 week') AND Users_Choice.account_id = Account.id AND Users_Choice.option_id = Option.id AND Option.correct = :correct GROUP BY Account.id ORDER BY answers DESC LIMIT 5").params(correct=correct)
 			else:
-				stmt = text("SELECT Account.username, count(users_choice.id) AS answers FROM Account, Users_Choice, Option WHERE Users_Choice.date_created >= DATE(CURRENT_TIMESTAMP, '-6 DAY') AND Users_Choice.account_id = Account.id AND Users_Choice.option_id = Option.id AND Option.correct = :correct GROUP BY Account.id ORDER BY answers DESC LIMIT 10").params(correct=correct)
+				stmt = text("SELECT Account.username, count(users_choice.id) AS answers FROM Account, Users_Choice, Option WHERE Users_Choice.date_created >= DATE(CURRENT_TIMESTAMP, '-6 DAY') AND Users_Choice.account_id = Account.id AND Users_Choice.option_id = Option.id AND Option.correct = :correct GROUP BY Account.id ORDER BY answers DESC LIMIT 5").params(correct=correct)
 		else:
-			stmt = text("SELECT Account.username, count(users_choice.id) AS answers FROM Account, Users_Choice, Option WHERE Users_Choice.account_id = Account.id AND Users_Choice.option_id = Option.id AND Option.correct = :correct GROUP BY Account.id ORDER BY answers DESC LIMIT 10").params(correct=correct)
+			stmt = text("SELECT Account.username, count(users_choice.id) AS answers FROM Account, Users_Choice, Option WHERE Users_Choice.account_id = Account.id AND Users_Choice.option_id = Option.id AND Option.correct = :correct GROUP BY Account.id ORDER BY answers DESC LIMIT 5").params(correct=correct)
 		res = db.engine.execute(stmt)
 		response = []
 		for row in res:

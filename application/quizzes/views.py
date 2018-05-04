@@ -18,6 +18,14 @@ def quizzes_index():
 def quizzes_control():
 	return render_template("quizzes/list.html", quizzes = Quiz.query.all(), control = "control")
 
+@app.route("/quizzes/sort/<control>/", methods=["POST"])
+@login_required(role="USER")
+def quizzes_sort(control):
+	sorter = request.form.get("sort")
+	if current_user.role == "ADMIN" and control == "control":
+		return render_template("quizzes/list.html", quizzes = Quiz.query.order_by(sorter), control = "control")
+	return render_template("quizzes/list.html", quizzes = Quiz.query.filter_by(account_id=current_user.id).order_by(sorter), control = "user")
+
 @app.route("/quizzes/new/")
 @login_required(role="USER")
 def quizzes_form():

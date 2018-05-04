@@ -21,4 +21,11 @@
     </tr>
     {% endfor %}
   </table>
+  <table>
+    <tr>
+      <td style="padding:15px">
+        <a href="{{ url_for('reports_form', question_id=question.id, quiz_id=quiz.id, turn=turn) }}">Report this question</a>
+      </td>
+    </tr>
+  </table>
 {% endblock %}

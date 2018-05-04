@@ -1,14 +1,41 @@
 {% extends "layout.html" %}
 
 {% block body %}
-<p style="padding:15px">{{ error }}</p>
+  {% if reports is defined %}
+  <p style="padding:15px">There are {{ reports }} <a href="{{ url_for('reports_index') }}">reports</a> concerning the quality of your questions.</p>
+  {% endif %}
+  <p style="padding:15px">{{ error }}</p>
   <table>
+    <tr>      
+      <form method="POST" action="{{ url_for('questions_sort', control=control) }}">
+        <td style="padding:15px">
+          <select name="sort">
+            <option value="id">oldest first</option>
+            <option value="id desc">newest first</option>
+            <option value="name">question name</option>
+            <option value="category">category</option>
+            <option value="difficulty">difficulty</option>
+            <option value="active desc">active first</option>
+            <option value="active">inactive first</option>
+            {% if current_user.role == "ADMIN" and control == "control" %}
+            <option value="account_id">user id</option>
+            {% endif %}
+          </select>
+        </td>
+        <td>          
+          <input type="submit" value="Sort"/>
+        </td>
+      </form>
+    </tr>
+  </table>
+  <table>
+    </tr>
     <tr>
       <th style="padding:15px">Question</th>
       <th style="padding:15px">Category</th>
       <th style="padding:15px">Difficulty</th>
       <th style="padding:15px">Active</th>
-      {% if current_user.role == "ADMIN" %}
+      {% if current_user.role == "ADMIN" and control == "control" %}
       <th style="padding:15px">UserId</th>
       {% endif %}
     </tr>
@@ -18,7 +45,7 @@
       <td style="padding:15px">{{ question.category }}</td>
       <td style="padding:15px">{{ question.difficulty }}</td>
       <td style="padding:15px">{{ question.active }}</td>
-      {% if current_user.role == "ADMIN" %}
+      {% if current_user.role == "ADMIN" and control == "control" %}
       <td style="padding:15px">{{ question.account_id }}</td>
       {% endif %}
       <td style="padding:15px">

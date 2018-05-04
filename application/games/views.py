@@ -70,6 +70,10 @@ def play_quiz(quiz_id, turn, answer):
 	result = "Correct answer!"
 	if answer == "False":
 		result = "Wrong answer!"
+	if answer == "-1":
+		result = "Question was reported."
+	if answer == "0":
+		result = "Report was cancelled."
 	if turn == 0:
 		result = ""
 		p = Participation()
@@ -119,6 +123,8 @@ def quiz_results(quiz_id, participation_id, answer):
 	result = "Correct answer!"
 	if answer == "False":
 		result = "Wrong answer!"
+	if answer == "-1":
+		result = "Question was reported."
 	
 	return render_template("games/quizresult.html", quiz = q, qs = qs, correct = correct, previous = previous, result = result)
 

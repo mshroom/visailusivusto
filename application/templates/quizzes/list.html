@@ -1,14 +1,39 @@
 {% extends "layout.html" %}
 
 {% block body %}
+<p style="padding:15px">All your quizzes are listed here. Quizzes that have been created automatically cannot be modified.</p>
 <p style="padding:15px">{{ error }}</p>
+  <table>
+    <tr>
+      <form method="POST" action="{{ url_for('quizzes_sort', control=control) }}">
+        <td style="padding:15px">
+          <select name="sort">
+            <option value="id">oldest first</option>
+            <option value="id desc">newest first</option>
+            <option value="name">quiz name</option>
+            <option value="category">category</option>
+            <option value="active desc">active first</option>
+            <option value="active">inactive first</option>
+            <option value="automatic desc">automatic first</option>
+            <option value="automatic">self created first</option>
+            {% if current_user.role == "ADMIN" and control == "control" %}
+            <option value="account_id">user id</option> 
+             {% endif %}           
+          </select>
+        </td>
+        <td>
+          <input type="submit" value="Sort"/>
+        </td>
+      </form>     
+    </tr>
+  </table>
   <table>
     <tr>
       <th style="padding:15px">Quiz name</th>
       <th style="padding:15px">Category</th>
       <th style="padding:15px">Active</th>
       <th style="padding:15px">Automatic</th>
-      {% if current_user.role == "ADMIN" %}
+      {% if current_user.role == "ADMIN" and control == "control" %}
       <th style="padding:15px">UserId</th>
       {% endif %}
     </tr>
@@ -18,7 +43,7 @@
       <td style="padding:15px">{{ quiz.category }}</td>
       <td style="padding:15px">{{ quiz.active }}</td>
       <td style="padding:15px">{{ quiz.automatic }}</td>
-      {% if current_user.role == "ADMIN" %}
+      {% if current_user.role == "ADMIN" and control == "control" %}
       <td style="padding:15px">{{ quiz.account_id }}</td>
       {% endif %}
       </td>

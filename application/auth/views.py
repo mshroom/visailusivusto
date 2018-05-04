@@ -50,6 +50,12 @@ def auth_register():
 def auth_control():
 	return render_template("auth/control.html", users = User.query.all())
 
+@app.route("/auth/sort/", methods=["POST"])
+@login_required(role="ADMIN")
+def auth_sort():
+	sorter = request.form.get("sort")
+	return render_template("auth/control.html", users = User.query.order_by(sorter))
+
 @app.route("/auth/control/del/<user_id>", methods = ["POST"])
 @login_required(role="ADMIN")
 def auth_delete(user_id):

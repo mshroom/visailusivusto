@@ -7,16 +7,37 @@ from application import app, db, login_manager, login_required
 from application.questions.models import Question, Option, UsersChoice
 from application.questions.forms import QuestionForm, OptionForm, ModifyQuestionForm, ModifyCategoryForm, ModifyDifficultyForm
 from application.quizzes.models import QuizQuestion, Quiz
+from application.reports.models import Report
 
 @app.route("/questions", methods=["GET"])
 @login_required(role="USER")
 def questions_index():
-	return render_template("questions/list.html", questions = Question.query.filter_by(account_id=current_user.id).all(), control = "user")
+	r = Report.findAllReceivedReports(current_user.id, checked=False)
+	reports = len(r)
+	if reports > 0:
+		return render_template("questions/list.html", questions = Question.query.filter_by(account_id=current_user.id).all(), control = "user", reports = reports)
+	else:
+		return render_template("questions/list.html", questions = Question.query.filter_by(account_id=current_user.id).all(), control = "user")
 
 @app.route("/questions/control", methods=["GET"])
 @login_required(role="ADMIN")
 def questions_control():
 	return render_template("questions/list.html", questions = Question.query.all(), control = "control")
+
+@app.route("/questions/sort/<control>/", methods=["POST"])
+@login_required(role="USER")
+def questions_sort(control):
+	sorter = request.form.get("sort")
+	r = Report.findAllReceivedReports(current_user.id, checked=False)
+	reports = len(r)
+	if reports > 0:
+		if current_user.role == "ADMIN" and control == "control":
+			return render_template("questions/list.html", questions = Question.query.order_by(sorter), control = "control", reports = reports)
+		return render_template("questions/list.html", questions = Question.query.filter_by(account_id=current_user.id).order_by(sorter), control = "user", reports = reports)
+	else:
+		if current_user.role == "ADMIN" and control == "control":
+			return render_template("questions/list.html", questions = Question.query.order_by(sorter), control = "control")
+		return render_template("questions/list.html", questions = Question.query.filter_by(account_id=current_user.id).order_by(sorter), control = "user")
 
 @app.route("/questions/new/")
 @login_required(role="USER")
@@ -73,6 +94,11 @@ def questions_activate(question_id, control):
 			if current_user.role == "ADMIN" and control == "control":
 				return render_template("questions/list.html", questions = Question.query.all(), control = control, error = "Question has no correct answer and cannot be activated")
 			return render_template("questions/list.html", questions = Question.query.filter_by(account_id=current_user.id).all(), control = control, error = "Question has no correct answer and cannot be activated")
+		reports = Report.query.filter_by(question_id=question_id, checked=False).all()
+		if len(reports) > 0:
+			if current_user.role == "ADMIN" and control == "control":
+				return render_template("questions/list.html", questions = Question.query.all(), control = control, error = "Question has been reported and cannot be activated")
+			return render_template("questions/list.html", questions = Question.query.filter_by(account_id=current_user.id).all(), control = control, error = "Question has been reported and cannot be activated")
 		q.active = True
 	db.session().commit()
 	
@@ -146,6 +172,9 @@ def question_activate(question_id):
 		answer = Option.query.filter_by(quest_id=question_id, correct=True).first()
 		if not answer:
 			return render_template("questions/modify.html", question  = Question.query.get(question_id), options = Option.query.filter_by(quest_id=question_id).all(), opt_form = OptionForm(), q_form = ModifyQuestionForm(), c_form = ModifyCategoryForm(), d_form = ModifyDifficultyForm(), act_error = "Question has no correct answer and cannot be activated")
+		reports = Report.query.filter_by(question_id=question_id, checked=False).all()
+		if len(reports) > 0:
+			return render_template("questions/modify.html", question  = Question.query.get(question_id), options = Option.query.filter_by(quest_id=question_id).all(), opt_form = OptionForm(), q_form = ModifyQuestionForm(), c_form = ModifyCategoryForm(), d_form = ModifyDifficultyForm(), act_error = "Question has been reported and cannot be activated")
 		q.active = True
 	db.session().commit()
 	

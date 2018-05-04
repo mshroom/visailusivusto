@@ -1,0 +1,55 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<p style="padding:15px">Your questions that have been reported are listed here. Please check the validity of the reports and if necessary, modify the questions. The administrators will see all reports and remove those which are no longer relevant. Before the question is approved by administrators, it cannot be activated. </p>
+  {% if current_user.role == "ADMIN" and control == "control" %} 
+  <table>
+    <tr>      
+      <form method="POST" action="{{ url_for('reports_sort') }}">
+        <td style="padding:15px">
+          <select name="sort">
+            <option value="id">oldest first</option>
+            <option value="id desc">newest first</option>
+            <option value="question_id">question id</option>            
+            <option value="account_id">reported by</option>            
+          </select>
+        </td>
+        <td>
+          <input type="submit" value="Sort"/>
+        </td>
+      </form>
+    </td>
+  </table>
+  {% endif %}
+  <table>
+    </tr>
+    <tr>
+      <th style="padding:15px">Question</th>
+      <th style="padding:15px">Comment</th>
+      <th style="padding:15px">Reported</th>
+      {% if current_user.role == "ADMIN" and control == "control" %}
+      <th style="padding:15px">Reported by</th>
+      {% endif %}
+    </tr>
+    {% for report in reports %}
+    <tr>
+      <td style="padding:15px">{{ report.question_id  }}</td>
+      <td style="padding:15px">{{ report.comment }}</td>
+      <td style="padding:15px">{{ report.date_created }}</td>
+      {% if current_user.role == "ADMIN" and control == "control" %}
+      <td style="padding:15px">{{ report.account_id }}</td>
+      {% endif %}
+      <td style="padding:15px">
+        <a href="{{ url_for('questions_modify', question_id=report.question_id) }}">See and modify question</a>
+      </td>
+      {% if current_user.role == "ADMIN" and control == "control" %}
+      <td style="padding:15px">
+        <form method="POST" action="{{ url_for('reports_check', report_id=report.id, control=control) }}">
+          <input type="submit" value="Mark as checked and hide"/>
+        </form>
+      </td>
+      {% endif %}
+    </tr>
+    {% endfor %}
+  </table>
+{% endblock %}

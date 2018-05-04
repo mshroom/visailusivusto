@@ -4,6 +4,24 @@
 {{ error }}
   <table>
     <tr>
+      <td style="padding:15px">
+        <form method="POST" action="{{ url_for('auth_sort') }}">
+          <select name="sort">
+            <option value="id">user id</option>
+            <option value="name">name</option>
+            <option value="username">username</option>
+            <option value="role">admins first</option>
+            <option value="role desc">users first</option>
+          </select>
+        </td>
+        <td>
+          <input type="submit" value="Sort"/>
+        </td>
+      </form>
+    </tr>
+  </table>
+  <table>
+    <tr>
       <th style="padding:15px">UserId</th>
       <th style="padding:15px">Name</th>
       <th style="padding:15px">Username</th>
