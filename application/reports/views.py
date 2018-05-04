@@ -47,6 +47,7 @@ def reports_create(question_id, quiz_id, turn):
 
 	q = Question.query.get(question_id)
 	q.active = False
+	db.session().commit()
 	quizquestions = QuizQuestion.query.filter_by(question_id=q.id)
 	for qq in quizquestions:
 		quiz = Quiz.query.get(qq.quiz_id)
