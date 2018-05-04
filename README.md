@@ -30,10 +30,18 @@ Jotta järjestelmä pysyy asiallisena ja laadukkaana, käyttäjien on mahdollist
 * Pistesaldojen tarkastelu
 * Asiattomien ja virheellisten kysymysten ilmoittaminen
 
-### Valmis sovellus täyttää (onnistuessaan) seuraavat arvostelukriteerit:
+### Valmis sovellus täyttää seuraavat arvostelukriteerit:
 * Toimiva tietokantaa käyttävä web-sovellus
 * Vähintään kolme tietokohdetta (tietokantataulua) ja liitostaulut (tauluja mm. käyttäjä, kysymys, visa, ilmoitus)
 * Käyttäjät voivat kirjautua ja käyttäjä on yhdistetty tietokannassa johonkin tietokohteeseen (esim. kysymyksiin)
 * Täysi CRUD (luonti, lukeminen, muokkaus, poisto) toteutuu vähintään kahdella tietokohteella (peruskäyttäjän osalta omat kysymykset ja visat)
 * Ainakin yksi monesta-moneen suhde tietokantataulujen välillä (esim. kysymys-visa)
 * Vähintään kaksi monimutkaisempaa useampaa tietokantataulua käyttävää yhteenvetokyselyä (High Score -listat voivat yhdistää tietoja käyttäjistä, käyttäjien pisteistä, visoista ja aihepiireistä joista pisteet on ansaittu jne.)
+
+## Puutteet ja kehitysideat
+
+* Sovelluksen visuaalista ilmettä voisi kohentaa
+* Sovelluksen toimintaa olisi helpompi tarkastella jos sinne lisäisi vielä enemmän dataa
+* Automaattinen visojen luominen onnistuu tällä hetkellä vain joko kaikista kysymyksistä tai aihepiirin perusteella. Vaikeusasteen voisi vielä lisätä valintakriteeriksi.
+* Käyttäjien saavutuksia ja pisteitä voisi vielä eritellä tarkemmin. Esim. oikeista vastauksista voisi saada pisteitä sen mukaan, kuinka vaikeita kysymykset ovat. Pisteiden laskeminen onnistuisi tässäkin tapauksessa yksinkertaisesti SQL-kyselyllä, joka laskee kuinka monta oikeaa vastausta käyttäjällä on kussakin vaikeuskategoriassa.
+* Ilmoitusten käsittelyä voisi sujuvoittaa lisäämällä joitain toimintoja. Esim. käyttäjä voisi merkitä saamansa ilmoituksen hoidetuksi, jolloin järjestelmän ylläpitäjä voisi helposti tarkastella, mihin ilmoituksiin on reagoitu ja mihin ei. Ilmoituksen saanut käyttäjä voisi myös kirjoittaa vastauksen, jos ilmoitus ei hänen mielestään olisi relevantti.
