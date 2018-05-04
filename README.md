@@ -2,7 +2,7 @@
 
 QuizBee on web-sovellus, jonka valitsin harjoitustyöni aiheeksi Tietokantasovellus -kurssilla keväällä 2018.
 
-Sovellus on toiminnassa [Herokussa.](https://quizbee-demo.herokuapp.com/) Sovellusta voi kokeilla testikäyttäjän tunnuksilla:
+Sovellus on toiminnassa [Herokussa.](https://quizbee-demo.herokuapp.com/) Sovellusta voi kokeilla seuraavilla testikäyttäjän tunnuksilla:
 
 tavallinen käyttäjä: käyttäjätunnus __hello__, salasana __world__.
 
