@@ -58,7 +58,10 @@ def questions_delete(question_id, control):
 			if len(questions) < 2:
 				quiz.active = False
 				db.session().commit()
- 
+
+	db.session.query(Report).filter_by(question_id=question_id).delete()
+	db.session().commit()
+
 	options = Option.query.filter_by(quest_id=question_id).all()
 	for o in options:
 		db.session.query(UsersChoice).filter_by(option_id=o.id).delete()

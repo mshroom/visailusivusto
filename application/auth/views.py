@@ -60,8 +60,10 @@ def auth_sort():
 @login_required(role="ADMIN")
 def auth_delete(user_id):
 	db.session.query(UsersChoice).filter_by(account_id=user_id).delete()
+	db.session.query(Report).filter_by(account_id=current_user.id).delete()
 	questions = Question.query.filter_by(account_id=user_id).all()
 	for q in questions:
+		db.session.query(Report).filter_by(question_id=q.id).delete()
 		options = Option.query.filter_by(quest_id=q.id).all()
 		for o in options:
 			db.session.query(UsersChoice).filter_by(option_id=o.id).delete()
@@ -82,6 +84,7 @@ def auth_delete(user_id):
 		db.session.query(Participation).filter_by(quiz_id=qz.id).delete()
 	db.session.query(Participation).filter_by(account_id=user_id).delete()
 	db.session.query(Quiz).filter_by(account_id=user_id).delete()
+	
 	db.session.query(Question).filter_by(account_id=user_id).delete()	
 	u = User.query.get(user_id)
 	db.session().delete(u)
@@ -151,8 +154,10 @@ def delete_cancel():
 @login_required(role="USER")
 def delete_confirm():
 	db.session.query(UsersChoice).filter_by(account_id=current_user.id).delete()
+	db.session.query(Report).filter_by(account_id=current_user.id).delete()
 	questions = Question.query.filter_by(account_id=current_user.id).all()
 	for q in questions:
+		db.session.query(Report).filter_by(question_id=q.id).delete()
 		options = Option.query.filter_by(quest_id=q.id).all()
 		for o in options:
 			db.session.query(UsersChoice).filter_by(option_id=o.id).delete()
