@@ -9,16 +9,19 @@
   {% endif %}
   </br></br>
   <p><b style="padding:15px">Quiz results</b></p>
-  <table>
-    <tr>
-      <th style="padding:15px">Quiz name</th>
-      <th style="padding:15px">Number of questions</th>
-      <th style="padding:15px">Correct answers</th>
-      <th style="padding:15px">Number of previous goes in this quiz</th>
-    </tr>
-      <td style="padding:15px">{{ quiz.name }}</td>
-      <td style="padding:15px">{{ qs }}</td>
-      <td style="padding:15px">{{ correct }}</td>
-      <td style="padding:15px">{{ previous }}</td>
+  <table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col" style="padding:15px">Quiz name</th>
+        <th scope="col" style="padding:15px">Number of questions</th>
+        <th scope="col" style="padding:15px">Correct answers</th>
+        <th scope="col" style="padding:15px">Number of previous goes in this quiz</th>
+      </tr>
+    </thead>
+    <tr class="table-info">
+      <td style="padding:15px"><b>{{ quiz.name }}</b></td>
+      <td style="padding:15px"><b>{{ qs }}</b></td>
+      <td style="padding:15px"><b>{{ correct }}</b></td>
+      <td style="padding:15px"><b>{{ previous }}</b></td>
     <tr>
 {% endblock %}
