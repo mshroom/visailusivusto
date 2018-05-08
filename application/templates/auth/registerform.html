@@ -1,12 +1,14 @@
 {% extends "layout.html" %}
 
 {% block body %}
+{% if error is defined %}
+<p style="padding:15px" class="alert alert-danger" role="alert">{{ error }}</p>
+{% endif %}
 <p style="padding:15px"><b>Welcome to join QuizBee!</b></p>
 <p style="padding:15px">QuizBee is a free application where you can play and make your own quizzes.</p>
 <p style="padding:15px">You can try your skills by answering random quiz questions even without registrating. If you want to play other users' quizzes, make your own questions and quizzes and gather points, you will need to create an account.</p>
 <p style="padding:15px">Except from the data you add to our quiz database or that is saved during playing in order to update your statistics, QuizBee won't collect any private data. All data related to you will be destroyed if you decide to delete your account.</p>
 <p style="padding:15px"><b>Create an account by giving the following information: </b></p>
-<p style="padding:15px">{{ error }}</p>
 <form method="POST", action="{{ url_for('auth_register') }}">
   <table>
     <tr>
@@ -49,6 +51,21 @@
       <td>
         <ul>
           {% for error in form.password.errors %}
+          <li>{{ error }} </li>
+          {% endfor %}
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td style="padding:15px">
+        {{ form.password2.label }}
+      </td>
+      <td style="padding:15px">
+        {{ form.password2 }}
+      </td>
+      <td>
+        <ul>
+          {% for error in form.password2.errors %}
           <li>{{ error }} </li>
           {% endfor %}
         </ul>

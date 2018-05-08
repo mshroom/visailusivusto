@@ -20,13 +20,16 @@
       </form>
     </tr>
   </table>
-  <table>
-    <tr>
-      <th style="padding:15px">UserId</th>
-      <th style="padding:15px">Name</th>
-      <th style="padding:15px">Username</th>
-      <th style="padding:15px">Role</th>
-    </tr>
+  <table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col" style="padding:15px">UserId</th>
+        <th scope="col" style="padding:15px">Name</th>
+        <th scope="col" style="padding:15px">Username</th>
+        <th scope="col" style="padding:15px">Role</th>
+        <th scope="col" style="padding:15px"></th>
+      </tr>
+    </thead>
     {% for user in users %}
     <tr>
       <td style="padding:15px">{{ user.id  }}</td>

@@ -5,10 +5,9 @@
   <table>
     {% for option in options %}
     <tr>
-      <td style="padding:15px">{{ option.name }}</td>
       <td style="padding:15px">
         <form method="POST" action="{{ url_for('options_choose', question_id=question.id, option_id=option.id) }}">
-          <input type="submit" value="Choose"/>
+          <input type="submit" value={{ option.name }} class="btn btn-dark"/>
         </form>
       </td>
     </tr>

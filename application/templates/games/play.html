@@ -18,6 +18,23 @@
   {% if current_user.is_authenticated %}
   <p style="padding:15px">Take a quiz made by another user:</p>
   <table>
+    <tr>      
+      <form method="POST" action="{{ url_for('games_sort') }}">
+        <td style="padding:15px">
+          <select name="sort">
+            <option value="id">oldest first</option>
+            <option value="id desc">newest first</option>
+            <option value="name">quiz name</option>
+            <option value="category">category</option>
+          </select>
+        </td>
+        <td>          
+          <input type="submit" value="Sort"/>
+        </td>
+      </form>
+    </tr>
+  </table>
+  <table>
     <tr>
       <th style="padding:15px">Quiz</th>
       <th style="padding:15px">Category</th>

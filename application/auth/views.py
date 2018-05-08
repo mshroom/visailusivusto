@@ -6,6 +6,7 @@ from application.auth.models import User
 from application.questions.models import Question, Option, UsersChoice
 from application.quizzes.models import Quiz, QuizQuestion, Participation
 from application.auth.forms import LoginForm, RegisterForm, NameForm, UsernameForm, PasswordForm
+from application.reports.models import Report
 
 @app.route("/auth/login", methods = ["GET", "POST"])
 def auth_login():
@@ -34,16 +35,18 @@ def auth_register():
 	form = RegisterForm(request.form)
 	
 	if not form.validate():
-		return render_template("auth/registerform.html", form = form)
+		return render_template("auth/registerform.html", form = form, error = "Registration failed. See details below.")
+	if form.password.data != form.password2.data:
+		return render_template("auth/registerform.html", form = form, error = "Registration failed. You gave two different passwords.")
 
 	user = User.query.filter_by(username=form.username.data).first()
 	if user:
-		return render_template("auth/registerform.html", form = form, error = "Username is already in use")
+		return render_template("auth/registerform.html", form = form, error = "Registration failed. Username is already in use.")
 	
 	u = User(form.name.data, form.username.data, form.password.data)
 	db.session().add(u)
 	db.session().commit()
-	return redirect(url_for("auth_login"))
+	return render_template("auth/loginform.html", form = LoginForm(), confirm = "Registration completed.")
 
 @app.route("/auth/control", methods = ["GET"])
 @login_required(role="ADMIN")
@@ -134,6 +137,9 @@ def auth_set_password():
 	
 	if not passwordform.validate():
 		return render_template("auth/settings.html", user = current_user, nameform = NameForm(), usernameform = UsernameForm(), passwordform = passwordform)
+
+	if passwordform.password.data != passwordform.password2.data:
+		return render_template("auth/settings.html", user = current_user, nameform = NameForm(), usernameform = UsernameForm(), passwordform = passwordform, error = "You gave two different passwords")
 
 	user = User.query.get(current_user.id)
 	user.password = passwordform.password.data

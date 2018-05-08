@@ -1,32 +1,15 @@
 {% extends "layout.html" %}
 
 {% block body %}
-<table> 
-  <tr>
-    <th style="padding:15px">Question</th>
-    <th style="padding:15px">Category</th>
-    <th style="padding:15px">Difficulty</th>
-    <th style="padding:15px">Active</th>
-  </tr>
-  <tr>
-    <td style="padding:15px">{{ question.name }}</td>
-    <td style="padding:15px">{{ question.category }}</td>
-    <td style="padding:15px">{{ question.difficulty }}</td>
-    <td style="padding:15px">{{ question.active }}</td>
-    <td style="padding:15px">
-      <form method="POST" action="{{ url_for('question_activate', question_id=question.id) }}">
-        <input type="submit" value="Activate/Disactivate"/>
-      </form>
-    </td>
-	<td style="padding:15px">{{ act_error }}</td>
-  </tr>
-</table>
 <p style="padding:15px"><b>Modify question</b></p>
 <table>
   <tr>
     <form method="POST", action="{{ url_for('questions_modifyQuestion', question_id=question.id) }}">
       <td style="padding:15px">
-        {{ q_form.name.label }}
+        <b>{{ q_form.name.label }}</b>
+      </td>
+      <td style="padding:15px">
+        {{ question.name }}
       </td>
       <td style="padding:15px">
         {{ q_form.name }}
@@ -46,8 +29,10 @@
   <tr>
     <form method="POST", action="{{ url_for('questions_modifyCategory', question_id=question.id) }}">
       <td style="padding:15px">
-        {{ c_form.category.label }}
+        <b>{{ c_form.category.label }}</b>
       </td>
+      <td style="padding:15px">
+        {{ question.category }}
       <td style="padding:15px">
         {{ c_form.category }}
       </td>
@@ -59,7 +44,10 @@
   <tr>
     <form method="POST", action="{{ url_for('questions_modifyDifficulty', question_id=question.id) }}">
       <td style="padding:15px">
-        {{ d_form.difficulty.label }}
+        <b>{{ d_form.difficulty.label }}</b>
+      </td>
+      <td style="padding:15px">
+        {{ question.difficulty }}
       </td>
       <td style="padding:15px">
         {{ d_form.difficulty }}
@@ -69,6 +57,19 @@
       </td>
     </form>
   </tr>
+  <tr>
+    <td style="padding:15px"><b>Active</b></td>
+    <td style="padding:15px">{{ question.active }}</td>
+    <td style="padding:15px"></td>
+    <td style="padding:15px">
+      <form method="POST" action="{{ url_for('question_activate', question_id=question.id) }}">
+        <input type="submit" value="Activate/Disactivate"/>
+      </form>
+    </td>  
+    {% if act_error is defined %}
+    <td style="padding:15px" class="alert alert-danger" role="alert">{{ act_error }}</td>  
+    {% endif %}
+  </tr> 
 </table>
 <p style="padding:15px"><b>Options</b></p>
 <table>

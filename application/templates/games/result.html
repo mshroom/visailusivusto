@@ -12,7 +12,11 @@
     </tr>
   </table>  
   <br/><br/>
-  <p style="padding:15px">{{ result }}</p>
+  {% if result == 'Wrong answer!' %}
+  <p style="padding:15px" class="alert alert-danger" role="alert">{{ result }}</p>
+  {% else %}
+  <p style="padding:15px" class="alert alert-success" role="alert">{{ result }}</p>
+  {% endif %}
   <br/><br/>
   <a href="{{ url_for('games_play') }}" style="padding:15px">Play again!</a>
 {% endblock %}

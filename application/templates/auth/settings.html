@@ -43,21 +43,29 @@
   </tr>
   <tr>
     <form method="POST" action="{{ url_for('auth_set_password') }}">
-      <td style="padding:15px"></td>
-      <td style="padding:15px"></td>
-      <td style="padding:15px">{{ passwordform.password.label }}</td>
-      <td style="padding:15px">{{ passwordform.password }}</td>
-      <td style="padding:15px"></td>
-      <td style="padding:15px">
-        <input type="submit" value="Change password"/>
-      </td>
-      <td>
-        <ul>
-          {% for error in passwordform.password.errors %}
-          <li>{{ error }}</li>
-          {% endfor %}
-        </ul>
-      </td>
+      <tr>
+        <td style="padding:15px"></td>
+        <td style="padding:15px"></td>
+        <td style="padding:15px">{{ passwordform.password.label }}</td>
+        <td style="padding:15px">{{ passwordform.password }}</td>
+      </tr>
+      <tr>
+        <td style="padding:15px"></td>
+        <td style="padding:15px"></td>
+        <td style="padding:15px">{{ passwordform.password2.label }}</td>
+        <td style="padding:15px">{{ passwordform.password2 }}</td>
+        <td style="padding:15px"></td>
+        <td style="padding:15px">
+          <input type="submit" value="Change password"/>
+        </td>
+        <td>
+          <ul>
+            {% for error in passwordform.password.errors %}
+            <li>{{ error }}</li>
+            {% endfor %}
+          </ul>
+        </td>
+      </tr>
     </form>
   </tr>
   <tr>

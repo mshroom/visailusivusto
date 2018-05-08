@@ -18,19 +18,22 @@
           <input type="submit" value="Sort"/>
         </td>
       </form>
-    </td>
+    </tr>
   </table>
   {% endif %}
-  <table>
-    </tr>
-    <tr>
-      <th style="padding:15px">Question</th>
-      <th style="padding:15px">Comment</th>
-      <th style="padding:15px">Reported</th>
-      {% if current_user.role == "ADMIN" and control == "control" %}
-      <th style="padding:15px">Reported by</th>
-      {% endif %}
-    </tr>
+  <table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col" style="padding:15px">Question</th>
+        <th scope="col" style="padding:15px">Comment</th>
+        <th scope="col" style="padding:15px">Reported</th>
+        {% if current_user.role == "ADMIN" and control == "control" %}
+        <th scope="col" style="padding:15px">Reported by</th>
+        {% endif %}
+        <th scope="col" style="padding:15px"></th>
+        <th scope="col" style="padding:15px"></th>
+      </tr>
+    </thead>
     {% for report in reports %}
     <tr>
       <td style="padding:15px">{{ report.question_id  }}</td>

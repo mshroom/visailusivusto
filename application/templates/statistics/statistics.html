@@ -1,26 +1,30 @@
 {% extends "layout.html" %}
 
 {% block body %}
-  <table>
+   <table class="table">
+     <thead class="thead-dark">
     <tr>
-	  <th style="padding:15px">Category</th>
-      <th style="padding:15px">Number of answers</th>
-      <th style="padding:15px">Number of correct answers</th>
-      <th style="padding:15px">Percentage of correct answers</th>
+	  <th scope="col" style="padding:15px">Category</th>
+      <th scope="col" style="padding:15px">Number of answers</th>
+      <th scope="col" style="padding:15px">Number of correct answers</th>
+      <th scope="col" style="padding:15px">Percentage of correct answers</th>
     </tr>
+    </thead>
+    <tbody>
     <tr>
-      <td style="padding:15px"><b>All</b></td>
+      <th scope="row" style="padding:15px">All</th>
       <td style="padding:15px">{{ allAnswers }}</td>
       <td style="padding:15px">{{ correctAnswers }}</td>
       <td style="padding:15px">{{ percentageOfCorrectAnswers }}</td>
     </tr>
     {% for category in answersByCategories %}
     <tr>
-	  <td style="padding:15px"><b>{{ category.category }}</b></td>
+	  <th scope="row" style="padding:15px">{{ category.category }}</th>
       <td style="padding:15px">{{ category.answers }}</td>
       <td style="padding:15px">{{ category.correct }}</td>
       <td style="padding:15px">{{ category.percentage }}</td>
     </tr>
     {% endfor %}
+    </tbody>
   </table>
 {% endblock %}

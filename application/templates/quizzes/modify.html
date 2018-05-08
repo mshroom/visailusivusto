@@ -1,31 +1,14 @@
 {% extends "layout.html" %}
 
 {% block body %}
-<table> 
-  <tr>
-    <th style="padding:15px">Quiz</th>
-    <th style="padding:15px">Category</th>
-    <th style="padding:15px">Active</th>
-  </tr>
-  <tr>
-    <td style="padding:15px">{{ quiz.name }}</td>
-    <td style="padding:15px">{{ quiz.category }}</td>
-    <td style="padding:15px">{{ quiz.active }}</td>
-    <td style="padding:15px">
-      <form method="POST" action="{{ url_for('quiz_activate', quiz_id=quiz.id) }}">
-        <input type="submit" value="Activate/Disactivate"/>
-      </form>
-    </td>
-	<td style="padding:15px">{{ act_error }}</td>
-  </tr>
-</table>
 <p style="padding:15px"><b>Modify quiz</b></p>
 <table>
   <tr>
     <form method="POST" action="{{ url_for('quizzes_modifyQuiz', quiz_id=quiz.id) }}">
       <td style="padding:15px">
-        {{ form.name.label }}
+        <b>{{ form.name.label }}</b>
       </td>
+      <td style="padding:15px">{{ quiz.name }}</td>
       <td style="padding:15px">
         {{ form.name }}
       </td>
@@ -44,8 +27,9 @@
   <tr>
     <form method="POST" action="{{ url_for('quizzes_modifyCategory', quiz_id=quiz.id) }}">
       <td style="padding:15px">
-        {{ c_form.category.label }}
+        <b>{{ c_form.category.label }}</b>
       </td>
+      <td style="padding:15px">{{ quiz.category }}</td>
       <td style="padding:15px">
         {{ c_form.category }}
       </td>
@@ -53,6 +37,18 @@
         <input type="submit" value="Change category"/>
       </td>
     </form>
+  </tr>
+  <tr>
+    <td style="padding:15px"><b>Active</b></td>
+    <td style="padding:15px">{{ quiz.active }} </td>
+    <td style="padding:15px">
+      <form method="POST" action="{{ url_for('quiz_activate', quiz_id=quiz.id) }}">
+        <input type="submit" value="Activate/Disactivate"/>
+      </form>
+    </td>
+    {% if act_error is defined %}
+    <td style="padding:15px" class="alert alert-danger" role="alert">{{ act_error }}</td>
+    {% endif %}
   </tr>
 </table>
 <p style="padding:15px"><b>Questions</b></p>
@@ -69,6 +65,7 @@
   {% endfor %}
 </table>
 <p style="padding:15px"><b>Add a question</b></p>
+<p style="padding:15px">The list below shows all your active questions that haven't been added to this quiz</p>
 <form method="POST", action="{{ url_for('quizQuestions_add', quiz_id=quiz.id) }}">
   <table>
     <tr>

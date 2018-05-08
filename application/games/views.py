@@ -25,6 +25,24 @@ def games_play():
 
 	return render_template("games/play.html", categories = Question.findAllCategoriesInUse(), quizlist = quizlist)
 
+@app.route("/games/sort/", methods=["POST"])
+@login_required(role="USER")
+def games_sort():
+	sorter = request.form.get("sort")
+	quizlist = []
+	if current_user.is_authenticated:
+		quizzes = Quiz.query.filter(Quiz.active == True, (Quiz.account_id != current_user.id) | (Quiz.automatic == True)).order_by(sorter)
+	else:
+		quizzes = Quiz.query.filter(Quiz.active == True)
+	for q in quizzes:
+		a = User.query.filter_by(id = q.account_id).first()
+		creator = a.username
+		if q.automatic == True:
+			creator = "automatic"
+		quizlist.append({"creator":creator, "name":q.name, "id":q.id, "category":q.category})
+
+	return render_template("games/play.html", categories = Question.findAllCategoriesInUse(), quizlist = quizlist)
+
 @app.route("/play/random/", methods=["GET"])
 def play_random():
 	questions = Question.query.filter_by(active=True).all()

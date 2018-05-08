@@ -38,7 +38,7 @@ def quizzes_create():
 	form = QuizForm(request.form)
 	
 	if not form.validate():
-		return render_template("quizzes/new.html", form = form, autoform = AutoQuizForm())
+		return render_template("quizzes/new.html", form = form, autoform = AutoQuizForm(), error = "Quiz was not created. See details below.")
 	
 	q = Quiz(form.name.data, form.category.data)
 	q.account_id = current_user.id
@@ -55,7 +55,7 @@ def quizzes_autocreate():
 	autoform = AutoQuizForm(request.form)
 	
 	if not autoform.validate():
-		return render_template("quizzes/new.html", form = QuizForm(), autoform = autoform)
+		return render_template("quizzes/new.html", form = QuizForm(), autoform = autoform, error = "Quiz was not created. See details below.")
 	
 	category = autoform.category.data
 	number = autoform.number.data
@@ -66,7 +66,7 @@ def quizzes_autocreate():
 		maxim = Question.query.filter_by(active=True, category=category).count()	
 	if number > maxim:
 		msg = "Please select a smaller number. Maximum for " + category + " category is " + str(maxim)
-		return render_template("quizzes/new.html", form = QuizForm(), autoform = autoform, size_error = msg)
+		return render_template("quizzes/new.html", form = QuizForm(), autoform = autoform, size_error = msg, error = "Quiz was not created. See details below.")
 	
 	q = Quiz(autoform.name.data, autoform.category.data)
 	q.account_id = current_user.id
@@ -100,12 +100,6 @@ def quizzes_activate(quiz_id, control):
 	else:
 		questions = Quiz.findAllQuestions(quiz_id)
 		if len(questions) < 2:
-			a = q.account_id
-			q_form = QuizQuestionForm()
-			list = []
-			for row in Quiz.findAllUsersUnusedQuestions(quiz_id):
-				list.append((row[0], row[1]))
-			q_form.question.choices = list
 			if current_user.role == "ADMIN" and control == "control":
 				return render_template("quizzes/list.html", quizzes = Quiz.query.all(), control = control, error = "Quiz has less than two questions and cannot be activated")
 			return render_template("quizzes/list.html", quizzes = Quiz.query.filter_by(account_id=current_user.id).all(), control = control, error = "Quiz has less than two questions and cannot be activated")
@@ -139,6 +133,7 @@ def quizzes_modify(quiz_id):
 	a = q.account_id
 	q_form = QuizQuestionForm()
 	list = []
+	list.append(("null", "Select a question"))
 	for row in Quiz.findAllUsersUnusedQuestions(quiz_id):
 		list.append((row[0], row[1]))
 	q_form.question.choices = list
@@ -155,6 +150,7 @@ def quizzes_modifyQuiz(quiz_id):
 	a = q.account_id
 	q_form = QuizQuestionForm()
 	list = []
+	list.append(("null", "Select a question"))
 	for row in Quiz.findAllUsersUnusedQuestions(quiz_id):
 		list.append((row[0], row[1]))
 	q_form.question.choices = list
@@ -178,6 +174,7 @@ def quizzes_modifyCategory(quiz_id):
 	a = q.account_id
 	q_form = QuizQuestionForm()
 	list = []
+	list.append(("null", "Select a question"))
 	for row in Quiz.findAllUsersUnusedQuestions(quiz_id):
 		list.append((row[0], row[1]))
 	q_form.question.choices = list
@@ -203,6 +200,7 @@ def quiz_activate(quiz_id):
 			a = q.account_id
 			q_form = QuizQuestionForm()
 			list = []
+			list.append(("null", "Select a question"))
 			for row in Quiz.findAllUsersUnusedQuestions(quiz_id):
 				list.append((row[0], row[1]))
 			q_form.question.choices = list
@@ -217,8 +215,12 @@ def quiz_activate(quiz_id):
 @login_required(role="USER")
 def quizQuestions_add(quiz_id):
 	qq_form = QuizQuestionForm(request.form)
+
+	if qq_form.question.data == "null":
+		return redirect(url_for('quizzes_modify', quiz_id=quiz_id))
 		
 	qn = Question.query.get(qq_form.question.data)
+		
 	
 	qq = QuizQuestion()
 	qq.quiz_id = quiz_id
@@ -243,6 +245,7 @@ def quizQuestions_delete(qz_id, qn_id):
 			a = q.account_id
 			q_form = QuizQuestionForm()
 			list = []
+			list.append(("null", "Select a question"))
 			for row in Quiz.findAllUsersUnusedQuestions(qz_id):
 				list.append((row[0], row[1]))
 			q_form.question.choices = list

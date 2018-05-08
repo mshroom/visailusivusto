@@ -92,16 +92,19 @@ def questions_activate(question_id, control):
 					db.session().commit()
 
 	else:
+		r = Report.query.filter_by(question_id=question_id, checked=False).all()
+		reports = len(r)
 		answer = Option.query.filter_by(quest_id=question_id, correct=True).first()
 		if not answer:
 			if current_user.role == "ADMIN" and control == "control":
 				return render_template("questions/list.html", questions = Question.query.all(), control = control, error = "Question has no correct answer and cannot be activated")
+			if reports > 0:
+				return render_template("questions/list.html", questions = Question.query.filter_by(account_id=current_user.id).all(), control = control, error = "Question has no correct answer and cannot be activated", reports = reports)
 			return render_template("questions/list.html", questions = Question.query.filter_by(account_id=current_user.id).all(), control = control, error = "Question has no correct answer and cannot be activated")
-		reports = Report.query.filter_by(question_id=question_id, checked=False).all()
-		if len(reports) > 0:
+		if reports > 0:
 			if current_user.role == "ADMIN" and control == "control":
 				return render_template("questions/list.html", questions = Question.query.all(), control = control, error = "Question has been reported and cannot be activated")
-			return render_template("questions/list.html", questions = Question.query.filter_by(account_id=current_user.id).all(), control = control, error = "Question has been reported and cannot be activated")
+			return render_template("questions/list.html", questions = Question.query.filter_by(account_id=current_user.id).all(), control = control, error = "Question has been reported and cannot be activated", reports = reports)
 		q.active = True
 	db.session().commit()
 	
@@ -192,21 +195,22 @@ def options_setcorrect(question_id, option_id):
 	else:
 		o.correct = True
 	db.session().commit()
-	answer = Option.query.filter_by(quest_id=question_id, correct=True).first()
-	if not answer:
-		q = Question.query.get(question_id)
-		q.active = False
-		quizquestions = QuizQuestion.query.filter_by(question_id=q.id)
-		for qq in quizquestions:
-			quiz = Quiz.query.get(qq.quiz_id)
-			db.session().delete(qq)
+	q  = Question.query.get(question_id)
+	if q.active == True:
+		answer = Option.query.filter_by(quest_id=question_id, correct=True).first()
+		if not answer:			
+			q.active = False
+			quizquestions = QuizQuestion.query.filter_by(question_id=q.id)
+			for qq in quizquestions:
+				quiz = Quiz.query.get(qq.quiz_id)
+				db.session().delete(qq)
+				db.session().commit()
+				if quiz.active == True:
+					questions = Quiz.findAllQuestions(quiz.id)
+					if len(questions) < 2:
+						quiz.active = False
+						db.session().commit()
 			db.session().commit()
-			if quiz.active == True:
-				questions = Quiz.findAllQuestions(quiz.id)
-				if len(questions) < 2:
-					quiz.active = False
-					db.session().commit()
-		db.session().commit()
 		return render_template("questions/modify.html", question  = Question.query.get(question_id), options = Option.query.filter_by(quest_id=question_id).all(), opt_form = OptionForm(), q_form = ModifyQuestionForm(), c_form = ModifyCategoryForm(), d_form = ModifyDifficultyForm(), act_error = "Question was deactivated because it has no correct answer")
 	
 	return redirect(url_for('questions_modify', question_id=question_id))

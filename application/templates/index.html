@@ -4,18 +4,18 @@
   <p style="padding:15px"><b>Welcome to QuizBee! {% if current_user.is_authenticated %} {% else %} <a href="{{ url_for('auth_login') }}">Login</a>, explore or find out more about us <a href="{{ url_for('auth_register') }}">here!</a> {% endif %}</b></p>
   <table>
     <tr>
-      <td><p style="padding:15px;font-size:16px">Week's High Score:</p></td>
+      <td><p style="padding:15px;font-size:16px"><b>Week's High Score:</b></p></td>
       <td><p style="padding:15px"></td>
       <td><p style="padding:15px"></td>
-      <td><p style="padding:15px">Hall of Fame:</td>
+      <td><p style="padding:15px"><b>Hall of Fame:</b></td>
     </tr>
     <tr>
       <td style="vertical-align:top">
         <table>
           <tr>
-            <th style="padding:15px">Most correct answers</th>
+            <th class="bg-success" style="padding:15px">Most correct answers</th>
           </tr>
-          <tr>
+          <tr class="bg-success">
             <td>
               <table>
                 {% for u in mostCorrectAnswersWeek %}
@@ -32,9 +32,9 @@
       <td style="vertical-align:top">
         <table>
           <tr>
-            <th style="padding:15px">Most added questions</th>
+            <th class="table-warning" style="padding:15px">Most added questions</th>
           </tr>
-          <tr>
+          <tr class="table-warning">
             <td>
               <table>
                 {% for u in mostAddedQuestionsWeek %}
@@ -51,10 +51,10 @@
       <td style="vertical-align:top">
         <table>
           <tr>
-            <th style="padding:15px">Most quizplays</th>
+            <th class="table-info" style="padding:15px">Most quizplays</th>
           </tr>
           <tr>
-            <td>
+            <td class="table-info">
               <table>
                 {% for u in mostQuizPlaysWeek %}
                 <tr>
@@ -70,9 +70,9 @@
       <td style="vertical-align:top">
         <table>
           <tr>
-            <th style="padding:15px">Most correct answers</th>
+            <th class="bg-success" style="padding:15px">Most correct answers</th>
           </tr>
-          <tr>
+          <tr class="bg-success">
             <td>
               <table>
                 {% for u in mostCorrectAnswers %}
@@ -89,9 +89,9 @@
       <td style="vertical-align:top">
         <table>
           <tr>
-            <th style="padding:15px">Most added questions</th>
+            <th class="table-warning" style="padding:15px">Most added questions</th>
           </tr>
-          <tr>
+          <tr class="table-warning">
             <td>
               <table>
                 {% for u in mostAddedQuestions %}
@@ -108,10 +108,10 @@
       <td style="vertical-align:top">
         <table>
           <tr>
-            <th style="padding:15px">Most quizplays</th>
+            <th class="table-info" style="padding:15px">Most quizplays</th>
           </tr>
           <tr>
-            <td>
+            <td class="table-info">
               <table>
                 {% for u in mostQuizPlays %}
                 <tr>

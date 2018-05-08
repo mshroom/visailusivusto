@@ -2,9 +2,11 @@
 
 {% block body %}
   {% if reports is defined %}
-  <p style="padding:15px">There are {{ reports }} <a href="{{ url_for('reports_index') }}">reports</a> concerning the quality of your questions.</p>
+  <p style="padding:15px" class="alert alert-warning" role="alert">There are {{ reports }} <a href="{{ url_for('reports_index') }}">reports</a> concerning the quality of your questions.</p>
   {% endif %}
-  <p style="padding:15px">{{ error }}</p>
+  {% if error is defined %}
+  <p style="padding:15px" class="alert alert-danger" role="alert">{{ error }}</p>
+  {% endif %}
   <table>
     <tr>      
       <form method="POST" action="{{ url_for('questions_sort', control=control) }}">
@@ -28,17 +30,21 @@
       </form>
     </tr>
   </table>
-  <table>
-    </tr>
-    <tr>
-      <th style="padding:15px">Question</th>
-      <th style="padding:15px">Category</th>
-      <th style="padding:15px">Difficulty</th>
-      <th style="padding:15px">Active</th>
-      {% if current_user.role == "ADMIN" and control == "control" %}
-      <th style="padding:15px">UserId</th>
-      {% endif %}
-    </tr>
+  <table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col" style="padding:15px">Question</th>
+        <th scope="col" style="padding:15px">Category</th>
+        <th scope="col" style="padding:15px">Difficulty</th>
+        <th scope="col" style="padding:15px">Active</th>
+        {% if current_user.role == "ADMIN" and control == "control" %}
+        <th style="padding:15px">UserId</th>
+        {% endif %}
+        <th scope="col" style="padding:15px"></th>
+        <th scope="col" style="padding:15px"></th>
+        <th scope="col" style="padding:15px"></th>
+      </tr>
+    </thead>
     {% for question in questions %}
     <tr>
       <td style="padding:15px">{{ question.name  }}</td>

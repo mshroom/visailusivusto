@@ -14,6 +14,7 @@ class RegisterForm(FlaskForm):
 	name = TextField("Name", [validators.Length(min=2, max=50, message="Name must contain 2 - 50 characters")])
 	username = TextField("Username", [validators.Length(min=2, max=50, message="Username must contain 2 - 50 characters")])
 	password = PasswordField("Password", [validators.Length(min=4, max=50, message="Password must contain 4 - 50 characters")])
+	password2 = PasswordField("Password again", [validators.Length(min=4, max=50, message="Password must contain 4 - 50 characters")])
 	
 	class Meta:
 		csrf = False
@@ -34,6 +35,7 @@ class UsernameForm(FlaskForm):
 class PasswordForm(FlaskForm):
 
 	password = PasswordField("New password", [validators.Length(min=4, max=50, message="Password must contain 4 - 50 characters")])
+	password2 = PasswordField("Password again", [validators.Length(min=4, max=50, message="Password must contain 4 - 50 characters")])
 	
 	class Meta:
 		csrf = False

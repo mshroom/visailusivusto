@@ -2,7 +2,11 @@
 
 {% block body %}
   <p><b style="padding:15px">{{ quiz.name }}</b></p></td>
-  <p style="padding:15px">{{ result }}</p>
+  {% if result == 'Wrong answer!' %}
+  <p style="padding:15px" class="alert alert-danger" role="alert">{{ result }}</p>
+  {% elif result == 'Correct answer!' %}
+  <p style="padding:15px" class="alert alert-success" role="alert">{{ result }}</p>
+  {% endif %}
   </br></br>
   <p><b style="padding:15px">Quiz results</b></p>
   <table>

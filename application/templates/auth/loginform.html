@@ -1,7 +1,12 @@
 {% extends "layout.html" %}
 
 {% block body %}
-{{ error }}
+{% if error is defined %}
+<p style="padding:15px" class="alert alert-danger" role="alert">{{ error }}</p>
+{% endif %}
+{% if confirm is defined %}
+<p style="padding:15px" class="alert alert-success" role="alert">{{ confirm }}</p>
+{% endif %}
 <form method="POST" action="{{ url_for('auth_login') }}">
   <table>
     <tr>
