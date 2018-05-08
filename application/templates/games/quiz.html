@@ -19,7 +19,7 @@
     <tr>
       <td style="padding:15px">
         <form method="POST" action="{{ url_for('quiz_choose', quiz_id=quiz.id, turn=turn, question_id=question.id, option_id=option.id) }}">
-          <input type="submit" value={{ option.name }} class="btn btn-dark"/>
+          <input type="submit" value="{{ option.name }}" class="btn btn-dark"/>
         </form>
       </td>
     </tr>
