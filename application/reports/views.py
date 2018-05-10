@@ -26,17 +26,19 @@ def reports_sort():
 @app.route("/reports/new/<question_id>/<quiz_id>/<turn>/", methods=["GET"])
 @login_required(role="USER")
 def reports_form(question_id, quiz_id, turn):
+	turn = int(turn)
 	return render_template("reports/new.html", question = Question.query.get(question_id), options = Option.query.filter_by(quest_id=question_id).all(), form = ReportForm(), quiz = Quiz.query.get(quiz_id), t = turn)
 
 @app.route("/reports/create/<question_id>/<quiz_id>/<turn>/", methods=["POST"])
 @login_required(role="USER")
 def reports_create(question_id, quiz_id, turn):
 	question = Question.query.get(question_id)
+	turn = int(turn)
 	
 	form = ReportForm(request.form)
 	
 	if not form.validate():
-		return render_template("reports/new.html", question = Question.query.get(question_id), options = Option.query.filter_by(quest_id=question_id).all(), form = form)
+		return render_template("reports/new.html", question = Question.query.get(question_id), options = Option.query.filter_by(quest_id=question_id).all(), form = form, quiz = Quiz.query.get(quiz_id), t = turn)
 	
 	r = Report(form.comment.data)
 	r.account_id = current_user.id
@@ -61,7 +63,8 @@ def reports_create(question_id, quiz_id, turn):
 
 	if quiz_id == "-1":
 		return redirect(url_for("games_play"))
-	
+
+	turn = turn - 1	
 	return redirect(url_for('play_quiz', quiz_id=quiz_id, turn=turn, answer="-1"))
 
 @app.route("/reports/check/<report_id>/", methods=["POST"])

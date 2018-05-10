@@ -34,12 +34,14 @@
       </form>
     </tr>
   </table>
-  <table>
-    <tr>
-      <th style="padding:15px">Quiz</th>
-      <th style="padding:15px">Category</th>
-      <th style="padding:15px">Creator</th>
-    </tr>
+  <table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col" style="padding:15px">Quiz</th>
+        <th scope="col" style="padding:15px">Category</th>
+        <th scope="col" style="padding:15px">Creator</th>
+      </tr>
+    </thead>
     {% for quiz in quizlist %}
     <tr>
       <td style="padding:15px">
