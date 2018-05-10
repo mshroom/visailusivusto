@@ -13,6 +13,8 @@ QuizBee on web-sovellus, jonka valitsin harjoitustyöni aiheeksi Tietokantasovel
 
 - [CREATE TABLE -lauseet](https://github.com/mshroom/visailusivusto/blob/master/documentation/create_table_statements.md)
 
+- [Käyttö- ja asennusohje](https://github.com/mshroom/visailusivusto/blob/master/documentation/usersguide.md)
+
 ## Sovelluksen kuvaus
 
 Sovelluksessa käyttäjät voivat luoda käyttäjätilin, tehdä omia tietovisakysymyksiä ja vastata muiden käyttäjien tekemiin kysymyksiin. Kysymyksille voidaan määritellä aihepiirit ja vaikeusasteet. Lisäksi käyttäjät voivat koota omista kysymyksistään visoja, joihin muut käyttäjät voivat osallistua.  Käyttäjät voivat myös generoida visoja automaattisesti tiettyyn aihepiiriin liittyvistä kysymyksistä, jolloin visan tekijä ei tiedä kysymyksiä etukäteen ja saa itsekin osallistua visaan.
