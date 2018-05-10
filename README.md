@@ -5,6 +5,7 @@ QuizBee on web-sovellus, jonka valitsin harjoitustyöni aiheeksi Tietokantasovel
 - [Linkki sovellukseen Herokussa.](https://quizbee-demo.herokuapp.com/) Sovellusta voi kokeilla seuraavilla testikäyttäjän tunnuksilla:
   - tavallinen käyttäjä: käyttäjätunnus __hello__, salasana __world__.
   - admin: käyttäjätunnus __testadmin__, salasana __testadmin__.
+  - __Huom! Kun QuizBee käynnistyy, Heroku saattaa aluksi muutaman kerran näyttää sivun "Internal server error". Näin voi käydä esimerkiksi sisään kirjautuessa. Ongelma korjaantuu päivittämällä sivu uudestaan yhden tai useamman kerran.__
 
 - [Sovelluksen user storyt](https://github.com/mshroom/visailusivusto/blob/master/documentation/userstories.md)
 
@@ -44,4 +45,6 @@ Jotta järjestelmä pysyy asiallisena ja laadukkaana, käyttäjien on mahdollist
 * Sovelluksen toimintaa olisi helpompi tarkastella jos sinne lisäisi vielä enemmän dataa
 * Automaattinen visojen luominen onnistuu tällä hetkellä vain joko kaikista kysymyksistä tai aihepiirin perusteella. Vaikeusasteen voisi vielä lisätä valintakriteeriksi.
 * Käyttäjien saavutuksia ja pisteitä voisi vielä eritellä tarkemmin. Esim. oikeista vastauksista voisi saada pisteitä sen mukaan, kuinka vaikeita kysymykset ovat. Pisteiden laskeminen onnistuisi tässäkin tapauksessa yksinkertaisesti SQL-kyselyllä, joka laskee kuinka monta oikeaa vastausta käyttäjällä on kussakin vaikeuskategoriassa.
+* High Score -listauksia voi lisätä enemmän, esim. aihepiirin mukaan, visoittain jne.
+* Tällä hetkellä kun tietokannasta esimerkiksi poistaa kysymyksiä, myös kaikki niihin liittyvät vastaukset poistetaan eivätkä ne enää näy vastaajien tilastoissa. Jos käyttäjien vastauspisteet halutaan säilyttää dataa poistettaessa, voisi pisteet tallentaa erilliseen tauluun.
 * Ilmoitusten käsittelyä voisi sujuvoittaa lisäämällä joitain toimintoja. Esim. käyttäjä voisi merkitä saamansa ilmoituksen hoidetuksi, jolloin järjestelmän ylläpitäjä voisi helposti tarkastella, mihin ilmoituksiin on reagoitu ja mihin ei. Ilmoituksen saanut käyttäjä voisi myös kirjoittaa vastauksen, jos ilmoitus ei hänen mielestään olisi relevantti.
