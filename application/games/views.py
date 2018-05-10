@@ -46,6 +46,8 @@ def games_sort():
 @app.route("/play/random/", methods=["GET"])
 def play_random():
 	questions = Question.query.filter_by(active=True).all()
+	if len(questions) < 1:
+		return redirect(url_for('games_play'))
 	random.shuffle(questions)
 	q = questions[0]
 	options = Option.query.filter_by(quest_id=q.id).all()
