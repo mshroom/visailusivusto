@@ -6,7 +6,7 @@
 <p style="padding:15px">If you think that this question offers false information or is a spam or otherwise disturbing, you can report it here.</p>
 <table>
   <tr>
-    <form method="POST" action="{{ url_for('reports_create', question_id=question.id, quiz_id=quiz_id, turn=turn) }}">
+    <form method="POST" action="{{ url_for('reports_create', question_id=question.id, quiz_id=quiz.id, turn=t) }}">
       <td style="padding:15px">
         {{ form.comment.label }}
       </td>
@@ -24,14 +24,14 @@
         <input type="submit" value="Send report"/>
       </td>
     </form>
-    <form method="POST" action="{{ url_for('reports_cancel', question_id=question.id, quiz_id=quiz_id, turn=turn) }}">
+    <form method="POST" action="{{ url_for('reports_cancel', question_id=question.id, quiz_id=quiz.id, turn=t) }}">
       <td style="padding:15px">
         <input type="submit" value="Cancel"/>
       </td>
     </form>
   </tr>
 </table>
-<p><b>Question details</b></p>
+<p style="padding:15px"><b>Question details</b></p>
 <table> 
   <tr>
     <th style="padding:15px">Question</th>
