@@ -111,7 +111,7 @@ def auth_set_name():
 	user = User.query.get(current_user.id)
 	user.name = nameform.name.data
 	db.session().commit()
-	return render_template("auth/settings.html", user = current_user, nameform = NameForm(), usernameform = UsernameForm(), passwordform = PasswordForm(), error = "Name was changed")
+	return render_template("auth/settings.html", user = current_user, nameform = NameForm(), usernameform = UsernameForm(), passwordform = PasswordForm(), confirm = "Name was changed")
 
 @app.route("/auth/settings/username/", methods = ["POST"])
 @login_required(role="USER")
@@ -128,7 +128,7 @@ def auth_set_username():
 	user = User.query.get(current_user.id)
 	user.username = usernameform.username.data
 	db.session().commit()
-	return render_template("auth/settings.html", user = current_user, nameform = NameForm(), usernameform = UsernameForm(), passwordform = PasswordForm(), error = "Userame was changed")
+	return render_template("auth/settings.html", user = current_user, nameform = NameForm(), usernameform = UsernameForm(), passwordform = PasswordForm(), confirm = "Userame was changed")
 
 @app.route("/auth/settings/password/", methods = ["POST"])
 @login_required(role="USER")
@@ -144,7 +144,7 @@ def auth_set_password():
 	user = User.query.get(current_user.id)
 	user.password = passwordform.password.data
 	db.session().commit()
-	return render_template("auth/settings.html", user = current_user, nameform = NameForm(), usernameform = UsernameForm(), passwordform = PasswordForm(), error = "Password was changed")
+	return render_template("auth/settings.html", user = current_user, nameform = NameForm(), usernameform = UsernameForm(), passwordform = PasswordForm(), confirm = "Password was changed")
 
 @app.route("/auth/settings/delete/", methods = ["POST"])
 @login_required(role="USER")

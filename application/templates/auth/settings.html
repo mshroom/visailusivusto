@@ -1,7 +1,12 @@
 {% extends "layout.html" %}
 
 {% block body %}
-<p style="padding:15px">{{ error }}</p>
+{% if error is defined %}
+<p style="padding:15px" class="alert alert-danger" role="alert">{{ error }}</p>
+{% endif %}
+{% if confirm is defined %}
+<p style="padding:15px" class="alert alert-success" role="alert">{{ confirm }}</p>
+{% endif %}
 <table>
   <tr>
     <form method="POST" action="{{ url_for('auth_set_name') }}">
@@ -48,6 +53,15 @@
         <td style="padding:15px"></td>
         <td style="padding:15px">{{ passwordform.password.label }}</td>
         <td style="padding:15px">{{ passwordform.password }}</td>
+        <td style="padding:15px"></td>
+        <td style="padding:15px"></td>
+        <td>
+          <ul>
+            {% for error in passwordform.password.errors %}
+            <li>{{ error }}</li>
+            {% endfor %}
+          </ul>
+        </td>
       </tr>
       <tr>
         <td style="padding:15px"></td>
@@ -60,7 +74,7 @@
         </td>
         <td>
           <ul>
-            {% for error in passwordform.password.errors %}
+            {% for error in passwordform.password2.errors %}
             <li>{{ error }}</li>
             {% endfor %}
           </ul>
