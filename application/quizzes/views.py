@@ -115,6 +115,7 @@ def quizzes_activate(quiz_id, control):
 def quizzes_delete(quiz_id, control):
 	q = Quiz.query.get(quiz_id)
 	db.session.query(QuizQuestion).filter_by(quiz_id=q.id).delete()	
+	db.session.query(Participation).filter_by(quiz_id=q.id).delete()
 	db.session().delete(q)
 	db.session().commit() 
 
