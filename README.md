@@ -5,7 +5,6 @@ QuizBee on web-sovellus, jonka valitsin harjoitustyöni aiheeksi Tietokantasovel
 - [Linkki sovellukseen Herokussa.](https://quizbee-demo.herokuapp.com/) Sovellusta voi kokeilla seuraavilla testikäyttäjän tunnuksilla:
   - tavallinen käyttäjä: käyttäjätunnus __hello__, salasana __world__.
   - admin: käyttäjätunnus __testadmin__, salasana __testadmin__.
-  - __Huom! Kun QuizBee käynnistyy, Heroku saattaa aluksi muutaman kerran näyttää sivun "Internal server error". Näin voi käydä esimerkiksi sisään kirjautuessa. Ongelma korjaantuu päivittämällä sivu uudestaan yhden tai useamman kerran.__
 
 - [Sovelluksen user storyt](https://github.com/mshroom/visailusivusto/blob/master/documentation/userstories.md)
 
