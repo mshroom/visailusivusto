@@ -27,7 +27,7 @@ def reports_sort():
 @login_required(role="USER")
 def reports_form(question_id, quiz_id, turn):
 	turn = int(turn)
-	return render_template("reports/new.html", question = Question.query.get(question_id), options = Option.query.filter_by(quest_id=question_id).all(), form = ReportForm(), quiz = Quiz.query.get(quiz_id), t = turn)
+	return render_template("reports/new.html", question = Question.query.get(question_id), options = Option.query.filter_by(quest_id=question_id).all(), form = ReportForm(), quiz_id = quiz_id, t = turn)
 
 @app.route("/reports/create/<question_id>/<quiz_id>/<turn>/", methods=["POST"])
 @login_required(role="USER")
@@ -38,7 +38,7 @@ def reports_create(question_id, quiz_id, turn):
 	form = ReportForm(request.form)
 	
 	if not form.validate():
-		return render_template("reports/new.html", question = Question.query.get(question_id), options = Option.query.filter_by(quest_id=question_id).all(), form = form, quiz = Quiz.query.get(quiz_id), t = turn)
+		return render_template("reports/new.html", question = Question.query.get(question_id), options = Option.query.filter_by(quest_id=question_id).all(), form = form, quiz_id = quiz_id, t = turn)
 	
 	r = Report(form.comment.data)
 	r.account_id = current_user.id
