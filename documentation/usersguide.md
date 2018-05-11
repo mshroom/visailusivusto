@@ -36,9 +36,6 @@ ja rekisteröitymiseen. Jos et ole kirjautunut sisään, pääset vastaamaan yks
 visakysymyksiin valitsemalla ylävalikosta _Play_. Kaikkia muita toimintoja varten sinun pitää luoda käyttäjätili
 ja kirjautua sisään.
 
-Kun QuizBeetä käyttää Herokun kautta, se saattaa juuri käynnistyttyään välillä ohjata sivulle "Internal server error".
-Vika korjaantuu kun sivun päivittää yhden tai useamman kerran.
-
 Kun olet kirjautunut sisään, näet _Play_ -sivulla myös listauksen visoista ja pääset vastaamaan niihin.
 Kirjautunut käyttäjä voi pelin yhteydessä myös tehdä kysymyksestä ilmoituksen ylläpidolle, 
 mikäli pitää kysymystä asiattomana tai virheellisenä.
