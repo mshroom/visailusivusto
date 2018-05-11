@@ -44,7 +44,7 @@ Yläpalkkiin ilmestyvät sisään kirjautuessasi myös seuraavat valikot:
 - _List your questions_ -sivulla näet listauksen omista tietokantaan lisäämistäsi kysymyksistä. Voit aktivoida ja poistaa
 kysymyksiä samalla sivulla. Kysymyksiä pääsee muokkaamaan listauksen kautta linkistä _Modify_. Muokkaussivulla voi myös
 lisätä kysymykseen vastausvaihtoehtoja. Jos joku toinen käyttäjä on tehnyt ilmoituksen jostain kysymyksestäsi, siitä
-ilmestyy huomautus listaussivun ylälaitaan. Kyseinen kysymys on muutettu automaattisesti ei-aktiivisesti ja voit
+ilmestyy huomautus listaussivun ylälaitaan. Kyseinen kysymys on muutettu automaattisesti ei-aktiiviseksi ja voit
 aktivoida sen uudestaan sen jälkeen, kun ylläpito on hyväksynyt kysymyksen ja/tai siihen tekemäsi muokkaukset. 
 - _Add a question_ -sivulla voit lisätä tietokantaan uuden kysymyksen. Vastausvaihtoehtojen lisääminen onnistuu myöhemmin
 kun menet _List your questions_ -sivun kautta muokkaamaan kysymystä.
